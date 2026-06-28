@@ -10,33 +10,120 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CreateSystemRouteImport } from './routes/create.$system'
+import { Route as CreateSystemIndexRouteImport } from './routes/create.$system.index'
+import { Route as CreateSystemSheetRouteImport } from './routes/create.$system.sheet'
+import { Route as CreateSystemRaceRouteImport } from './routes/create.$system.race'
+import { Route as CreateSystemDetailsRouteImport } from './routes/create.$system.details'
+import { Route as CreateSystemClassRouteImport } from './routes/create.$system.class'
+import { Route as CreateSystemAbilitiesRouteImport } from './routes/create.$system.abilities'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CreateSystemRoute = CreateSystemRouteImport.update({
+  id: '/create/$system',
+  path: '/create/$system',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateSystemIndexRoute = CreateSystemIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateSystemSheetRoute = CreateSystemSheetRouteImport.update({
+  id: '/sheet',
+  path: '/sheet',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateSystemRaceRoute = CreateSystemRaceRouteImport.update({
+  id: '/race',
+  path: '/race',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateSystemDetailsRoute = CreateSystemDetailsRouteImport.update({
+  id: '/details',
+  path: '/details',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateSystemClassRoute = CreateSystemClassRouteImport.update({
+  id: '/class',
+  path: '/class',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateSystemAbilitiesRoute = CreateSystemAbilitiesRouteImport.update({
+  id: '/abilities',
+  path: '/abilities',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/create/$system': typeof CreateSystemRouteWithChildren
+  '/create/$system/abilities': typeof CreateSystemAbilitiesRoute
+  '/create/$system/class': typeof CreateSystemClassRoute
+  '/create/$system/details': typeof CreateSystemDetailsRoute
+  '/create/$system/race': typeof CreateSystemRaceRoute
+  '/create/$system/sheet': typeof CreateSystemSheetRoute
+  '/create/$system/': typeof CreateSystemIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/create/$system/abilities': typeof CreateSystemAbilitiesRoute
+  '/create/$system/class': typeof CreateSystemClassRoute
+  '/create/$system/details': typeof CreateSystemDetailsRoute
+  '/create/$system/race': typeof CreateSystemRaceRoute
+  '/create/$system/sheet': typeof CreateSystemSheetRoute
+  '/create/$system': typeof CreateSystemIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/create/$system': typeof CreateSystemRouteWithChildren
+  '/create/$system/abilities': typeof CreateSystemAbilitiesRoute
+  '/create/$system/class': typeof CreateSystemClassRoute
+  '/create/$system/details': typeof CreateSystemDetailsRoute
+  '/create/$system/race': typeof CreateSystemRaceRoute
+  '/create/$system/sheet': typeof CreateSystemSheetRoute
+  '/create/$system/': typeof CreateSystemIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/create/$system'
+    | '/create/$system/abilities'
+    | '/create/$system/class'
+    | '/create/$system/details'
+    | '/create/$system/race'
+    | '/create/$system/sheet'
+    | '/create/$system/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/create/$system/abilities'
+    | '/create/$system/class'
+    | '/create/$system/details'
+    | '/create/$system/race'
+    | '/create/$system/sheet'
+    | '/create/$system'
+  id:
+    | '__root__'
+    | '/'
+    | '/create/$system'
+    | '/create/$system/abilities'
+    | '/create/$system/class'
+    | '/create/$system/details'
+    | '/create/$system/race'
+    | '/create/$system/sheet'
+    | '/create/$system/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CreateSystemRoute: typeof CreateSystemRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
@@ -48,22 +135,84 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/create/$system': {
+      id: '/create/$system'
+      path: '/create/$system'
+      fullPath: '/create/$system'
+      preLoaderRoute: typeof CreateSystemRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/create/$system/': {
+      id: '/create/$system/'
+      path: '/'
+      fullPath: '/create/$system/'
+      preLoaderRoute: typeof CreateSystemIndexRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
+    '/create/$system/sheet': {
+      id: '/create/$system/sheet'
+      path: '/sheet'
+      fullPath: '/create/$system/sheet'
+      preLoaderRoute: typeof CreateSystemSheetRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
+    '/create/$system/race': {
+      id: '/create/$system/race'
+      path: '/race'
+      fullPath: '/create/$system/race'
+      preLoaderRoute: typeof CreateSystemRaceRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
+    '/create/$system/details': {
+      id: '/create/$system/details'
+      path: '/details'
+      fullPath: '/create/$system/details'
+      preLoaderRoute: typeof CreateSystemDetailsRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
+    '/create/$system/class': {
+      id: '/create/$system/class'
+      path: '/class'
+      fullPath: '/create/$system/class'
+      preLoaderRoute: typeof CreateSystemClassRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
+    '/create/$system/abilities': {
+      id: '/create/$system/abilities'
+      path: '/abilities'
+      fullPath: '/create/$system/abilities'
+      preLoaderRoute: typeof CreateSystemAbilitiesRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
   }
 }
 
+interface CreateSystemRouteChildren {
+  CreateSystemAbilitiesRoute: typeof CreateSystemAbilitiesRoute
+  CreateSystemClassRoute: typeof CreateSystemClassRoute
+  CreateSystemDetailsRoute: typeof CreateSystemDetailsRoute
+  CreateSystemRaceRoute: typeof CreateSystemRaceRoute
+  CreateSystemSheetRoute: typeof CreateSystemSheetRoute
+  CreateSystemIndexRoute: typeof CreateSystemIndexRoute
+}
+
+const CreateSystemRouteChildren: CreateSystemRouteChildren = {
+  CreateSystemAbilitiesRoute: CreateSystemAbilitiesRoute,
+  CreateSystemClassRoute: CreateSystemClassRoute,
+  CreateSystemDetailsRoute: CreateSystemDetailsRoute,
+  CreateSystemRaceRoute: CreateSystemRaceRoute,
+  CreateSystemSheetRoute: CreateSystemSheetRoute,
+  CreateSystemIndexRoute: CreateSystemIndexRoute,
+}
+
+const CreateSystemRouteWithChildren = CreateSystemRoute._addFileChildren(
+  CreateSystemRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CreateSystemRoute: CreateSystemRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
