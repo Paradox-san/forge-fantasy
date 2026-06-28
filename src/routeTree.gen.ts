@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CreateSystemRouteImport } from './routes/create.$system'
 import { Route as CreateSystemIndexRouteImport } from './routes/create.$system.index'
+import { Route as CreateSystemSheetRouteImport } from './routes/create.$system.sheet'
 import { Route as CreateSystemRaceRouteImport } from './routes/create.$system.race'
 import { Route as CreateSystemDetailsRouteImport } from './routes/create.$system.details'
 import { Route as CreateSystemClassRouteImport } from './routes/create.$system.class'
@@ -30,6 +31,11 @@ const CreateSystemRoute = CreateSystemRouteImport.update({
 const CreateSystemIndexRoute = CreateSystemIndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateSystemSheetRoute = CreateSystemSheetRouteImport.update({
+  id: '/sheet',
+  path: '/sheet',
   getParentRoute: () => CreateSystemRoute,
 } as any)
 const CreateSystemRaceRoute = CreateSystemRaceRouteImport.update({
@@ -60,6 +66,7 @@ export interface FileRoutesByFullPath {
   '/create/$system/class': typeof CreateSystemClassRoute
   '/create/$system/details': typeof CreateSystemDetailsRoute
   '/create/$system/race': typeof CreateSystemRaceRoute
+  '/create/$system/sheet': typeof CreateSystemSheetRoute
   '/create/$system/': typeof CreateSystemIndexRoute
 }
 export interface FileRoutesByTo {
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/create/$system/class': typeof CreateSystemClassRoute
   '/create/$system/details': typeof CreateSystemDetailsRoute
   '/create/$system/race': typeof CreateSystemRaceRoute
+  '/create/$system/sheet': typeof CreateSystemSheetRoute
   '/create/$system': typeof CreateSystemIndexRoute
 }
 export interface FileRoutesById {
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/create/$system/class': typeof CreateSystemClassRoute
   '/create/$system/details': typeof CreateSystemDetailsRoute
   '/create/$system/race': typeof CreateSystemRaceRoute
+  '/create/$system/sheet': typeof CreateSystemSheetRoute
   '/create/$system/': typeof CreateSystemIndexRoute
 }
 export interface FileRouteTypes {
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/create/$system/class'
     | '/create/$system/details'
     | '/create/$system/race'
+    | '/create/$system/sheet'
     | '/create/$system/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/create/$system/class'
     | '/create/$system/details'
     | '/create/$system/race'
+    | '/create/$system/sheet'
     | '/create/$system'
   id:
     | '__root__'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/create/$system/class'
     | '/create/$system/details'
     | '/create/$system/race'
+    | '/create/$system/sheet'
     | '/create/$system/'
   fileRoutesById: FileRoutesById
 }
@@ -135,6 +147,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/create/$system/'
       preLoaderRoute: typeof CreateSystemIndexRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
+    '/create/$system/sheet': {
+      id: '/create/$system/sheet'
+      path: '/sheet'
+      fullPath: '/create/$system/sheet'
+      preLoaderRoute: typeof CreateSystemSheetRouteImport
       parentRoute: typeof CreateSystemRoute
     }
     '/create/$system/race': {
@@ -173,6 +192,7 @@ interface CreateSystemRouteChildren {
   CreateSystemClassRoute: typeof CreateSystemClassRoute
   CreateSystemDetailsRoute: typeof CreateSystemDetailsRoute
   CreateSystemRaceRoute: typeof CreateSystemRaceRoute
+  CreateSystemSheetRoute: typeof CreateSystemSheetRoute
   CreateSystemIndexRoute: typeof CreateSystemIndexRoute
 }
 
@@ -181,6 +201,7 @@ const CreateSystemRouteChildren: CreateSystemRouteChildren = {
   CreateSystemClassRoute: CreateSystemClassRoute,
   CreateSystemDetailsRoute: CreateSystemDetailsRoute,
   CreateSystemRaceRoute: CreateSystemRaceRoute,
+  CreateSystemSheetRoute: CreateSystemSheetRoute,
   CreateSystemIndexRoute: CreateSystemIndexRoute,
 }
 
