@@ -67,6 +67,8 @@ export function Field({ label, children }: { label: string; children: React.Reac
   );
 }
 
+type StepKey = "" | "race" | "class" | "abilities" | "details" | "sheet";
+
 export function NavRow({
   prev,
   next,
@@ -74,23 +76,37 @@ export function NavRow({
   prevLabel = "Voltar",
   disabled,
 }: {
-  prev?: string;
-  next?: string;
+  prev?: StepKey;
+  next?: StepKey;
   nextLabel?: string;
   prevLabel?: string;
   disabled?: boolean;
 }) {
-  const params = { system: useCharacter.getState().system };
+  const system = useCharacter((s) => s.system);
+  const navigate = useNavigate();
+
+  const go = (step: StepKey) => {
+    const map: Record<StepKey, string> = {
+      "": `/create/${system}`,
+      race: `/create/${system}/race`,
+      class: `/create/${system}/class`,
+      abilities: `/create/${system}/abilities`,
+      details: `/create/${system}/details`,
+      sheet: `/create/${system}/sheet`,
+    };
+    navigate({ to: map[step] });
+  };
+
   return (
     <div className="mx-auto mt-10 flex max-w-xl items-center justify-between">
-      {prev ? (
-        <Link
-          to={`/create/$system/${prev}` as never}
-          params={params}
+      {prev !== undefined ? (
+        <button
+          type="button"
+          onClick={() => go(prev)}
           className="rounded-md border border-border bg-secondary/60 px-5 py-2.5 font-heading text-xs uppercase tracking-[0.2em] text-foreground hover:border-primary/60"
         >
           ← {prevLabel}
-        </Link>
+        </button>
       ) : (
         <Link
           to="/"
@@ -99,7 +115,7 @@ export function NavRow({
           ← Salão
         </Link>
       )}
-      {next &&
+      {next !== undefined &&
         (disabled ? (
           <span
             aria-disabled
@@ -108,13 +124,13 @@ export function NavRow({
             {nextLabel} →
           </span>
         ) : (
-          <Link
-            to={next === "sheet" ? "/create/$system/sheet" : (`/create/$system/${next}` as never)}
-            params={params}
+          <button
+            type="button"
+            onClick={() => go(next)}
             className="neon-btn hover:[box-shadow:var(--glow-neon)] rounded-md px-6 py-2.5 font-heading text-xs uppercase tracking-[0.2em]"
           >
             {nextLabel} →
-          </Link>
+          </button>
         ))}
     </div>
   );
