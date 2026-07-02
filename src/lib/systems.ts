@@ -1,4 +1,15 @@
-export type SystemId = "dnd5e" | "dreowacis" | "quebra-do-tempo" | "autoral";
+export type SystemId = "dnd5e" | "autoral" | "quebra-do-tempo" | "dreowacis";
+
+export interface SystemTheme {
+  /** Primary hover color (border / glow) */
+  primary: string;
+  /** Secondary hover color (accent / inner bg) */
+  secondary: string;
+  /** Text color for hover state */
+  text: string;
+  /** Subtle background gradient for pages using this system */
+  pageBg: string;
+}
 
 export interface SystemInfo {
   id: SystemId;
@@ -6,7 +17,8 @@ export interface SystemInfo {
   tagline: string;
   description: string;
   status: "available" | "coming-soon";
-  sigil: string; // single unicode glyph
+  sigil: string;
+  theme: SystemTheme;
 }
 
 export const SYSTEMS: SystemInfo[] = [
@@ -18,33 +30,61 @@ export const SYSTEMS: SystemInfo[] = [
       "O sistema mais jogado do mundo. Reinos esquecidos, dragões antigos e magia arcana em um d20 só.",
     status: "available",
     sigil: "⚔",
+    theme: {
+      primary: "#dc2626",
+      secondary: "#f8fafc",
+      text: "#f8fafc",
+      pageBg:
+        "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(220,38,38,0.28), transparent 60%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(248,250,252,0.06), transparent 60%), radial-gradient(ellipse at top, rgb(30,10,10) 0%, rgb(12,6,8) 70%)",
+    },
   },
   {
-    id: "dreowacis",
-    name: "Dreowacis",
-    tagline: "Sonhos despertos — sistema autoral",
+    id: "autoral",
+    name: "Frostbit",
+    tagline: "Gelo, silêncio e ossos partidos — autoral",
     description:
-      "Um sistema autoral de mistério onírico, onde a realidade se dobra ao redor dos sonhadores.",
+      "Sistema autoral de sobrevivência gélida. Onde cada respiração custa calor e cada segredo custa sangue.",
     status: "coming-soon",
-    sigil: "☾",
+    sigil: "❄",
+    theme: {
+      primary: "#38bdf8",
+      secondary: "#0b1220",
+      text: "#e0f2fe",
+      pageBg:
+        "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(56,189,248,0.30), transparent 60%), radial-gradient(ellipse 60% 50% at 0% 100%, rgba(14,165,233,0.18), transparent 60%), radial-gradient(ellipse at top, rgb(8,14,26) 0%, rgb(3,6,12) 70%)",
+    },
   },
   {
     id: "quebra-do-tempo",
     name: "Quebra do Tempo",
-    tagline: "Cronomancia e paradoxo — sistema autoral",
+    tagline: "Cronomancia e paradoxo — autoral",
     description:
       "Quando o tempo se quebra, heróis caminham entre eras. Sistema autoral de aventura temporal.",
     status: "coming-soon",
     sigil: "⧖",
+    theme: {
+      primary: "#7c3aed",
+      secondary: "#0a0a0a",
+      text: "#ede9fe",
+      pageBg:
+        "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(124,58,237,0.32), transparent 60%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(88,28,135,0.22), transparent 60%), radial-gradient(ellipse at top, rgb(14,8,24) 0%, rgb(5,3,10) 70%)",
+    },
   },
   {
-    id: "autoral",
-    name: "Sistema Autoral",
-    tagline: "Construa suas próprias regras",
+    id: "dreowacis",
+    name: "Dreowacis",
+    tagline: "Sonhos despertos — autoral",
     description:
-      "Um espaço para você definir as bases do seu próprio RPG. Em breve, modelagem livre de fichas.",
+      "Sistema autoral de mistério onírico, onde a realidade se dobra ao redor dos sonhadores.",
     status: "coming-soon",
-    sigil: "✦",
+    sigil: "☾",
+    theme: {
+      primary: "#e11d48",
+      secondary: "#7c3aed",
+      text: "#fce7f3",
+      pageBg:
+        "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(225,29,72,0.28), transparent 60%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(124,58,237,0.28), transparent 60%), radial-gradient(ellipse at top, rgb(24,8,20) 0%, rgb(10,4,14) 70%)",
+    },
   },
 ];
 
