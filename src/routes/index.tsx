@@ -187,12 +187,19 @@ function RuneRail({ side }: { side: "left" | "right" }) {
 
 function RealmCard({ sys, onEnter }: { sys: SystemInfo; onEnter: () => void }) {
   const available = sys.status === "available";
+  const { primary, secondary, text } = sys.theme;
+
+  // CSS variables let hover state swap the whole palette without JS.
+  const cardStyle = {
+    "--sys-primary": primary,
+    "--sys-secondary": secondary,
+    "--sys-text": text,
+  } as React.CSSProperties;
 
   const card = (
-    <article className="relative h-full">
-      {/* Outer ornate frame */}
+    <article className="realm-card group relative h-full" style={cardStyle}>
       <div
-        className="group relative h-full overflow-hidden rounded-md p-[2px] transition duration-300"
+        className="relative h-full overflow-hidden rounded-md p-[2px] transition-all duration-300"
         style={{
           background:
             "linear-gradient(180deg, oklch(0.72 0.32 305 / 0.9), oklch(0.45 0.22 305 / 0.5) 50%, oklch(0.72 0.32 305 / 0.9))",
@@ -200,21 +207,18 @@ function RealmCard({ sys, onEnter }: { sys: SystemInfo; onEnter: () => void }) {
             "0 0 24px oklch(0.6 0.28 305 / 0.45), inset 0 0 12px oklch(0.72 0.32 305 / 0.35)",
         }}
       >
-        {/* Inner panel */}
         <div
-          className="relative flex h-full flex-col items-center rounded-[4px] px-6 pt-10 pb-8 text-center"
+          className="realm-card-inner relative flex h-full flex-col items-center rounded-[4px] px-6 pt-10 pb-8 text-center transition-colors duration-300"
           style={{
             background:
               "linear-gradient(180deg, oklch(0.16 0.05 295 / 0.96), oklch(0.11 0.03 290 / 0.98))",
           }}
         >
-          {/* Corner glyphs */}
           <CornerGlyph pos="top-left" />
           <CornerGlyph pos="top-right" />
           <CornerGlyph pos="bottom-left" />
           <CornerGlyph pos="bottom-right" />
 
-          {/* Status tag */}
           <span
             className={`absolute right-4 top-4 rounded-full border px-2 py-0.5 text-[9px] uppercase tracking-[0.25em] ${
               available
@@ -225,16 +229,15 @@ function RealmCard({ sys, onEnter }: { sys: SystemInfo; onEnter: () => void }) {
             {available ? "Pronto" : "Em breve"}
           </span>
 
-          {/* Medallion */}
           <div className="relative my-2 flex size-32 items-center justify-center">
             <div
-              className="absolute inset-0 rounded-full border border-primary/50 animate-rune-spin"
-              style={{ boxShadow: "0 0 24px oklch(0.6 0.28 305 / 0.45)" }}
+              className="realm-ring absolute inset-0 rounded-full border animate-rune-spin"
+              style={{ borderColor: "oklch(0.6 0.28 305 / 0.5)", boxShadow: "0 0 24px oklch(0.6 0.28 305 / 0.45)" }}
             />
             <div className="absolute inset-3 rounded-full border border-primary/30" />
             <div className="absolute inset-6 rounded-full border border-primary/20" />
             <span
-              className={`relative font-display text-5xl ${
+              className={`realm-sigil relative font-display text-5xl transition-colors ${
                 available ? "text-primary text-glow animate-flicker" : "text-primary/60"
               }`}
             >
@@ -242,29 +245,25 @@ function RealmCard({ sys, onEnter }: { sys: SystemInfo; onEnter: () => void }) {
             </span>
           </div>
 
-          {/* Name */}
           <h3
-            className="mt-4 font-display text-2xl leading-tight"
+            className="realm-title mt-4 font-display text-2xl leading-tight transition-colors"
             style={{ color: "var(--parchment)" }}
           >
             {sys.name}
           </h3>
-          <p className="mt-1 text-[10px] uppercase tracking-[0.35em] text-primary/80">
+          <p className="realm-tagline mt-1 text-[10px] uppercase tracking-[0.35em] text-primary/80 transition-colors">
             {sys.tagline}
           </p>
 
-          {/* Divider */}
           <div className="my-4 flex items-center gap-2 text-primary/60">
             <span className="h-px w-10 bg-primary/40" />
             <span aria-hidden>✦</span>
             <span className="h-px w-10 bg-primary/40" />
           </div>
 
-          {/* Description */}
           <p className="flex-1 text-sm text-muted-foreground">{sys.description}</p>
 
-          {/* CTA */}
-          <div className="mt-6 flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-primary">
+          <div className="realm-cta mt-6 flex items-center gap-2 text-xs uppercase tracking-[0.35em] text-primary transition-colors">
             <span aria-hidden>▸</span>
             <span>{available ? "Entrar no Reino" : "Aguardar Despertar"}</span>
             <span aria-hidden>◂</span>
@@ -300,7 +299,7 @@ function CornerGlyph({ pos }: { pos: "top-left" | "top-right" | "bottom-left" | 
   return (
     <span
       aria-hidden
-      className={`absolute ${cls} font-display text-xs text-primary/70`}
+      className={`realm-corner absolute ${cls} font-display text-xs text-primary/70 transition-colors`}
       style={{ textShadow: "0 0 6px oklch(0.72 0.32 305 / 0.6)" }}
     >
       ✦
