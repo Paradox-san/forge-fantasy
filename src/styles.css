@@ -132,9 +132,33 @@
     background-attachment: fixed;
   }
 
+  /* System-themed page background: applied by CreateLayout via data attribute */
+  body[data-system-bg] {
+    background-image: var(--system-bg, none);
+    background-attachment: fixed;
+  }
+
   h1, h2, h3, h4, h5 {
     font-family: var(--font-heading);
     letter-spacing: 0.02em;
+  }
+
+  /* Realm card hover: swap the whole palette using --sys-* variables */
+  .realm-card:hover .realm-card-inner {
+    background: linear-gradient(180deg, var(--sys-secondary), color-mix(in oklab, var(--sys-secondary), var(--sys-primary) 15%)) !important;
+    box-shadow: 0 0 32px var(--sys-primary), inset 0 0 40px color-mix(in srgb, var(--sys-primary) 30%, transparent);
+  }
+  .realm-card:hover .realm-sigil,
+  .realm-card:hover .realm-title,
+  .realm-card:hover .realm-tagline,
+  .realm-card:hover .realm-cta,
+  .realm-card:hover .realm-corner {
+    color: var(--sys-primary) !important;
+    text-shadow: 0 0 12px var(--sys-primary), 0 0 24px color-mix(in srgb, var(--sys-primary) 60%, transparent);
+  }
+  .realm-card:hover .realm-ring {
+    border-color: var(--sys-primary) !important;
+    box-shadow: 0 0 28px var(--sys-primary);
   }
 }
 

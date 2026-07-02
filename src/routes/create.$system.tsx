@@ -24,7 +24,14 @@ function CreateLayout() {
 
   useEffect(() => {
     if (sys.status === "available") setSystem(sys.id);
-  }, [sys.id, sys.status, setSystem]);
+    // Apply system's themed background to <body> while in this layout.
+    document.body.setAttribute("data-system-bg", sys.id);
+    document.body.style.setProperty("--system-bg", sys.theme.pageBg);
+    return () => {
+      document.body.removeAttribute("data-system-bg");
+      document.body.style.removeProperty("--system-bg");
+    };
+  }, [sys.id, sys.status, sys.theme.pageBg, setSystem]);
 
   const current = location.pathname.split(`/create/${system}`)[1]?.replace("/", "") ?? "";
 
