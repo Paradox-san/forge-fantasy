@@ -171,7 +171,7 @@ function SheetStep() {
 function MainTab({
   char, race, cls, totals, mods, ac, initiative, profBonus, passivePerc, color, glyph,
 }: {
-  char: ReturnType<typeof useCharacter>;
+  char: CharacterState;
   race: NonNullable<ReturnType<typeof getRace>>;
   cls: NonNullable<ReturnType<typeof getClass>>;
   totals: Record<AbilityKey, number>;
