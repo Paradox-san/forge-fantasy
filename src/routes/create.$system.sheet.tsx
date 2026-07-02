@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { useCharacter } from "@/lib/character-store";
+import { useCharacter, type CharacterState } from "@/lib/character-store";
 import {
   getRace, getClass, ABILITIES, SKILLS, modifier, fmtMod,
   type AbilityKey,
