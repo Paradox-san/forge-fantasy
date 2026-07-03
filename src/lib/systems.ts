@@ -56,7 +56,7 @@ export const SYSTEMS: SystemInfo[] = [
   },
   {
     id: "quebra-do-tempo",
-    name: "Quebra do Tempo",
+    name: "Despertar da Escuridão",
     tagline: "Cronomancia e paradoxo — autoral",
     description:
       "Quando o tempo se quebra, heróis caminham entre eras. Sistema autoral de aventura temporal.",

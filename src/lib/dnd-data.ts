@@ -287,7 +287,8 @@ export const CLASSES: DndClass[] = [
 ];
 
 export const BACKGROUNDS = [
-  "Acólito","Charlatão","Criminoso","Eremita","Forasteiro","Herói do Povo","Nobre","Sábio","Soldado",
+  "Acólito","Artesão de Guilda","Artista","Charlatão","Criminoso","Curandeiro","Eremita","Escriba",
+  "Fazendeiro","Forasteiro","Guarda","Guia","Herói do Povo","Marinheiro","Nobre","Sábio","Soldado",
 ];
 
 export const ALIGNMENTS = [
