@@ -272,7 +272,22 @@ function MainTab({
 
       {/* Attacks */}
       <div className="relative mt-6">
-        <SectionTitle color={color} glyph={glyph}>Ataques</SectionTitle>
+        <div className="flex items-center justify-between">
+          <SectionTitle color={color} glyph={glyph}>Ataques</SectionTitle>
+          <div className="no-print flex items-center gap-2">
+            {isCustom && (
+              <button type="button" onClick={() => { resetAttacks(); setEditAtk(false); }}
+                className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-foreground">
+                ↺ Padrão
+              </button>
+            )}
+            <button type="button" onClick={() => setEditAtk((v) => !v)}
+              className="rounded-md border px-2 py-1 text-[10px] uppercase tracking-widest"
+              style={{ borderColor: `${color}88`, color }}>
+              {editAtk ? "Concluir" : "Editar"}
+            </button>
+          </div>
+        </div>
         <div className="mt-3 overflow-hidden rounded-lg border" style={{ borderColor: `${color}55` }}>
           <table className="w-full text-sm">
             <thead className="bg-background/60 text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -281,14 +296,42 @@ function MainTab({
                 <th className="px-3 py-2 text-right">Ataque</th>
                 <th className="px-3 py-2 text-right">Dano</th>
                 <th className="px-3 py-2 text-left">Prop.</th>
+                {editAtk && <th className="no-print px-2 py-2" />}
               </tr>
             </thead>
             <tbody>
-              {cls.attacks.map((atk) => {
+              {attacks.map((atk, idx) => {
                 const bonus = mods[atk.ability] + profBonus;
                 const damageMod = mods[atk.ability];
+                if (editAtk) {
+                  return (
+                    <tr key={idx} className="no-print border-t align-top" style={{ borderColor: `${color}33` }}>
+                      <td className="px-2 py-2"><input value={atk.name}
+                        onChange={(e) => setAttacks(attacks.map((a, i) => i === idx ? { ...a, name: e.target.value } : a))}
+                        className="w-full rounded border bg-background/60 px-2 py-1 text-sm" style={{ borderColor: `${color}44` }} /></td>
+                      <td className="px-2 py-2">
+                        <select value={atk.ability}
+                          onChange={(e) => setAttacks(attacks.map((a, i) => i === idx ? { ...a, ability: e.target.value as AbilityKey } : a))}
+                          className="rounded border bg-background/60 px-2 py-1 text-xs" style={{ borderColor: `${color}44` }}>
+                          {ABILITIES.map((ab) => <option key={ab.key} value={ab.key}>{ab.short}</option>)}
+                        </select>
+                      </td>
+                      <td className="px-2 py-2"><input value={atk.damage}
+                        onChange={(e) => setAttacks(attacks.map((a, i) => i === idx ? { ...a, damage: e.target.value } : a))}
+                        className="w-20 rounded border bg-background/60 px-2 py-1 text-sm" style={{ borderColor: `${color}44` }} /></td>
+                      <td className="px-2 py-2"><input value={atk.properties ?? ""}
+                        placeholder="tipo, propriedades"
+                        onChange={(e) => setAttacks(attacks.map((a, i) => i === idx ? { ...a, properties: e.target.value } : a))}
+                        className="w-full rounded border bg-background/60 px-2 py-1 text-xs" style={{ borderColor: `${color}44` }} /></td>
+                      <td className="px-2 py-2 text-right">
+                        <button type="button" onClick={() => setAttacks(attacks.filter((_, i) => i !== idx))}
+                          className="text-xs text-muted-foreground hover:text-destructive">✕</button>
+                      </td>
+                    </tr>
+                  );
+                }
                 return (
-                  <tr key={atk.name} className="border-t" style={{ borderColor: `${color}33` }}>
+                  <tr key={idx} className="border-t" style={{ borderColor: `${color}33` }}>
                     <td className="px-3 py-2 text-foreground">{atk.name}</td>
                     <td className="px-3 py-2 text-right font-mono" style={{ color }}>{fmtMod(bonus)}</td>
                     <td className="px-3 py-2 text-right font-mono">
@@ -301,8 +344,19 @@ function MainTab({
               })}
             </tbody>
           </table>
+          {editAtk && (
+            <div className="no-print flex justify-end border-t p-2" style={{ borderColor: `${color}33` }}>
+              <button type="button"
+                onClick={() => setAttacks([...attacks, { name: "Nova arma", ability: "for", damage: "1d6", damageType: "contundente", properties: "" }])}
+                className="rounded-md border px-3 py-1 text-[10px] uppercase tracking-widest"
+                style={{ borderColor: `${color}88`, color }}>
+                + Adicionar ataque
+              </button>
+            </div>
+          )}
         </div>
       </div>
+
 
       {/* Features / Traits / Languages */}
       <div className="relative mt-6 grid gap-4 md:grid-cols-3">
