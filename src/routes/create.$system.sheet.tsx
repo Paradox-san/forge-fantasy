@@ -101,7 +101,7 @@ function SheetStep() {
 
 
       <div
-        className="relative overflow-hidden rounded-2xl p-[2px]"
+        className="sheet-print-area relative overflow-hidden rounded-2xl p-[2px]"
         style={{
           background: `linear-gradient(180deg, ${color}, ${accent} 50%, ${color})`,
           boxShadow: `0 0 40px ${color}55`,
@@ -149,13 +149,15 @@ function SheetStep() {
           {tab === "main" ? (
             <MainTab
               char={char} race={race} cls={cls}
+              attacks={attacks}
               totals={totals} mods={mods}
               ac={ac} initiative={initiative} profBonus={profBonus}
               passivePerc={passivePerc}
               color={color} glyph={glyph}
             />
           ) : (
-            <SpellsTab cls={cls} spellDC={spellDC} spellAtk={spellAtk} color={color} glyph={glyph} />
+            <SpellsTab spells={spells} primary={cls.primary}
+              spellDC={spellDC} spellAtk={spellAtk} color={color} glyph={glyph} />
           )}
 
           {char.bio && tab === "main" && (
