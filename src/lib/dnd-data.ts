@@ -52,12 +52,18 @@ export interface Race {
 }
 
 export const RACES: Race[] = [
-  { id: "humano", name: "Humano", description: "Versáteis e ambiciosos, espalhados por todos os reinos.", bonuses: { for: 1, des: 1, con: 1, int: 1, sab: 1, car: 1 }, speed: 9, traits: ["Versatilidade", "Idioma adicional"], languages: ["Comum"] },
+  { id: "humano", name: "Humano", description: "Versáteis e ambiciosos, espalhados por todos os reinos.", bonuses: { for: 1, des: 1, con: 1, int: 1, sab: 1, car: 1 }, speed: 9, traits: ["Versatilidade", "Idioma adicional", "Perícia extra"], languages: ["Comum"] },
   { id: "elfo", name: "Elfo", description: "Graciosos imortais ligados à magia e à floresta antiga.", bonuses: { des: 2, int: 1 }, speed: 9, traits: ["Visão no escuro", "Ascendência feérica", "Transe"], languages: ["Comum", "Élfico"] },
   { id: "anao", name: "Anão", description: "Forjadores das montanhas, resistentes como a própria pedra.", bonuses: { con: 2, for: 1 }, speed: 7.5, traits: ["Visão no escuro", "Resistência anã", "Treinamento com armas"], languages: ["Comum", "Anão"] },
   { id: "halfling", name: "Halfling", description: "Pequenos, ágeis e estranhamente sortudos.", bonuses: { des: 2, car: 1 }, speed: 7.5, traits: ["Sortudo", "Bravura", "Agilidade Halfling"], languages: ["Comum", "Halfling"] },
   { id: "draconato", name: "Draconato", description: "Descendentes dos grandes dragões, com sopro elemental.", bonuses: { for: 2, car: 1 }, speed: 9, traits: ["Sopro de Dragão", "Resistência a Dano"], languages: ["Comum", "Dracônico"] },
   { id: "tiefling", name: "Tiefling", description: "Marcados por linhagens infernais, carregam fogo no sangue.", bonuses: { int: 1, car: 2 }, speed: 9, traits: ["Visão no escuro", "Resistência infernal", "Legado infernal"], languages: ["Comum", "Infernal"] },
+  { id: "gnomo", name: "Gnomo", description: "Curiosos e engenhosos, mestres da ilusão e da mecânica.", bonuses: { int: 2, con: 1 }, speed: 7.5, traits: ["Visão no escuro", "Astúcia gnômica", "Magia menor"], languages: ["Comum", "Gnômico"] },
+  { id: "meio-elfo", name: "Meio-Elfo", description: "Entre dois mundos, encantadores e adaptáveis.", bonuses: { car: 2, des: 1, int: 1 }, speed: 9, traits: ["Visão no escuro", "Ascendência feérica", "Versatilidade de perícias"], languages: ["Comum", "Élfico"] },
+  { id: "meio-orc", name: "Meio-Orc", description: "Sangue selvagem, coração incansável.", bonuses: { for: 2, con: 1 }, speed: 9, traits: ["Visão no escuro", "Resistência implacável", "Ataques selvagens"], languages: ["Comum", "Orc"] },
+  { id: "goliath", name: "Goliath", description: "Gigantes das cordilheiras, herança de titãs.", bonuses: { for: 2, con: 1 }, speed: 9, traits: ["Constituição de pedra", "Atletismo natural", "Aclimatação à altitude"], languages: ["Comum", "Gigante"] },
+  { id: "aasimar", name: "Aasimar", description: "Tocados pela luz celestial, mensageiros dos deuses.", bonuses: { car: 2, sab: 1 }, speed: 9, traits: ["Visão no escuro", "Resistência celestial", "Mãos curativas"], languages: ["Comum", "Celestial"] },
+  { id: "orc", name: "Orc", description: "Ferozes guerreiros de linhagem antiga.", bonuses: { for: 2, con: 1 }, speed: 9, traits: ["Visão no escuro", "Investida agressiva", "Vigor incansável"], languages: ["Comum", "Orc"] },
 ];
 
 export interface Attack {
