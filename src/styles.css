@@ -228,3 +228,32 @@
 @utility animate-rune-spin {
   animation: rune-spin 40s linear infinite;
 }
+
+/* ============ Print / PDF ============
+   When printing from the sheet page, hide the entire app and show only
+   the element marked .sheet-print-area. Everything else is stripped so
+   the export contains only the character sheet.                        */
+@media print {
+  @page { size: A4; margin: 12mm; }
+
+  html, body {
+    background: #ffffff !important;
+    color: #111 !important;
+  }
+  body * { visibility: hidden !important; }
+
+  .sheet-print-area,
+  .sheet-print-area * { visibility: visible !important; }
+
+  .sheet-print-area {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    color: #111 !important;
+    box-shadow: none !important;
+  }
+
+  .no-print { display: none !important; }
+}
