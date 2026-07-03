@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-import type { AbilityKey, AbilityMethod, SkillKey } from "./dnd-data";
+import type { AbilityKey, AbilityMethod, Attack, SkillKey, Spell } from "./dnd-data";
 import type { SystemId } from "./systems";
 
 export interface CharacterState {
@@ -17,11 +17,18 @@ export interface CharacterState {
   skills: SkillKey[];
   languages: string[];
   bio: string;
+  /** null = fall back to class defaults; array = user-edited */
+  customAttacks: Attack[] | null;
+  customSpells: Spell[] | null;
   setSystem: (s: SystemId) => void;
   setField: <K extends keyof CharacterState>(k: K, v: CharacterState[K]) => void;
   setAbility: (k: AbilityKey, v: number) => void;
   toggleSkill: (k: SkillKey, max: number) => void;
   toggleLanguage: (l: string) => void;
+  setAttacks: (a: Attack[]) => void;
+  setSpells: (s: Spell[]) => void;
+  resetAttacks: () => void;
+  resetSpells: () => void;
   reset: () => void;
 }
 
@@ -39,6 +46,8 @@ const initial = {
   skills: [] as SkillKey[],
   languages: ["Comum"] as string[],
   bio: "",
+  customAttacks: null as Attack[] | null,
+  customSpells: null as Spell[] | null,
 };
 
 export const useCharacter = create<CharacterState>()(
@@ -61,6 +70,10 @@ export const useCharacter = create<CharacterState>()(
             ? state.languages.filter((x) => x !== l)
             : [...state.languages, l],
         })),
+      setAttacks: (a) => set({ customAttacks: a }),
+      setSpells: (s) => set({ customSpells: s }),
+      resetAttacks: () => set({ customAttacks: null }),
+      resetSpells: () => set({ customSpells: null }),
       reset: () => set({ ...initial }),
     }),
     { name: "arcanum-character" },
