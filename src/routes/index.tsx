@@ -296,14 +296,25 @@ function RealmCard({
       to="/create/$system"
       params={{ system: sys.id }}
       onClick={onEnter}
+      onMouseEnter={() => onHover(sys.id)}
+      onMouseLeave={() => onHover(null)}
+      onFocus={() => onHover(sys.id)}
+      onBlur={() => onHover(null)}
       className="block transition duration-300 hover:-translate-y-1"
     >
       {card}
     </Link>
   ) : (
-    <div className="opacity-80">{card}</div>
+    <div
+      className="opacity-80"
+      onMouseEnter={() => onHover(sys.id)}
+      onMouseLeave={() => onHover(null)}
+    >
+      {card}
+    </div>
   );
 }
+
 
 function CornerGlyph({ pos }: { pos: "top-left" | "top-right" | "bottom-left" | "bottom-right" }) {
   const cls =
