@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCharacter, type CharacterState } from "@/lib/character-store";
 import {
   getRace, getClass, ABILITIES, SKILLS, modifier, fmtMod,
-  type AbilityKey,
+  type AbilityKey, type Attack, type Spell,
 } from "@/lib/dnd-data";
 import { getSystem } from "@/lib/systems";
 
@@ -60,11 +60,13 @@ function SheetStep() {
   const accent = cls.themeAccent;
   const glyph = cls.glyph;
 
-  const hasSpells = cls.spells.length > 0;
+  const attacks = char.customAttacks ?? cls.attacks;
+  const spells = char.customSpells ?? cls.spells;
+  const hasSpells = spells.length > 0 || (char.customSpells !== null);
 
   return (
     <section>
-      <header className="mb-6 flex flex-wrap items-center justify-between gap-3">
+      <header className="no-print mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="font-heading text-xs uppercase tracking-[0.4em] text-glow-soft" style={{ color }}>
             Forjada · {sys.name}
@@ -76,6 +78,12 @@ function SheetStep() {
             className="rounded-md border border-border bg-secondary/60 px-4 py-2 text-xs uppercase tracking-widest text-foreground hover:border-primary/60">
             ⎙ Imprimir
           </button>
+          <button type="button" onClick={() => window.print()}
+            title="Use 'Salvar como PDF' no diálogo de impressão"
+            className="rounded-md border px-4 py-2 text-xs uppercase tracking-widest"
+            style={{ borderColor: color, color, background: `${color}18`, boxShadow: `0 0 14px ${color}55` }}>
+            ⬇ Baixar PDF
+          </button>
           <Link to="/create/$system/details" params={{ system: char.system }}
             className="rounded-md border border-border bg-secondary/60 px-4 py-2 text-xs uppercase tracking-widest text-foreground hover:border-primary/60">
             ← Editar
@@ -84,17 +92,16 @@ function SheetStep() {
       </header>
 
       {/* Tabs */}
-      <div className="mb-4 flex gap-2">
+      <div className="no-print mb-4 flex gap-2">
         <TabBtn active={tab === "main"} onClick={() => setTab("main")} color={color}>Ficha</TabBtn>
-        {hasSpells && (
-          <TabBtn active={tab === "spells"} onClick={() => setTab("spells")} color={color}>
-            Magias ({cls.spells.length})
-          </TabBtn>
-        )}
+        <TabBtn active={tab === "spells"} onClick={() => setTab("spells")} color={color}>
+          Magias{hasSpells ? ` (${spells.length})` : ""}
+        </TabBtn>
       </div>
 
+
       <div
-        className="relative overflow-hidden rounded-2xl p-[2px]"
+        className="sheet-print-area relative overflow-hidden rounded-2xl p-[2px]"
         style={{
           background: `linear-gradient(180deg, ${color}, ${accent} 50%, ${color})`,
           boxShadow: `0 0 40px ${color}55`,
@@ -142,13 +149,15 @@ function SheetStep() {
           {tab === "main" ? (
             <MainTab
               char={char} race={race} cls={cls}
+              attacks={attacks}
               totals={totals} mods={mods}
               ac={ac} initiative={initiative} profBonus={profBonus}
               passivePerc={passivePerc}
               color={color} glyph={glyph}
             />
           ) : (
-            <SpellsTab cls={cls} spellDC={spellDC} spellAtk={spellAtk} color={color} glyph={glyph} />
+            <SpellsTab spells={spells} primary={cls.primary}
+              spellDC={spellDC} spellAtk={spellAtk} color={color} glyph={glyph} />
           )}
 
           {char.bio && tab === "main" && (
@@ -169,16 +178,21 @@ function SheetStep() {
 /* ---------- Main tab ---------- */
 
 function MainTab({
-  char, race, cls, totals, mods, ac, initiative, profBonus, passivePerc, color, glyph,
+  char, race, cls, attacks, totals, mods, ac, initiative, profBonus, passivePerc, color, glyph,
 }: {
   char: CharacterState;
   race: NonNullable<ReturnType<typeof getRace>>;
   cls: NonNullable<ReturnType<typeof getClass>>;
+  attacks: Attack[];
   totals: Record<AbilityKey, number>;
   mods: Record<AbilityKey, number>;
   ac: number; initiative: number; profBonus: number; passivePerc: number;
   color: string; glyph: string;
 }) {
+  const setAttacks = useCharacter((s) => s.setAttacks);
+  const resetAttacks = useCharacter((s) => s.resetAttacks);
+  const [editAtk, setEditAtk] = useState(false);
+  const isCustom = char.customAttacks !== null;
   return (
     <>
       {/* Stat row */}
@@ -258,7 +272,22 @@ function MainTab({
 
       {/* Attacks */}
       <div className="relative mt-6">
-        <SectionTitle color={color} glyph={glyph}>Ataques</SectionTitle>
+        <div className="flex items-center justify-between">
+          <SectionTitle color={color} glyph={glyph}>Ataques</SectionTitle>
+          <div className="no-print flex items-center gap-2">
+            {isCustom && (
+              <button type="button" onClick={() => { resetAttacks(); setEditAtk(false); }}
+                className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-foreground">
+                ↺ Padrão
+              </button>
+            )}
+            <button type="button" onClick={() => setEditAtk((v) => !v)}
+              className="rounded-md border px-2 py-1 text-[10px] uppercase tracking-widest"
+              style={{ borderColor: `${color}88`, color }}>
+              {editAtk ? "Concluir" : "Editar"}
+            </button>
+          </div>
+        </div>
         <div className="mt-3 overflow-hidden rounded-lg border" style={{ borderColor: `${color}55` }}>
           <table className="w-full text-sm">
             <thead className="bg-background/60 text-[10px] uppercase tracking-widest text-muted-foreground">
@@ -267,14 +296,42 @@ function MainTab({
                 <th className="px-3 py-2 text-right">Ataque</th>
                 <th className="px-3 py-2 text-right">Dano</th>
                 <th className="px-3 py-2 text-left">Prop.</th>
+                {editAtk && <th className="no-print px-2 py-2" />}
               </tr>
             </thead>
             <tbody>
-              {cls.attacks.map((atk) => {
+              {attacks.map((atk, idx) => {
                 const bonus = mods[atk.ability] + profBonus;
                 const damageMod = mods[atk.ability];
+                if (editAtk) {
+                  return (
+                    <tr key={idx} className="no-print border-t align-top" style={{ borderColor: `${color}33` }}>
+                      <td className="px-2 py-2"><input value={atk.name}
+                        onChange={(e) => setAttacks(attacks.map((a, i) => i === idx ? { ...a, name: e.target.value } : a))}
+                        className="w-full rounded border bg-background/60 px-2 py-1 text-sm" style={{ borderColor: `${color}44` }} /></td>
+                      <td className="px-2 py-2">
+                        <select value={atk.ability}
+                          onChange={(e) => setAttacks(attacks.map((a, i) => i === idx ? { ...a, ability: e.target.value as AbilityKey } : a))}
+                          className="rounded border bg-background/60 px-2 py-1 text-xs" style={{ borderColor: `${color}44` }}>
+                          {ABILITIES.map((ab) => <option key={ab.key} value={ab.key}>{ab.short}</option>)}
+                        </select>
+                      </td>
+                      <td className="px-2 py-2"><input value={atk.damage}
+                        onChange={(e) => setAttacks(attacks.map((a, i) => i === idx ? { ...a, damage: e.target.value } : a))}
+                        className="w-20 rounded border bg-background/60 px-2 py-1 text-sm" style={{ borderColor: `${color}44` }} /></td>
+                      <td className="px-2 py-2"><input value={atk.properties ?? ""}
+                        placeholder="tipo, propriedades"
+                        onChange={(e) => setAttacks(attacks.map((a, i) => i === idx ? { ...a, properties: e.target.value } : a))}
+                        className="w-full rounded border bg-background/60 px-2 py-1 text-xs" style={{ borderColor: `${color}44` }} /></td>
+                      <td className="px-2 py-2 text-right">
+                        <button type="button" onClick={() => setAttacks(attacks.filter((_, i) => i !== idx))}
+                          className="text-xs text-muted-foreground hover:text-destructive">✕</button>
+                      </td>
+                    </tr>
+                  );
+                }
                 return (
-                  <tr key={atk.name} className="border-t" style={{ borderColor: `${color}33` }}>
+                  <tr key={idx} className="border-t" style={{ borderColor: `${color}33` }}>
                     <td className="px-3 py-2 text-foreground">{atk.name}</td>
                     <td className="px-3 py-2 text-right font-mono" style={{ color }}>{fmtMod(bonus)}</td>
                     <td className="px-3 py-2 text-right font-mono">
@@ -287,8 +344,19 @@ function MainTab({
               })}
             </tbody>
           </table>
+          {editAtk && (
+            <div className="no-print flex justify-end border-t p-2" style={{ borderColor: `${color}33` }}>
+              <button type="button"
+                onClick={() => setAttacks([...attacks, { name: "Nova arma", ability: "for", damage: "1d6", damageType: "contundente", properties: "" }])}
+                className="rounded-md border px-3 py-1 text-[10px] uppercase tracking-widest"
+                style={{ borderColor: `${color}88`, color }}>
+                + Adicionar ataque
+              </button>
+            </div>
+          )}
         </div>
       </div>
+
 
       {/* Features / Traits / Languages */}
       <div className="relative mt-6 grid gap-4 md:grid-cols-3">
@@ -324,24 +392,61 @@ function MainTab({
 /* ---------- Spells tab ---------- */
 
 function SpellsTab({
-  cls, spellDC, spellAtk, color, glyph,
+  spells, primary, spellDC, spellAtk, color, glyph,
 }: {
-  cls: NonNullable<ReturnType<typeof getClass>>;
+  spells: Spell[]; primary: AbilityKey;
   spellDC: number; spellAtk: number; color: string; glyph: string;
 }) {
-  const byLevel = cls.spells.reduce((acc, s) => {
+  const setSpells = useCharacter((s) => s.setSpells);
+  const resetSpells = useCharacter((s) => s.resetSpells);
+  const isCustom = useCharacter((s) => s.customSpells !== null);
+  const [edit, setEdit] = useState(false);
+
+  const byLevel = spells.reduce((acc, s) => {
     (acc[s.level] ??= []).push(s);
     return acc;
-  }, {} as Record<number, typeof cls.spells>);
+  }, {} as Record<number, Spell[]>);
   const levels = Object.keys(byLevel).map(Number).sort((a, b) => a - b);
+
+  const update = (idx: number, patch: Partial<Spell>) =>
+    setSpells(spells.map((s, i) => (i === idx ? { ...s, ...patch } : s)));
+  const remove = (idx: number) => setSpells(spells.filter((_, i) => i !== idx));
 
   return (
     <div className="relative mt-6">
       <div className="mb-4 grid gap-3 sm:grid-cols-3">
-        <StatBadge label="Atrib. Conjur." value={cls.primary.toUpperCase()} color={color} />
+        <StatBadge label="Atrib. Conjur." value={primary.toUpperCase()} color={color} />
         <StatBadge label="CD de Magia" value={spellDC} color={color} />
         <StatBadge label="Bônus Ataque" value={fmtMod(spellAtk)} color={color} />
       </div>
+
+      <div className="no-print mb-4 flex items-center justify-end gap-2">
+        {isCustom && (
+          <button type="button" onClick={() => { resetSpells(); setEdit(false); }}
+            className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-foreground">
+            ↺ Padrão
+          </button>
+        )}
+        <button type="button" onClick={() => setEdit((v) => !v)}
+          className="rounded-md border px-3 py-1 text-[10px] uppercase tracking-widest"
+          style={{ borderColor: `${color}88`, color }}>
+          {edit ? "Concluir" : "Editar Magias"}
+        </button>
+        {edit && (
+          <button type="button"
+            onClick={() => setSpells([...spells, { name: "Nova magia", level: 0, school: "Evocação", desc: "" }])}
+            className="rounded-md border px-3 py-1 text-[10px] uppercase tracking-widest"
+            style={{ borderColor: `${color}88`, color, background: `${color}18` }}>
+            + Adicionar
+          </button>
+        )}
+      </div>
+
+      {spells.length === 0 && !edit && (
+        <p className="text-center text-sm text-muted-foreground">
+          Sem magias registradas. Use <span style={{ color }}>Editar Magias</span> para adicionar.
+        </p>
+      )}
 
       {levels.map((lvl) => (
         <div key={lvl} className="mb-5">
@@ -349,24 +454,50 @@ function SpellsTab({
             {lvl === 0 ? "Truques" : `Nível ${lvl}`}
           </SectionTitle>
           <div className="mt-2 grid gap-2 md:grid-cols-2">
-            {byLevel[lvl].map((s) => (
-              <div key={s.name} className="rounded-lg border bg-background/60 p-3"
-                style={{ borderColor: `${color}55` }}>
-                <div className="flex items-baseline justify-between gap-2">
-                  <p className="font-heading text-sm text-foreground">{s.name}</p>
-                  <span className="text-[10px] uppercase tracking-widest" style={{ color }}>
-                    {s.school}
-                  </span>
+            {byLevel[lvl].map((s) => {
+              const idx = spells.indexOf(s);
+              if (edit) {
+                return (
+                  <div key={idx} className="no-print rounded-lg border bg-background/60 p-3"
+                    style={{ borderColor: `${color}55` }}>
+                    <div className="flex gap-2">
+                      <input value={s.name} onChange={(e) => update(idx, { name: e.target.value })}
+                        className="flex-1 rounded border bg-background/60 px-2 py-1 text-sm" style={{ borderColor: `${color}44` }} />
+                      <input type="number" min={0} max={9} value={s.level}
+                        onChange={(e) => update(idx, { level: Math.max(0, Math.min(9, Number(e.target.value))) })}
+                        className="w-14 rounded border bg-background/60 px-2 py-1 text-sm" style={{ borderColor: `${color}44` }} />
+                      <button type="button" onClick={() => remove(idx)}
+                        className="text-xs text-muted-foreground hover:text-destructive">✕</button>
+                    </div>
+                    <input value={s.school} onChange={(e) => update(idx, { school: e.target.value })}
+                      placeholder="Escola"
+                      className="mt-2 w-full rounded border bg-background/60 px-2 py-1 text-xs" style={{ borderColor: `${color}44` }} />
+                    <textarea value={s.desc} rows={2} onChange={(e) => update(idx, { desc: e.target.value })}
+                      placeholder="Descrição"
+                      className="mt-2 w-full rounded border bg-background/60 px-2 py-1 text-xs" style={{ borderColor: `${color}44` }} />
+                  </div>
+                );
+              }
+              return (
+                <div key={idx} className="rounded-lg border bg-background/60 p-3"
+                  style={{ borderColor: `${color}55` }}>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <p className="font-heading text-sm text-foreground">{s.name}</p>
+                    <span className="text-[10px] uppercase tracking-widest" style={{ color }}>
+                      {s.school}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">{s.desc}</p>
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">{s.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       ))}
     </div>
   );
 }
+
 
 /* ---------- primitives ---------- */
 

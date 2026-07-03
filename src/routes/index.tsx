@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SYSTEMS, type SystemInfo } from "@/lib/systems";
+import { useEffect, useState } from "react";
+import { SYSTEMS, getSystem, type SystemInfo, type SystemId } from "@/lib/systems";
 import { useCharacter } from "@/lib/character-store";
 
 export const Route = createFileRoute("/")({
@@ -27,6 +28,20 @@ const NAV = [
 function WelcomePage() {
   const setSystem = useCharacter((s) => s.setSystem);
   const reset = useCharacter((s) => s.reset);
+  const currentSystem = useCharacter((s) => s.system);
+  const [hoverSystem, setHoverSystem] = useState<SystemId | null>(null);
+
+  const activeSys = getSystem(hoverSystem ?? currentSystem);
+
+  // Apply the active system's palette to the whole page (matches /create/*).
+  useEffect(() => {
+    document.body.setAttribute("data-system-bg", activeSys.id);
+    document.body.style.setProperty("--system-bg", activeSys.theme.pageBg);
+    return () => {
+      document.body.removeAttribute("data-system-bg");
+      document.body.style.removeProperty("--system-bg");
+    };
+  }, [activeSys.id, activeSys.theme.pageBg]);
 
   return (
     <main className="relative min-h-screen overflow-hidden">
@@ -105,6 +120,7 @@ function WelcomePage() {
             <RealmCard
               key={sys.id}
               sys={sys}
+              onHover={setHoverSystem}
               onEnter={() => {
                 reset();
                 setSystem(sys.id);
@@ -185,7 +201,9 @@ function RuneRail({ side }: { side: "left" | "right" }) {
   );
 }
 
-function RealmCard({ sys, onEnter }: { sys: SystemInfo; onEnter: () => void }) {
+function RealmCard({
+  sys, onEnter, onHover,
+}: { sys: SystemInfo; onEnter: () => void; onHover: (id: SystemId | null) => void }) {
   const available = sys.status === "available";
   const { primary, secondary, text } = sys.theme;
 
@@ -278,14 +296,25 @@ function RealmCard({ sys, onEnter }: { sys: SystemInfo; onEnter: () => void }) {
       to="/create/$system"
       params={{ system: sys.id }}
       onClick={onEnter}
+      onMouseEnter={() => onHover(sys.id)}
+      onMouseLeave={() => onHover(null)}
+      onFocus={() => onHover(sys.id)}
+      onBlur={() => onHover(null)}
       className="block transition duration-300 hover:-translate-y-1"
     >
       {card}
     </Link>
   ) : (
-    <div className="opacity-80">{card}</div>
+    <div
+      className="opacity-80"
+      onMouseEnter={() => onHover(sys.id)}
+      onMouseLeave={() => onHover(null)}
+    >
+      {card}
+    </div>
   );
 }
+
 
 function CornerGlyph({ pos }: { pos: "top-left" | "top-right" | "bottom-left" | "bottom-right" }) {
   const cls =

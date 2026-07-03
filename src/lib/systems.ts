@@ -31,11 +31,11 @@ export const SYSTEMS: SystemInfo[] = [
     status: "available",
     sigil: "⚔",
     theme: {
-      primary: "#dc2626",
-      secondary: "#f8fafc",
-      text: "#f8fafc",
+      primary: "#b91c1c",
+      secondary: "#e8c877",
+      text: "#f5e6b8",
       pageBg:
-        "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(220,38,38,0.28), transparent 60%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(248,250,252,0.06), transparent 60%), radial-gradient(ellipse at top, rgb(30,10,10) 0%, rgb(12,6,8) 70%)",
+        "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(185,28,28,0.32), transparent 60%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(232,200,119,0.18), transparent 60%), radial-gradient(ellipse at top, rgb(38,18,10) 0%, rgb(18,10,6) 70%)",
     },
   },
   {
