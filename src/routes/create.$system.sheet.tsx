@@ -392,24 +392,61 @@ function MainTab({
 /* ---------- Spells tab ---------- */
 
 function SpellsTab({
-  cls, spellDC, spellAtk, color, glyph,
+  spells, primary, spellDC, spellAtk, color, glyph,
 }: {
-  cls: NonNullable<ReturnType<typeof getClass>>;
+  spells: Spell[]; primary: AbilityKey;
   spellDC: number; spellAtk: number; color: string; glyph: string;
 }) {
-  const byLevel = cls.spells.reduce((acc, s) => {
+  const setSpells = useCharacter((s) => s.setSpells);
+  const resetSpells = useCharacter((s) => s.resetSpells);
+  const isCustom = useCharacter((s) => s.customSpells !== null);
+  const [edit, setEdit] = useState(false);
+
+  const byLevel = spells.reduce((acc, s) => {
     (acc[s.level] ??= []).push(s);
     return acc;
-  }, {} as Record<number, typeof cls.spells>);
+  }, {} as Record<number, Spell[]>);
   const levels = Object.keys(byLevel).map(Number).sort((a, b) => a - b);
+
+  const update = (idx: number, patch: Partial<Spell>) =>
+    setSpells(spells.map((s, i) => (i === idx ? { ...s, ...patch } : s)));
+  const remove = (idx: number) => setSpells(spells.filter((_, i) => i !== idx));
 
   return (
     <div className="relative mt-6">
       <div className="mb-4 grid gap-3 sm:grid-cols-3">
-        <StatBadge label="Atrib. Conjur." value={cls.primary.toUpperCase()} color={color} />
+        <StatBadge label="Atrib. Conjur." value={primary.toUpperCase()} color={color} />
         <StatBadge label="CD de Magia" value={spellDC} color={color} />
         <StatBadge label="Bônus Ataque" value={fmtMod(spellAtk)} color={color} />
       </div>
+
+      <div className="no-print mb-4 flex items-center justify-end gap-2">
+        {isCustom && (
+          <button type="button" onClick={() => { resetSpells(); setEdit(false); }}
+            className="text-[10px] uppercase tracking-widest text-muted-foreground hover:text-foreground">
+            ↺ Padrão
+          </button>
+        )}
+        <button type="button" onClick={() => setEdit((v) => !v)}
+          className="rounded-md border px-3 py-1 text-[10px] uppercase tracking-widest"
+          style={{ borderColor: `${color}88`, color }}>
+          {edit ? "Concluir" : "Editar Magias"}
+        </button>
+        {edit && (
+          <button type="button"
+            onClick={() => setSpells([...spells, { name: "Nova magia", level: 0, school: "Evocação", desc: "" }])}
+            className="rounded-md border px-3 py-1 text-[10px] uppercase tracking-widest"
+            style={{ borderColor: `${color}88`, color, background: `${color}18` }}>
+            + Adicionar
+          </button>
+        )}
+      </div>
+
+      {spells.length === 0 && !edit && (
+        <p className="text-center text-sm text-muted-foreground">
+          Sem magias registradas. Use <span style={{ color }}>Editar Magias</span> para adicionar.
+        </p>
+      )}
 
       {levels.map((lvl) => (
         <div key={lvl} className="mb-5">
@@ -417,24 +454,50 @@ function SpellsTab({
             {lvl === 0 ? "Truques" : `Nível ${lvl}`}
           </SectionTitle>
           <div className="mt-2 grid gap-2 md:grid-cols-2">
-            {byLevel[lvl].map((s) => (
-              <div key={s.name} className="rounded-lg border bg-background/60 p-3"
-                style={{ borderColor: `${color}55` }}>
-                <div className="flex items-baseline justify-between gap-2">
-                  <p className="font-heading text-sm text-foreground">{s.name}</p>
-                  <span className="text-[10px] uppercase tracking-widest" style={{ color }}>
-                    {s.school}
-                  </span>
+            {byLevel[lvl].map((s) => {
+              const idx = spells.indexOf(s);
+              if (edit) {
+                return (
+                  <div key={idx} className="no-print rounded-lg border bg-background/60 p-3"
+                    style={{ borderColor: `${color}55` }}>
+                    <div className="flex gap-2">
+                      <input value={s.name} onChange={(e) => update(idx, { name: e.target.value })}
+                        className="flex-1 rounded border bg-background/60 px-2 py-1 text-sm" style={{ borderColor: `${color}44` }} />
+                      <input type="number" min={0} max={9} value={s.level}
+                        onChange={(e) => update(idx, { level: Math.max(0, Math.min(9, Number(e.target.value))) })}
+                        className="w-14 rounded border bg-background/60 px-2 py-1 text-sm" style={{ borderColor: `${color}44` }} />
+                      <button type="button" onClick={() => remove(idx)}
+                        className="text-xs text-muted-foreground hover:text-destructive">✕</button>
+                    </div>
+                    <input value={s.school} onChange={(e) => update(idx, { school: e.target.value })}
+                      placeholder="Escola"
+                      className="mt-2 w-full rounded border bg-background/60 px-2 py-1 text-xs" style={{ borderColor: `${color}44` }} />
+                    <textarea value={s.desc} rows={2} onChange={(e) => update(idx, { desc: e.target.value })}
+                      placeholder="Descrição"
+                      className="mt-2 w-full rounded border bg-background/60 px-2 py-1 text-xs" style={{ borderColor: `${color}44` }} />
+                  </div>
+                );
+              }
+              return (
+                <div key={idx} className="rounded-lg border bg-background/60 p-3"
+                  style={{ borderColor: `${color}55` }}>
+                  <div className="flex items-baseline justify-between gap-2">
+                    <p className="font-heading text-sm text-foreground">{s.name}</p>
+                    <span className="text-[10px] uppercase tracking-widest" style={{ color }}>
+                      {s.school}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-xs text-muted-foreground">{s.desc}</p>
                 </div>
-                <p className="mt-1 text-xs text-muted-foreground">{s.desc}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       ))}
     </div>
   );
 }
+
 
 /* ---------- primitives ---------- */
 
