@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { SYSTEMS, type SystemInfo } from "@/lib/systems";
+import { useEffect, useState } from "react";
+import { SYSTEMS, getSystem, type SystemInfo, type SystemId } from "@/lib/systems";
 import { useCharacter } from "@/lib/character-store";
 
 export const Route = createFileRoute("/")({
