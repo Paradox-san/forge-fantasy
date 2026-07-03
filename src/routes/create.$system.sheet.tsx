@@ -60,11 +60,13 @@ function SheetStep() {
   const accent = cls.themeAccent;
   const glyph = cls.glyph;
 
-  const hasSpells = cls.spells.length > 0;
+  const attacks = char.customAttacks ?? cls.attacks;
+  const spells = char.customSpells ?? cls.spells;
+  const hasSpells = spells.length > 0 || (char.customSpells !== null);
 
   return (
     <section>
-      <header className="mb-6 flex flex-wrap items-center justify-between gap-3">
+      <header className="no-print mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
           <p className="font-heading text-xs uppercase tracking-[0.4em] text-glow-soft" style={{ color }}>
             Forjada · {sys.name}
@@ -76,6 +78,12 @@ function SheetStep() {
             className="rounded-md border border-border bg-secondary/60 px-4 py-2 text-xs uppercase tracking-widest text-foreground hover:border-primary/60">
             ⎙ Imprimir
           </button>
+          <button type="button" onClick={() => window.print()}
+            title="Use 'Salvar como PDF' no diálogo de impressão"
+            className="rounded-md border px-4 py-2 text-xs uppercase tracking-widest"
+            style={{ borderColor: color, color, background: `${color}18`, boxShadow: `0 0 14px ${color}55` }}>
+            ⬇ Baixar PDF
+          </button>
           <Link to="/create/$system/details" params={{ system: char.system }}
             className="rounded-md border border-border bg-secondary/60 px-4 py-2 text-xs uppercase tracking-widest text-foreground hover:border-primary/60">
             ← Editar
@@ -84,14 +92,13 @@ function SheetStep() {
       </header>
 
       {/* Tabs */}
-      <div className="mb-4 flex gap-2">
+      <div className="no-print mb-4 flex gap-2">
         <TabBtn active={tab === "main"} onClick={() => setTab("main")} color={color}>Ficha</TabBtn>
-        {hasSpells && (
-          <TabBtn active={tab === "spells"} onClick={() => setTab("spells")} color={color}>
-            Magias ({cls.spells.length})
-          </TabBtn>
-        )}
+        <TabBtn active={tab === "spells"} onClick={() => setTab("spells")} color={color}>
+          Magias{hasSpells ? ` (${spells.length})` : ""}
+        </TabBtn>
       </div>
+
 
       <div
         className="relative overflow-hidden rounded-2xl p-[2px]"
