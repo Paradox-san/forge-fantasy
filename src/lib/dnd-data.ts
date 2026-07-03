@@ -189,6 +189,101 @@ export const CLASSES: DndClass[] = [
       { name: "Riso Histérico", level: 1, school: "Encantamento", desc: "Alvo cai no chão rindo por 1 minuto." },
     ],
   },
+  {
+    id: "paladino", name: "Paladino", description: "Juramento sagrado feito lâmina. Cavaleiro da luz.",
+    hitDie: 10, primary: "car", saves: ["sab", "car"], skillCount: 2,
+    skillOptions: ["atletismo","intuicao","intimidacao","medicina","persuasao","religiao"],
+    themeColor: "oklch(0.78 0.16 85)", themeAccent: "oklch(0.68 0.2 60)", glyph: "✟",
+    features: ["Sentido divino", "Imposição de mãos", "Estilo de luta"],
+    attacks: [
+      { name: "Espada Longa", ability: "for", damage: "1d8", damageType: "cortante", properties: "Versátil (1d10)" },
+      { name: "Golpe Divino", ability: "car", damage: "2d8", damageType: "radiante", properties: "Gasta espaço de magia" },
+    ],
+    spells: [
+      { name: "Bênção", level: 1, school: "Encantamento", desc: "+1d4 em ataques e salvaguardas." },
+      { name: "Curar Ferimentos", level: 1, school: "Evocação", desc: "1d8 + mod CAR de cura." },
+      { name: "Escudo da Fé", level: 1, school: "Abjuração", desc: "+2 CA por 10 minutos." },
+    ],
+  },
+  {
+    id: "patrulheiro", name: "Patrulheiro", description: "Caçador das fronteiras. Guia entre selva e civilização.",
+    hitDie: 10, primary: "des", saves: ["for", "des"], skillCount: 3,
+    skillOptions: ["atletismo","furtividade","intuicao","investigacao","lidar_animais","natureza","percepcao","sobrevivencia"],
+    themeColor: "oklch(0.58 0.16 145)", themeAccent: "oklch(0.72 0.18 130)", glyph: "☘",
+    features: ["Inimigo predileto", "Explorador nato", "Estilo de luta"],
+    attacks: [
+      { name: "Arco Longo", ability: "des", damage: "1d8", damageType: "perfurante", properties: "Munição, duas mãos" },
+      { name: "Espada Curta", ability: "des", damage: "1d6", damageType: "perfurante", properties: "Acuidade, leve" },
+    ],
+    spells: [
+      { name: "Marca do Caçador", level: 1, school: "Adivinhação", desc: "+1d6 de dano contra o alvo marcado." },
+      { name: "Aumentar Curar Ferimentos", level: 1, school: "Evocação", desc: "1d8 + mod SAB de cura." },
+    ],
+  },
+  {
+    id: "druida", name: "Druida", description: "Voz da natureza. Molda-se à floresta e à tempestade.",
+    hitDie: 8, primary: "sab", saves: ["int", "sab"], skillCount: 2,
+    skillOptions: ["arcanismo","lidar_animais","intuicao","medicina","natureza","percepcao","religiao","sobrevivencia"],
+    themeColor: "oklch(0.6 0.14 155)", themeAccent: "oklch(0.75 0.14 120)", glyph: "❦",
+    features: ["Conjuração druídica", "Forma selvagem", "Círculo druídico"],
+    attacks: [
+      { name: "Cimitarra", ability: "des", damage: "1d6", damageType: "cortante", properties: "Acuidade, leve" },
+      { name: "Produzir Chama", ability: "sab", damage: "1d8", damageType: "fogo", properties: "Truque" },
+    ],
+    spells: [
+      { name: "Orientação", level: 0, school: "Adivinhação", desc: "+1d4 em teste de habilidade." },
+      { name: "Produzir Chama", level: 0, school: "Conjuração", desc: "Chama na mão; ataque à distância." },
+      { name: "Enredar", level: 1, school: "Conjuração", desc: "Trepadeiras seguram alvos numa área." },
+      { name: "Falar com Animais", level: 1, school: "Adivinhação", desc: "Comunicação com bestas por 10 min." },
+      { name: "Aumentar Curar Ferimentos", level: 1, school: "Evocação", desc: "1d8 + mod SAB de cura." },
+    ],
+  },
+  {
+    id: "monge", name: "Monge", description: "Corpo como arma, ki como fluxo. Disciplina absoluta.",
+    hitDie: 8, primary: "des", saves: ["for", "des"], skillCount: 2,
+    skillOptions: ["acrobacia","atletismo","furtividade","historia","intuicao","religiao"],
+    themeColor: "oklch(0.72 0.14 190)", themeAccent: "oklch(0.85 0.1 180)", glyph: "☯",
+    features: ["Defesa sem armadura", "Artes marciais", "Ki"],
+    attacks: [
+      { name: "Ataque Desarmado", ability: "des", damage: "1d6", damageType: "contundente", properties: "Acuidade marcial" },
+      { name: "Bordão", ability: "des", damage: "1d6", damageType: "contundente", properties: "Versátil (1d8)" },
+    ],
+    spells: [],
+  },
+  {
+    id: "feiticeiro", name: "Feiticeiro", description: "Magia nas veias. Poder inato, imprevisível.",
+    hitDie: 6, primary: "car", saves: ["con", "car"], skillCount: 2,
+    skillOptions: ["arcanismo","enganacao","intuicao","intimidacao","persuasao","religiao"],
+    themeColor: "oklch(0.65 0.24 20)", themeAccent: "oklch(0.78 0.2 40)", glyph: "✺",
+    features: ["Conjuração inata", "Origem feiticeira", "Metamagia"],
+    attacks: [
+      { name: "Adaga", ability: "des", damage: "1d4", damageType: "perfurante", properties: "Acuidade, arremesso" },
+      { name: "Rajada de Fogo", ability: "car", damage: "1d10", damageType: "fogo", properties: "Truque, à distância" },
+    ],
+    spells: [
+      { name: "Prestidigitação", level: 0, school: "Transmutação", desc: "Efeitos mágicos menores." },
+      { name: "Rajada de Fogo", level: 0, school: "Evocação", desc: "1d10 fogo à distância." },
+      { name: "Míssil Mágico", level: 1, school: "Evocação", desc: "3 dardos de 1d4+1 de força." },
+      { name: "Escudo", level: 1, school: "Abjuração", desc: "+5 CA reativo." },
+    ],
+  },
+  {
+    id: "bruxo", name: "Bruxo", description: "Pactuário. Poder emprestado por um patrono além do véu.",
+    hitDie: 8, primary: "car", saves: ["sab", "car"], skillCount: 2,
+    skillOptions: ["arcanismo","enganacao","historia","intimidacao","investigacao","natureza","religiao"],
+    themeColor: "oklch(0.55 0.2 320)", themeAccent: "oklch(0.7 0.22 300)", glyph: "☠",
+    features: ["Patrono do outro mundo", "Magia do pacto", "Invocações Místicas"],
+    attacks: [
+      { name: "Adaga", ability: "des", damage: "1d4", damageType: "perfurante", properties: "Acuidade" },
+      { name: "Explosão Mística", ability: "car", damage: "1d10", damageType: "energia", properties: "Truque, à distância" },
+    ],
+    spells: [
+      { name: "Explosão Mística", level: 0, school: "Evocação", desc: "1d10 de energia à distância." },
+      { name: "Ilusão Menor", level: 0, school: "Ilusão", desc: "Som ou imagem por 1 min." },
+      { name: "Enfeitiçar Pessoa", level: 1, school: "Encantamento", desc: "Enfeitiça humanoide." },
+      { name: "Setas Amaldiçoadas", level: 1, school: "Necromancia", desc: "3 setas psíquicas de 2d6." },
+    ],
+  },
 ];
 
 export const BACKGROUNDS = [
