@@ -28,6 +28,20 @@ const NAV = [
 function WelcomePage() {
   const setSystem = useCharacter((s) => s.setSystem);
   const reset = useCharacter((s) => s.reset);
+  const currentSystem = useCharacter((s) => s.system);
+  const [hoverSystem, setHoverSystem] = useState<SystemId | null>(null);
+
+  const activeSys = getSystem(hoverSystem ?? currentSystem);
+
+  // Apply the active system's palette to the whole page (matches /create/*).
+  useEffect(() => {
+    document.body.setAttribute("data-system-bg", activeSys.id);
+    document.body.style.setProperty("--system-bg", activeSys.theme.pageBg);
+    return () => {
+      document.body.removeAttribute("data-system-bg");
+      document.body.style.removeProperty("--system-bg");
+    };
+  }, [activeSys.id, activeSys.theme.pageBg]);
 
   return (
     <main className="relative min-h-screen overflow-hidden">
