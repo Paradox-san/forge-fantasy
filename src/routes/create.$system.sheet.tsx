@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useCharacter, type CharacterState } from "@/lib/character-store";
 import {
   getRace, getClass, ABILITIES, SKILLS, modifier, fmtMod,
-  type AbilityKey,
+  type AbilityKey, type Attack, type Spell,
 } from "@/lib/dnd-data";
 import { getSystem } from "@/lib/systems";
 
