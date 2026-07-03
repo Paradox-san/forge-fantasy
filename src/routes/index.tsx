@@ -120,6 +120,7 @@ function WelcomePage() {
             <RealmCard
               key={sys.id}
               sys={sys}
+              onHover={setHoverSystem}
               onEnter={() => {
                 reset();
                 setSystem(sys.id);
