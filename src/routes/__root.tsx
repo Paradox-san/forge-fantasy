@@ -81,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Arcanum — Forja de Fichas de RPG" },
       {
         property: "og:description",
-        content: "Crie personagens em poucos passos. D&D 5.5, Dreowacis, Quebra do Tempo e mais.",
+        content: "Crie personagens em poucos passos. D&D 5.5, Dreowacis, Despertar da Escuridão e mais.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },

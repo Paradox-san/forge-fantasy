@@ -60,9 +60,9 @@ function SheetStep() {
   const accent = cls.themeAccent;
   const glyph = cls.glyph;
 
-  const attacks = char.customAttacks ?? cls.attacks;
-  const spells = char.customSpells ?? cls.spells;
-  const hasSpells = spells.length > 0 || (char.customSpells !== null);
+  const attacks = char.customAttacks ?? [];
+  const spells = char.customSpells ?? [];
+  const hasSpells = spells.length > 0;
 
   return (
     <section>
