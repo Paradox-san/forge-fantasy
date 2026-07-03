@@ -178,16 +178,21 @@ function SheetStep() {
 /* ---------- Main tab ---------- */
 
 function MainTab({
-  char, race, cls, totals, mods, ac, initiative, profBonus, passivePerc, color, glyph,
+  char, race, cls, attacks, totals, mods, ac, initiative, profBonus, passivePerc, color, glyph,
 }: {
   char: CharacterState;
   race: NonNullable<ReturnType<typeof getRace>>;
   cls: NonNullable<ReturnType<typeof getClass>>;
+  attacks: Attack[];
   totals: Record<AbilityKey, number>;
   mods: Record<AbilityKey, number>;
   ac: number; initiative: number; profBonus: number; passivePerc: number;
   color: string; glyph: string;
 }) {
+  const setAttacks = useCharacter((s) => s.setAttacks);
+  const resetAttacks = useCharacter((s) => s.resetAttacks);
+  const [editAtk, setEditAtk] = useState(false);
+  const isCustom = char.customAttacks !== null;
   return (
     <>
       {/* Stat row */}
