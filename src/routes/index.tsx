@@ -201,7 +201,9 @@ function RuneRail({ side }: { side: "left" | "right" }) {
   );
 }
 
-function RealmCard({ sys, onEnter }: { sys: SystemInfo; onEnter: () => void }) {
+function RealmCard({
+  sys, onEnter, onHover,
+}: { sys: SystemInfo; onEnter: () => void; onHover: (id: SystemId | null) => void }) {
   const available = sys.status === "available";
   const { primary, secondary, text } = sys.theme;
 
