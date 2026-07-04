@@ -291,27 +291,40 @@ function RealmCard({
     </article>
   );
 
-  return available ? (
-    <Link
-      to="/create/$system"
-      params={{ system: sys.id }}
-      onClick={onEnter}
-      onMouseEnter={() => onHover(sys.id)}
-      onMouseLeave={() => onHover(null)}
-      onFocus={() => onHover(sys.id)}
-      onBlur={() => onHover(null)}
-      className="block transition duration-300 hover:-translate-y-1"
-    >
+  if (!available) {
+    return (
+      <div
+        className="opacity-80"
+        onMouseEnter={() => onHover(sys.id)}
+        onMouseLeave={() => onHover(null)}
+      >
+        {card}
+      </div>
+    );
+  }
+
+  const commonProps = {
+    onClick: onEnter,
+    onMouseEnter: () => onHover(sys.id),
+    onMouseLeave: () => onHover(null),
+    onFocus: () => onHover(sys.id),
+    onBlur: () => onHover(null),
+    className: "block transition duration-300 hover:-translate-y-1",
+  };
+
+  // Dreowacis has its own dedicated flow / isolated store.
+  if (sys.id === "dreowacis") {
+    return (
+      <Link to="/create/dreowacis" {...commonProps}>
+        {card}
+      </Link>
+    );
+  }
+
+  return (
+    <Link to="/create/$system" params={{ system: sys.id }} {...commonProps}>
       {card}
     </Link>
-  ) : (
-    <div
-      className="opacity-80"
-      onMouseEnter={() => onHover(sys.id)}
-      onMouseLeave={() => onHover(null)}
-    >
-      {card}
-    </div>
   );
 }
 
