@@ -73,10 +73,10 @@ export const SYSTEMS: SystemInfo[] = [
   {
     id: "dreowacis",
     name: "Dreowacis",
-    tagline: "Sonhos despertos — autoral",
+    tagline: "Continente dos deuses e reinos — autoral",
     description:
-      "Sistema autoral de mistério onírico, onde a realidade se dobra ao redor dos sonhadores.",
-    status: "coming-soon",
+      "Sistema d20 autoral com mana unificada, cinco reinos em disputa e um panteão que interfere no destino.",
+    status: "available",
     sigil: "☾",
     theme: {
       primary: "#e11d48",
