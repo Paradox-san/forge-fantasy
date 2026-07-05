@@ -23,12 +23,16 @@ function SheetStep() {
   const s = useDreowacis();
   const kingdom = s.kingdomId ? getKingdom(s.kingdomId) : undefined;
   const deity = s.deityId && s.deityId !== "nenhum" ? getDeity(s.deityId) : undefined;
+  const race = s.raceId ? getRace(s.raceId) : undefined;
+  const variant = s.raceId && s.raceVariantId ? getVariant(s.raceId, s.raceVariantId) : undefined;
   const prof = proficiencyBonus(s.level);
 
   const totalAbility = (k: (typeof ABILITIES)[number]["key"]) => {
-    const bonus = kingdom?.bonusAbility === k ? 1 : 0;
-    return s.abilities[k] + bonus;
+    const kingdomBonus = kingdom?.bonusAbility === k ? 1 : 0;
+    const raceBonus = s.raceId ? raceAttributeBonus(s.raceId, s.raceVariantId, k) : 0;
+    return s.abilities[k] + kingdomBonus + raceBonus;
   };
+
 
   const conMod = modifier(totalAbility("con"));
   const dexMod = modifier(totalAbility("des"));
