@@ -76,9 +76,14 @@ function SheetStep() {
             <SheetField label="Personagem" value={s.name || "—"} big />
             <SheetField label="Jogador" value={s.player || "—"} />
             <SheetField label="Nível" value={String(s.level)} />
+            <SheetField
+              label="Raça"
+              value={race ? (variant ? `${race.name} · ${variant.name}` : race.name) : "—"}
+            />
             <SheetField label="Reino" value={kingdom?.name ?? "—"} />
             <SheetField label="Devoção" value={deity?.name ?? "Sem devoção"} />
             <SheetField label="Conceito" value={s.concept || "—"} />
+
           </div>
         </div>
 
