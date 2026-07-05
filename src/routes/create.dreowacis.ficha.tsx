@@ -1,10 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import {
   ABILITIES, SKILLS, modifier, fmtMod, proficiencyBonus,
-  getKingdom, getDeity, manaMax, MANA_KEY_ABILITY, CD_TABLE, MANA_COSTS,
+  getKingdom, getDeity, getRace, getVariant, raceAttributeBonus,
+  manaMax, MANA_KEY_ABILITY, CD_TABLE, MANA_COSTS,
 } from "@/lib/dreowacis-data";
 import { useDreowacis, type Attack, type Ability } from "@/lib/dreowacis-store";
 import { NavRow } from "./create.dreowacis.index";
+
 
 export const Route = createFileRoute("/create/dreowacis/ficha")({
   component: SheetStep,
@@ -21,12 +23,16 @@ function SheetStep() {
   const s = useDreowacis();
   const kingdom = s.kingdomId ? getKingdom(s.kingdomId) : undefined;
   const deity = s.deityId && s.deityId !== "nenhum" ? getDeity(s.deityId) : undefined;
+  const race = s.raceId ? getRace(s.raceId) : undefined;
+  const variant = s.raceId && s.raceVariantId ? getVariant(s.raceId, s.raceVariantId) : undefined;
   const prof = proficiencyBonus(s.level);
 
   const totalAbility = (k: (typeof ABILITIES)[number]["key"]) => {
-    const bonus = kingdom?.bonusAbility === k ? 1 : 0;
-    return s.abilities[k] + bonus;
+    const kingdomBonus = kingdom?.bonusAbility === k ? 1 : 0;
+    const raceBonus = s.raceId ? raceAttributeBonus(s.raceId, s.raceVariantId, k) : 0;
+    return s.abilities[k] + kingdomBonus + raceBonus;
   };
+
 
   const conMod = modifier(totalAbility("con"));
   const dexMod = modifier(totalAbility("des"));
@@ -70,9 +76,14 @@ function SheetStep() {
             <SheetField label="Personagem" value={s.name || "—"} big />
             <SheetField label="Jogador" value={s.player || "—"} />
             <SheetField label="Nível" value={String(s.level)} />
+            <SheetField
+              label="Raça"
+              value={race ? (variant ? `${race.name} · ${variant.name}` : race.name) : "—"}
+            />
             <SheetField label="Reino" value={kingdom?.name ?? "—"} />
             <SheetField label="Devoção" value={deity?.name ?? "Sem devoção"} />
             <SheetField label="Conceito" value={s.concept || "—"} />
+
           </div>
         </div>
 

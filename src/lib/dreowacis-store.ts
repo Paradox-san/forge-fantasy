@@ -20,9 +20,13 @@ export interface DreowacisCharacter {
   name: string;
   player: string;
   level: number;
+  raceId: string;
+  raceVariantId: string;
+  raceAbilities: string[]; // ids das habilidades escolhidas
+  raceCommonAbility: string; // id da comum (Homens-Fera/Sereias)
   kingdomId: string;
   deityId: string;
-  concept: string; // conceito livre (raça/classe até termos PDFs oficiais)
+  concept: string;
   alignment: string;
   abilities: Record<AbilityKey, number>;
   abilityMethod: AbilityMethod;
@@ -35,6 +39,7 @@ export interface DreowacisCharacter {
   setField: <K extends keyof DreowacisCharacter>(k: K, v: DreowacisCharacter[K]) => void;
   setAbility: (k: AbilityKey, v: number) => void;
   toggleSkill: (k: SkillKey, max: number) => void;
+  toggleRaceAbility: (id: string, max: number) => void;
   setAttacks: (a: Attack[]) => void;
   setManaAbilities: (a: Ability[]) => void;
   reset: () => void;
@@ -44,6 +49,10 @@ const initial = {
   name: "",
   player: "",
   level: 1,
+  raceId: "",
+  raceVariantId: "",
+  raceAbilities: [] as string[],
+  raceCommonAbility: "",
   kingdomId: "",
   deityId: "",
   concept: "",
@@ -70,6 +79,13 @@ export const useDreowacis = create<DreowacisCharacter>()(
           if (s.skills.length >= max) return {};
           return { skills: [...s.skills, k] };
         }),
+      toggleRaceAbility: (id, max) =>
+        set((s) => {
+          if (s.raceAbilities.includes(id))
+            return { raceAbilities: s.raceAbilities.filter((x) => x !== id) };
+          if (s.raceAbilities.length >= max) return {};
+          return { raceAbilities: [...s.raceAbilities, id] };
+        }),
       setAttacks: (attacks) => set({ attacks }),
       setManaAbilities: (manaAbilities) => set({ manaAbilities }),
       reset: () => set({ ...initial }),
@@ -77,3 +93,4 @@ export const useDreowacis = create<DreowacisCharacter>()(
     { name: "arcanum-character-dreowacis" },
   ),
 );
+

@@ -8,12 +8,14 @@ export const Route = createFileRoute("/create/dreowacis")({
 
 const STEPS = [
   { path: "", label: "Identidade", num: "I" },
-  { path: "reino", label: "Reino", num: "II" },
-  { path: "devocao", label: "Devoção", num: "III" },
-  { path: "atributos", label: "Atributos", num: "IV" },
-  { path: "pericias", label: "Perícias", num: "V" },
+  { path: "raca", label: "Raça", num: "II" },
+  { path: "reino", label: "Reino", num: "III" },
+  { path: "devocao", label: "Devoção", num: "IV" },
+  { path: "atributos", label: "Atributos", num: "V" },
+  { path: "pericias", label: "Perícias", num: "VI" },
   { path: "ficha", label: "Ficha", num: "✦" },
 ];
+
 
 function DreowacisLayout() {
   const sys = getSystem("dreowacis");
