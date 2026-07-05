@@ -78,7 +78,7 @@ export function Field({ label, children }: { label: string; children: React.Reac
   );
 }
 
-type StepKey = "" | "reino" | "devocao" | "atributos" | "pericias" | "ficha";
+type StepKey = "" | "raca" | "reino" | "devocao" | "atributos" | "pericias" | "ficha";
 
 export function NavRow({
   prev,
@@ -97,6 +97,7 @@ export function NavRow({
   const go = (step: StepKey) => {
     const map: Record<StepKey, string> = {
       "": "/create/dreowacis",
+      raca: "/create/dreowacis/raca",
       reino: "/create/dreowacis/reino",
       devocao: "/create/dreowacis/devocao",
       atributos: "/create/dreowacis/atributos",
@@ -105,6 +106,7 @@ export function NavRow({
     };
     navigate({ to: map[step] });
   };
+
 
   return (
     <div className="mx-auto mt-10 flex max-w-xl items-center justify-between">
