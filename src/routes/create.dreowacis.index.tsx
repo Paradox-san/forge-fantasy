@@ -62,7 +62,7 @@ function IdentityStep() {
         </Field>
       </div>
 
-      <NavRow next="reino" nextLabel="Escolher Reino" disabled={!name.trim()} />
+      <NavRow next="raca" nextLabel="Escolher Raça" disabled={!name.trim()} />
     </section>
   );
 }
