@@ -13,6 +13,7 @@ const STEPS = [
   { path: "devocao", label: "Devoção", num: "IV" },
   { path: "atributos", label: "Atributos", num: "V" },
   { path: "pericias", label: "Perícias", num: "VI" },
+  { path: "antecedente", label: "Antecedente", num: "VII" },
   { path: "ficha", label: "Ficha", num: "✦" },
 ];
 
