@@ -25,6 +25,7 @@ export interface DreowacisCharacter {
   raceAbilities: string[]; // ids das habilidades escolhidas
   raceCommonAbility: string; // id da comum (Homens-Fera/Sereias)
   kingdomId: string;
+  backgroundId: string;
   deityId: string;
   concept: string;
   alignment: string;
@@ -54,6 +55,7 @@ const initial = {
   raceAbilities: [] as string[],
   raceCommonAbility: "",
   kingdomId: "",
+  backgroundId: "",
   deityId: "",
   concept: "",
   alignment: "",
