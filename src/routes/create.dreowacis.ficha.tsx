@@ -241,6 +241,109 @@ function SheetStep() {
           )}
         </div>
 
+
+        {/* Grimório — importar magias do compêndio */}
+        <div className="rune-panel rounded-xl p-6 no-print">
+          <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+            <h2 className="font-heading text-sm uppercase tracking-[0.3em] text-primary/80">
+              Grimório · Compêndio de Magias
+            </h2>
+            <div className="flex flex-wrap gap-2 text-[11px]">
+              <select
+                value={spellElement}
+                onChange={(e) => setSpellElement(e.target.value as SpellElement | "Todas")}
+                className="rounded border border-border bg-input/60 px-2 py-1 text-foreground"
+              >
+                <option value="Todas">Todos elementos</option>
+                {(["Água", "Ar", "Fogo", "Terra"] as SpellElement[]).map((el) => (
+                  <option key={el} value={el}>{el}</option>
+                ))}
+              </select>
+              <select
+                value={String(spellLevel)}
+                onChange={(e) =>
+                  setSpellLevel(e.target.value === "Todos" ? "Todos" : Number(e.target.value))
+                }
+                className="rounded border border-border bg-input/60 px-2 py-1 text-foreground"
+              >
+                <option value="Todos">Todos níveis</option>
+                {[0, 1, 2, 3, 4, 5].map((l) => (
+                  <option key={l} value={l}>{l === 0 ? "Truque" : `Nível ${l}`}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {SPELLS.filter((sp) => {
+              const elements = Array.isArray(sp.element) ? sp.element : [sp.element];
+              const elOk = spellElement === "Todas" || elements.includes(spellElement);
+              const lvOk = spellLevel === "Todos" || sp.level === spellLevel;
+              return elOk && lvOk;
+            }).map((sp) => {
+              const elements = Array.isArray(sp.element) ? sp.element : [sp.element];
+              const alreadyIn = s.manaAbilities.some((a) => a.id === sp.id);
+              return (
+                <div
+                  key={sp.id}
+                  className="flex flex-col justify-between rounded-lg border border-border/60 bg-secondary/20 p-3"
+                >
+                  <div>
+                    <div className="flex items-center justify-between gap-2">
+                      <p className="font-heading text-sm text-foreground">{sp.name}</p>
+                      <span className="font-mono text-[10px] text-muted-foreground">
+                        {sp.level === 0 ? "Truque" : `Nv ${sp.level}`}
+                      </span>
+                    </div>
+                    <div className="mt-1 flex flex-wrap gap-1">
+                      {elements.map((el) => (
+                        <span
+                          key={el}
+                          className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-widest"
+                          style={{
+                            borderColor: `${SPELL_ELEMENT_COLORS[el]}66`,
+                            color: SPELL_ELEMENT_COLORS[el],
+                            background: `${SPELL_ELEMENT_COLORS[el]}14`,
+                          }}
+                        >
+                          {el}
+                        </span>
+                      ))}
+                    </div>
+                    <p className="mt-2 text-[11px] text-muted-foreground">
+                      <span className="text-primary/80">Alcance:</span> {sp.range} ·{" "}
+                      <span className="text-primary/80">Dur.:</span> {sp.duration}
+                    </p>
+                    <p className="mt-1 text-[11px] text-muted-foreground">{sp.text}</p>
+                  </div>
+                  <button
+                    type="button"
+                    disabled={alreadyIn}
+                    onClick={() =>
+                      s.setManaAbilities([
+                        ...s.manaAbilities,
+                        {
+                          id: sp.id,
+                          name: `${sp.name} (${sp.level === 0 ? "Truque" : `Nv ${sp.level}`})`,
+                          cost: sp.level === 0 ? "0" : String(Math.max(1, sp.level)),
+                          effect: `${sp.range} · ${sp.duration} · ${sp.text}`,
+                        },
+                      ])
+                    }
+                    className={`mt-3 rounded border px-2 py-1 text-[11px] uppercase tracking-widest transition ${
+                      alreadyIn
+                        ? "cursor-not-allowed border-border bg-secondary/30 text-muted-foreground/60"
+                        : "border-primary/50 bg-primary/10 text-primary hover:bg-primary/20"
+                    }`}
+                  >
+                    {alreadyIn ? "✓ No grimório" : "+ Adicionar à ficha"}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
         {/* Referência de CD */}
         <div className="rune-panel rounded-xl p-6">
           <h2 className="mb-3 font-heading text-sm uppercase tracking-[0.3em] text-primary/80">
@@ -268,7 +371,7 @@ function SheetStep() {
         <p className="hidden">{keyMod}</p>
       </div>
 
-      <NavRow prev="pericias" />
+      <NavRow prev="antecedente" />
     </section>
   );
 }
