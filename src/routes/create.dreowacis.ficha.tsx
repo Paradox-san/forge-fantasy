@@ -27,7 +27,10 @@ function SheetStep() {
   const deity = s.deityId && s.deityId !== "nenhum" ? getDeity(s.deityId) : undefined;
   const race = s.raceId ? getRace(s.raceId) : undefined;
   const variant = s.raceId && s.raceVariantId ? getVariant(s.raceId, s.raceVariantId) : undefined;
+  const background = s.backgroundId ? getBackground(s.backgroundId) : undefined;
   const prof = proficiencyBonus(s.level);
+  const [spellElement, setSpellElement] = useState<SpellElement | "Todas">("Todas");
+  const [spellLevel, setSpellLevel] = useState<number | "Todos">("Todos");
 
   const totalAbility = (k: (typeof ABILITIES)[number]["key"]) => {
     const kingdomBonus = kingdom?.bonusAbility === k ? 1 : 0;
@@ -85,8 +88,25 @@ function SheetStep() {
             <SheetField label="Reino" value={kingdom?.name ?? "—"} />
             <SheetField label="Devoção" value={deity?.name ?? "Sem devoção"} />
             <SheetField label="Conceito" value={s.concept || "—"} />
-
+            <SheetField label="Antecedente" value={background?.name ?? "—"} />
           </div>
+          {background && (
+            <div className="mt-4 rounded border border-primary/30 bg-primary/5 p-3 text-[11px]">
+              <p className="font-heading uppercase tracking-widest text-primary">
+                {background.supportName}
+              </p>
+              <p className="mt-1 text-muted-foreground">{background.supportText}</p>
+              <p className="mt-2 text-muted-foreground">
+                <span className="text-primary/80">Item: </span>{background.item} ·{" "}
+                <span className="text-primary/80">Proficiências: </span>{background.proficiencies}
+                {background.languages && (
+                  <>
+                    {" · "}<span className="text-primary/80">Idiomas: </span>{background.languages}
+                  </>
+                )}
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Atributos + estatísticas */}
