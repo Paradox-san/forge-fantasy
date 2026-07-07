@@ -1,8 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useState } from "react";
 import {
   ABILITIES, SKILLS, modifier, fmtMod, proficiencyBonus,
   getKingdom, getDeity, getRace, getVariant, raceAttributeBonus,
   manaMax, MANA_KEY_ABILITY, CD_TABLE, MANA_COSTS,
+  getBackground, SPELLS, SPELL_ELEMENT_COLORS, type SpellElement,
 } from "@/lib/dreowacis-data";
 import { useDreowacis, type Attack, type Ability } from "@/lib/dreowacis-store";
 import { NavRow } from "./create.dreowacis.index";
