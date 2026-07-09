@@ -24,6 +24,9 @@ export interface DreowacisCharacter {
   raceVariantId: string;
   raceAbilities: string[]; // ids das habilidades escolhidas
   raceCommonAbility: string; // id da comum (Homens-Fera/Sereias)
+  classId: string;
+  classSubChoiceId: string;
+  classAbilities: string[]; // ids das habilidades de classe escolhidas
   kingdomId: string;
   backgroundId: string;
   deityId: string;
@@ -41,6 +44,7 @@ export interface DreowacisCharacter {
   setAbility: (k: AbilityKey, v: number) => void;
   toggleSkill: (k: SkillKey, max: number) => void;
   toggleRaceAbility: (id: string, max: number) => void;
+  toggleClassAbility: (id: string, max: number) => void;
   setAttacks: (a: Attack[]) => void;
   setManaAbilities: (a: Ability[]) => void;
   reset: () => void;
@@ -54,6 +58,9 @@ const initial = {
   raceVariantId: "",
   raceAbilities: [] as string[],
   raceCommonAbility: "",
+  classId: "",
+  classSubChoiceId: "",
+  classAbilities: [] as string[],
   kingdomId: "",
   backgroundId: "",
   deityId: "",
@@ -68,6 +75,7 @@ const initial = {
   currentHp: null as number | null,
   currentMana: null as number | null,
 };
+
 
 export const useDreowacis = create<DreowacisCharacter>()(
   persist(
