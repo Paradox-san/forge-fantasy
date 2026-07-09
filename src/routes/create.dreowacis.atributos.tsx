@@ -212,7 +212,7 @@ function AbilitiesStep() {
         </div>
       </div>
 
-      <NavRow prev="devocao" next="pericias" nextLabel="Escolher Perícias" />
+      <NavRow prev="devocao" next="antecedente" nextLabel="Escolher Antecedente" />
     </section>
   );
 }
