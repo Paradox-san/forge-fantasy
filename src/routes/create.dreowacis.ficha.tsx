@@ -146,7 +146,7 @@ function SheetStep() {
 
           <div className="rune-panel rounded-xl p-6 space-y-3">
             <Stat label="Pontos de Vida (máx)" value={hpMax} />
-            <Stat label="Mana (máx)" value={mana} hint={`nível + mod ${MANA_KEY_ABILITY.toUpperCase()}`} />
+            <Stat label="Mana (máx)" value={mana} hint={`nível + mod ${keyAbility.toUpperCase()}`} />
             <Stat label="Classe de Armadura" value={ac} hint="10 + DES" />
             <Stat label="Iniciativa" value={fmtMod(initiative)} />
             <Stat label="Bônus de Proficiência" value={`+${prof}`} />
