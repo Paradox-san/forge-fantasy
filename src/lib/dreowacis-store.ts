@@ -96,6 +96,13 @@ export const useDreowacis = create<DreowacisCharacter>()(
           if (s.raceAbilities.length >= max) return {};
           return { raceAbilities: [...s.raceAbilities, id] };
         }),
+      toggleClassAbility: (id, max) =>
+        set((s) => {
+          if (s.classAbilities.includes(id))
+            return { classAbilities: s.classAbilities.filter((x) => x !== id) };
+          if (s.classAbilities.length >= max) return {};
+          return { classAbilities: [...s.classAbilities, id] };
+        }),
       setAttacks: (attacks) => set({ attacks }),
       setManaAbilities: (manaAbilities) => set({ manaAbilities }),
       reset: () => set({ ...initial }),
