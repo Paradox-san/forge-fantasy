@@ -231,9 +231,9 @@ function RaceStep() {
 
       <NavRow
         prev=""
-        next="reino"
+        next="classe"
         disabled={!canContinue}
-        nextLabel="Escolher Reino"
+        nextLabel="Escolher Classe"
       />
     </section>
   );

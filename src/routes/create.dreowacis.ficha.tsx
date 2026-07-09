@@ -3,8 +3,9 @@ import { useState } from "react";
 import {
   ABILITIES, SKILLS, modifier, fmtMod, proficiencyBonus,
   getKingdom, getDeity, getRace, getVariant, raceAttributeBonus,
-  manaMax, MANA_KEY_ABILITY, CD_TABLE, MANA_COSTS,
-  getBackground, SPELLS, SPELL_ELEMENT_COLORS, type SpellElement,
+  manaMax, MANA_COSTS,
+  getBackground, getClass, SPELLS, SPELL_ELEMENT_COLORS, type SpellElement,
+  type AbilityKey,
 } from "@/lib/dreowacis-data";
 import { useDreowacis, type Attack, type Ability } from "@/lib/dreowacis-store";
 import { NavRow } from "./create.dreowacis.index";
@@ -28,23 +29,30 @@ function SheetStep() {
   const race = s.raceId ? getRace(s.raceId) : undefined;
   const variant = s.raceId && s.raceVariantId ? getVariant(s.raceId, s.raceVariantId) : undefined;
   const background = s.backgroundId ? getBackground(s.backgroundId) : undefined;
+  const cls = s.classId ? getClass(s.classId) : undefined;
+  const classSub =
+    cls?.subChoice?.options.find((o) => o.id === s.classSubChoiceId) ?? undefined;
   const prof = proficiencyBonus(s.level);
   const [spellElement, setSpellElement] = useState<SpellElement | "Todas">("Todas");
   const [spellLevel, setSpellLevel] = useState<number | "Todos">("Todos");
 
+  const keyAbility: AbilityKey = cls?.keyAbility ?? "int";
+  const hitDie = cls?.hitDie ?? 8;
+
   const totalAbility = (k: (typeof ABILITIES)[number]["key"]) => {
     const kingdomBonus = kingdom?.bonusAbility === k ? 1 : 0;
     const raceBonus = s.raceId ? raceAttributeBonus(s.raceId, s.raceVariantId, k) : 0;
-    return s.abilities[k] + kingdomBonus + raceBonus;
+    const classBonus = cls?.attrBonuses[k] ?? 0;
+    return s.abilities[k] + kingdomBonus + raceBonus + classBonus;
   };
-
 
   const conMod = modifier(totalAbility("con"));
   const dexMod = modifier(totalAbility("des"));
-  const keyMod = modifier(totalAbility(MANA_KEY_ABILITY));
+  const keyMod = modifier(totalAbility(keyAbility));
 
-  const hpMax = 10 + conMod + (s.level - 1) * (6 + conMod);
-  const mana = manaMax(s.level, totalAbility(MANA_KEY_ABILITY));
+  const perLevel = Math.floor(hitDie / 2) + 1 + conMod;
+  const hpMax = hitDie + conMod + Math.max(0, s.level - 1) * perLevel;
+  const mana = manaMax(s.level, totalAbility(keyAbility));
   const ac = 10 + dexMod;
   const initiative = dexMod;
 
@@ -85,9 +93,16 @@ function SheetStep() {
               label="Raça"
               value={race ? (variant ? `${race.name} · ${variant.name}` : race.name) : "—"}
             />
+            <SheetField
+              label="Classe"
+              value={
+                cls
+                  ? `${cls.name}${classSub ? ` · ${classSub.name}` : ""}`
+                  : "—"
+              }
+            />
             <SheetField label="Reino" value={kingdom?.name ?? "—"} />
             <SheetField label="Devoção" value={deity?.name ?? "Sem devoção"} />
-            <SheetField label="Conceito" value={s.concept || "—"} />
             <SheetField label="Antecedente" value={background?.name ?? "—"} />
           </div>
           {background && (
@@ -105,6 +120,19 @@ function SheetStep() {
                   </>
                 )}
               </p>
+            </div>
+          )}
+          {cls && (
+            <div className="mt-4 rounded border border-primary/30 bg-primary/5 p-3 text-[11px]">
+              <p className="font-heading uppercase tracking-widest text-primary">
+                Classe · {cls.autoAbility.name}
+              </p>
+              <p className="mt-1 text-muted-foreground">{cls.autoAbility.text}</p>
+              {cls.abilities.filter((a) => s.classAbilities.includes(a.id)).map((a) => (
+                <p key={a.id} className="mt-2 text-muted-foreground">
+                  <span className="text-primary/80">{a.name}: </span>{a.text}
+                </p>
+              ))}
             </div>
           )}
         </div>
@@ -131,7 +159,7 @@ function SheetStep() {
 
           <div className="rune-panel rounded-xl p-6 space-y-3">
             <Stat label="Pontos de Vida (máx)" value={hpMax} />
-            <Stat label="Mana (máx)" value={mana} hint={`nível + mod ${MANA_KEY_ABILITY.toUpperCase()}`} />
+            <Stat label="Mana (máx)" value={mana} hint={`nível + mod ${keyAbility.toUpperCase()}`} />
             <Stat label="Classe de Armadura" value={ac} hint="10 + DES" />
             <Stat label="Iniciativa" value={fmtMod(initiative)} />
             <Stat label="Bônus de Proficiência" value={`+${prof}`} />
@@ -344,20 +372,6 @@ function SheetStep() {
           </div>
         </div>
 
-        {/* Referência de CD */}
-        <div className="rune-panel rounded-xl p-6">
-          <h2 className="mb-3 font-heading text-sm uppercase tracking-[0.3em] text-primary/80">
-            Tabela de CD (referência)
-          </h2>
-          <div className="grid gap-1.5 text-sm sm:grid-cols-3">
-            {CD_TABLE.map(([label, cd]) => (
-              <div key={label} className="flex items-center justify-between rounded border border-border/50 bg-secondary/30 px-3 py-1.5">
-                <span className="text-muted-foreground">{label}</span>
-                <span className="font-mono text-primary">CD {cd}</span>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Bio */}
         {s.bio && (

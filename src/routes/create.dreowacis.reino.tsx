@@ -85,7 +85,7 @@ function KingdomStep() {
         })}
       </div>
 
-      <NavRow prev="raca" next="devocao" disabled={!kingdomId} nextLabel="Escolher Devoção" />
+      <NavRow prev="classe" next="devocao" disabled={!kingdomId} nextLabel="Escolher Devoção" />
     </section>
   );
 }

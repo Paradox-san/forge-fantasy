@@ -19,6 +19,7 @@ import { Route as CreateDreowacisRacaRouteImport } from './routes/create.dreowac
 import { Route as CreateDreowacisPericiasRouteImport } from './routes/create.dreowacis.pericias'
 import { Route as CreateDreowacisFichaRouteImport } from './routes/create.dreowacis.ficha'
 import { Route as CreateDreowacisDevocaoRouteImport } from './routes/create.dreowacis.devocao'
+import { Route as CreateDreowacisClasseRouteImport } from './routes/create.dreowacis.classe'
 import { Route as CreateDreowacisAtributosRouteImport } from './routes/create.dreowacis.atributos'
 import { Route as CreateDreowacisAntecedenteRouteImport } from './routes/create.dreowacis.antecedente'
 import { Route as CreateSystemSheetRouteImport } from './routes/create.$system.sheet'
@@ -77,6 +78,11 @@ const CreateDreowacisDevocaoRoute = CreateDreowacisDevocaoRouteImport.update({
   path: '/devocao',
   getParentRoute: () => CreateDreowacisRoute,
 } as any)
+const CreateDreowacisClasseRoute = CreateDreowacisClasseRouteImport.update({
+  id: '/classe',
+  path: '/classe',
+  getParentRoute: () => CreateDreowacisRoute,
+} as any)
 const CreateDreowacisAtributosRoute =
   CreateDreowacisAtributosRouteImport.update({
     id: '/atributos',
@@ -126,6 +132,7 @@ export interface FileRoutesByFullPath {
   '/create/$system/sheet': typeof CreateSystemSheetRoute
   '/create/dreowacis/antecedente': typeof CreateDreowacisAntecedenteRoute
   '/create/dreowacis/atributos': typeof CreateDreowacisAtributosRoute
+  '/create/dreowacis/classe': typeof CreateDreowacisClasseRoute
   '/create/dreowacis/devocao': typeof CreateDreowacisDevocaoRoute
   '/create/dreowacis/ficha': typeof CreateDreowacisFichaRoute
   '/create/dreowacis/pericias': typeof CreateDreowacisPericiasRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByTo {
   '/create/$system/sheet': typeof CreateSystemSheetRoute
   '/create/dreowacis/antecedente': typeof CreateDreowacisAntecedenteRoute
   '/create/dreowacis/atributos': typeof CreateDreowacisAtributosRoute
+  '/create/dreowacis/classe': typeof CreateDreowacisClasseRoute
   '/create/dreowacis/devocao': typeof CreateDreowacisDevocaoRoute
   '/create/dreowacis/ficha': typeof CreateDreowacisFichaRoute
   '/create/dreowacis/pericias': typeof CreateDreowacisPericiasRoute
@@ -163,6 +171,7 @@ export interface FileRoutesById {
   '/create/$system/sheet': typeof CreateSystemSheetRoute
   '/create/dreowacis/antecedente': typeof CreateDreowacisAntecedenteRoute
   '/create/dreowacis/atributos': typeof CreateDreowacisAtributosRoute
+  '/create/dreowacis/classe': typeof CreateDreowacisClasseRoute
   '/create/dreowacis/devocao': typeof CreateDreowacisDevocaoRoute
   '/create/dreowacis/ficha': typeof CreateDreowacisFichaRoute
   '/create/dreowacis/pericias': typeof CreateDreowacisPericiasRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/create/$system/sheet'
     | '/create/dreowacis/antecedente'
     | '/create/dreowacis/atributos'
+    | '/create/dreowacis/classe'
     | '/create/dreowacis/devocao'
     | '/create/dreowacis/ficha'
     | '/create/dreowacis/pericias'
@@ -201,6 +211,7 @@ export interface FileRouteTypes {
     | '/create/$system/sheet'
     | '/create/dreowacis/antecedente'
     | '/create/dreowacis/atributos'
+    | '/create/dreowacis/classe'
     | '/create/dreowacis/devocao'
     | '/create/dreowacis/ficha'
     | '/create/dreowacis/pericias'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/create/$system/sheet'
     | '/create/dreowacis/antecedente'
     | '/create/dreowacis/atributos'
+    | '/create/dreowacis/classe'
     | '/create/dreowacis/devocao'
     | '/create/dreowacis/ficha'
     | '/create/dreowacis/pericias'
@@ -307,6 +319,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateDreowacisDevocaoRouteImport
       parentRoute: typeof CreateDreowacisRoute
     }
+    '/create/dreowacis/classe': {
+      id: '/create/dreowacis/classe'
+      path: '/classe'
+      fullPath: '/create/dreowacis/classe'
+      preLoaderRoute: typeof CreateDreowacisClasseRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
     '/create/dreowacis/atributos': {
       id: '/create/dreowacis/atributos'
       path: '/atributos'
@@ -384,6 +403,7 @@ const CreateSystemRouteWithChildren = CreateSystemRoute._addFileChildren(
 interface CreateDreowacisRouteChildren {
   CreateDreowacisAntecedenteRoute: typeof CreateDreowacisAntecedenteRoute
   CreateDreowacisAtributosRoute: typeof CreateDreowacisAtributosRoute
+  CreateDreowacisClasseRoute: typeof CreateDreowacisClasseRoute
   CreateDreowacisDevocaoRoute: typeof CreateDreowacisDevocaoRoute
   CreateDreowacisFichaRoute: typeof CreateDreowacisFichaRoute
   CreateDreowacisPericiasRoute: typeof CreateDreowacisPericiasRoute
@@ -395,6 +415,7 @@ interface CreateDreowacisRouteChildren {
 const CreateDreowacisRouteChildren: CreateDreowacisRouteChildren = {
   CreateDreowacisAntecedenteRoute: CreateDreowacisAntecedenteRoute,
   CreateDreowacisAtributosRoute: CreateDreowacisAtributosRoute,
+  CreateDreowacisClasseRoute: CreateDreowacisClasseRoute,
   CreateDreowacisDevocaoRoute: CreateDreowacisDevocaoRoute,
   CreateDreowacisFichaRoute: CreateDreowacisFichaRoute,
   CreateDreowacisPericiasRoute: CreateDreowacisPericiasRoute,

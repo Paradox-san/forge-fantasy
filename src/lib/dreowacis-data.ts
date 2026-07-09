@@ -877,3 +877,378 @@ export const SPELL_ELEMENT_COLORS: Record<SpellElement, string> = {
   "Terra": "#84cc16",
 };
 
+// ---------- Perícias concedidas pelos Antecedentes ----------
+export const BACKGROUND_SKILLS: Record<string, SkillKey[]> = {
+  boticario: ["medicina", "natureza"],
+  combatente: ["intimidacao", "atletismo"],
+  fazendeiro: ["sobrevivencia", "adestrar"],
+  pirata: ["atletismo", "percepcao"],
+  acolito: ["religiao", "persuasao"],
+  ferreiro: ["investigacao"],
+  lutador: ["atletismo", "intimidacao"],
+  menestrel: ["atuacao", "persuasao"],
+  "artista-rua": ["enganacao", "prestidigitacao"],
+  sobrevivente: ["sobrevivencia", "intuicao"],
+  escravo: ["furtividade", "intuicao"],
+  taverneiro: ["intuicao", "persuasao"],
+  amnesico: [],
+  estudioso: ["historia"],
+};
+
+// ---------- Classes (PDF Classes) ----------
+
+export interface ClassAbilityDef { id: string; name: string; text: string; }
+export interface ClassSubChoice {
+  label: string;
+  options: ClassAbilityDef[];
+}
+export type ClassCategory = "Magia" | "Marcial" | "Habilidade";
+
+export interface DClass {
+  id: string;
+  name: string;
+  altName?: string;
+  category: ClassCategory;
+  tagline: string;
+  flavor: string;
+  attrBonuses: Partial<Record<AbilityKey, number>>;
+  keyAbility: AbilityKey;
+  hitDie: 6 | 8 | 10 | 12;
+  profs: string;
+  restriction?: string;
+  autoAbility: ClassAbilityDef;
+  subChoice?: ClassSubChoice;
+  chooseAbilities: number;
+  abilities: ClassAbilityDef[];
+}
+
+const c = (id: string, name: string, text: string): ClassAbilityDef => ({ id, name, text });
+
+export const CLASSES: DClass[] = [
+  // ===== MAGIA =====
+  {
+    id: "mago", name: "Mago", category: "Magia",
+    tagline: "Arquiteto da realidade",
+    flavor: "Você não conjura magia; você a demonstra. Cada feitiço é uma equação perfeita.",
+    attrBonuses: { int: 1, sab: 1 }, keyAbility: "int", hitDie: 6,
+    profs: "Bastões, adagas, bestas leves. Nenhuma armadura ou escudo.",
+    autoAbility: c("estudo-arcano", "Estudo Arcano",
+      "Atinge o Nível 2 de Proficiência num elemento à escolha (Ar, Água, Fogo, Terra ou Cura)."),
+    subChoice: {
+      label: "Elemento do Estudo Arcano",
+      options: [
+        c("el-ar", "Ar", "Especializa em Ar."),
+        c("el-agua", "Água", "Especializa em Água."),
+        c("el-fogo", "Fogo", "Especializa em Fogo."),
+        c("el-terra", "Terra", "Especializa em Terra."),
+        c("el-cura", "Cura", "Especializa em Cura."),
+      ],
+    },
+    chooseAbilities: 2,
+    abilities: [
+      c("m-foco", "Foco Elemental", "+1 em testes de habilidade e de ataque com magias do seu elemento."),
+      c("m-livro", "Livro de Feitiços", "Aprende 2 truques adicionais de qualquer elemento em que tenha nível 1+."),
+      c("m-resist", "Resistência Arcana", "Vantagem em resistência contra magias e efeitos mágicos."),
+      c("m-estudioso", "Estudioso", "Ganha proficiência em 2 perícias entre Arcanismo, História, Investigação, Natureza ou Religião."),
+      c("m-canaliz", "Canalização Rápida", "Lance um truque conhecido como ação bônus, 1×/turno (requer Livro de Feitiços)."),
+      c("m-barreira", "Barreira Mágica Reativa", "Reação: +2 CA contra um ataque. Usos = mod INT (mín 1) por descanso longo."),
+    ],
+  },
+  {
+    id: "druida", name: "Guardião da Natureza", altName: "Druida", category: "Magia",
+    tagline: "Voz consciente da floresta",
+    flavor: "Você não controla a natureza; você a convida a cooperar.",
+    attrBonuses: { sab: 2 }, keyAbility: "sab", hitDie: 8,
+    profs: "Armaduras leves/médias naturais, escudos de madeira/carapaça, foices, lanças, cajados, fundas.",
+    autoAbility: c("forma-selvagem", "Forma Selvagem",
+      "1×/descanso longo, assume forma de besta (CR ≤ nível/3). Dura até 1h. Mantém INT/SAB/personalidade."),
+    chooseAbilities: 2,
+    abilities: [
+      c("d-comunhao", "Comunhão com a Natureza", "Comunica-se à vontade com animais e plantas."),
+      c("d-caminhar", "Caminhar na Floresta", "Não deixa rastros comuns; ignora terreno difícil vegetal."),
+      c("d-verdor", "Toque do Verdor", "1×/descanso: toque cura 1d8 + SAB."),
+      c("d-companheiro", "Companheiro do Coração Selvagem", "Companheiro animal fiel, age em sua iniciativa."),
+      c("d-bosques", "Proteção dos Bosques", "+1 CA em terreno natural (+2 no nível 7)."),
+      c("d-retaliacao", "Retaliação da Terra", "Reação (1×/desc longo): 1d6 perfurante ao agressor CaC adjacente."),
+    ],
+  },
+  {
+    id: "clerigo", name: "Servidor dos Deuses", altName: "Clérigo", category: "Magia",
+    tagline: "Canal vivo do divino",
+    flavor: "Sua fé é uma forja que molda milagres.",
+    attrBonuses: { sab: 1, car: 1 }, keyAbility: "sab", hitDie: 8,
+    profs: "Todas as armaduras e escudos. Todas as armas simples.",
+    autoAbility: c("dominio-divino", "Domínio Divino", "Ganha uma habilidade única baseada no Domínio escolhido."),
+    subChoice: {
+      label: "Domínio Divino",
+      options: [
+        c("dom-vida", "Vida", "Mãos Curandeiras: rola novamente 1s nos dados de cura."),
+        c("dom-morte", "Morte", "Toque do Lóculo: +1d4 necrótico contra alvos com ≤½ PV."),
+        c("dom-guerra", "Guerra", "Guerreiro Abençoado: proficiência com 1 arma marcial; refaz dano 1–2."),
+        c("dom-protecao", "Proteção", "Vigia Divina: reações protetoras alcançam +1 aliado."),
+        c("dom-comercio", "Comércio", "Olho para Oportunidades: vantagem em avaliação/barganha."),
+        c("dom-crepusculo", "Crepúsculo", "Visão do Limiar: enxerga 9m no escuro; vantagem em luz fraca."),
+      ],
+    },
+    chooseAbilities: 2,
+    abilities: [
+      c("cl-simbolo", "Invocar Símbolo Sagrado", "+1 ataque e dano com magias/ataques divinos ao empunhar o símbolo."),
+      c("cl-bencao", "Bênção Divina", "Aliados adjacentes ganham +1 em resistência até seu próximo turno."),
+      c("cl-palavra", "Palavra de Poder", "Ação: força criatura em 18m a se afastar (CD SAB)."),
+      c("cl-canalizar", "Canalizar Divindade", "1×/descanso: ativa efeito especial do Domínio."),
+      c("cl-fe", "Proteção da Fé", "+1 CA enquanto exibir seu símbolo sagrado."),
+      c("cl-verdade", "Verdade Inquestionável", "1×/desc longo: vantagem em Intuição contra 1 alvo por 1 min."),
+    ],
+  },
+  {
+    id: "xama", name: "Mediador Espiritual", altName: "Xamã", category: "Magia",
+    tagline: "Ponte entre mundos",
+    flavor: "Você não comanda espíritos; você negocia com eles.",
+    attrBonuses: { sab: 1, con: 1 }, keyAbility: "sab", hitDie: 8,
+    profs: "Armaduras leves, escudos de madeira/ossos, armas simples (cajados, foices, lanças, machados leves).",
+    restriction: "Apenas Sioungua, Elfo ou Homem-Fera de habitat florestal/montanhoso.",
+    autoAbility: c("veu", "Olhar através do Véu",
+      "1×/dia após 10 min de ritual: pergunta simbólica ao Mestre sobre o futuro próximo."),
+    chooseAbilities: 2,
+    abilities: [
+      c("x-guardiao", "Invocar Espírito Guardião", "Ritual 1 min: aliado ganha +1 CA e vantagem contra medo por 1h."),
+      c("x-terra", "Sabedoria da Terra", "1×/desc longo: unguento cura 2d8 + SAB."),
+      c("x-ancestrais", "Sabedoria dos que se Foram", "Vantagem em História de tradições naturais + 1 pista por descanso curto."),
+      c("x-corrupcao", "Expulsar a Corrupção", "Ritual 10 min: remove envenenado/doente (magias fortes exigem teste)."),
+      c("x-antigos", "Bênção dos Antigos", "Ação bônus: 3 aliados ganham vantagem contra medo por 1 min."),
+      c("x-fluxo", "Sentir o Fluxo Espiritual", "Detecta criaturas etéreas/fantasmas em 18m; vantagem em Percepção mágica."),
+    ],
+  },
+  {
+    id: "necromante", name: "Arcano da Morte", altName: "Necromante", category: "Magia",
+    tagline: "Herege do ciclo natural",
+    flavor: "Você espiona os domínios divinos e rouba seus segredos.",
+    attrBonuses: { int: 1, con: 1 }, keyAbility: "int", hitDie: 6,
+    profs: "Adagas, foices, bestas leves. Nenhuma armadura ou escudo.",
+    restriction: "Não pode ser Devoto dos domínios de Vida ou Morte.",
+    autoAbility: c("toque-ruina", "Toque da Ruína",
+      "Ataque desarmado: 1d8 + INT necrótico. Recupera metade do dano em PV."),
+    chooseAbilities: 2,
+    abilities: [
+      c("n-carnical", "Invocar Servo Carniçal", "Ritual 1 min: cria servo esquelético. Até nível/2 servos simultâneos por 1h."),
+      c("n-sifao", "Sifão Vital", "Recupera 25% do dano necrótico causado em PV."),
+      c("n-tumba", "Constituição da Tumba", "Vantagem contra doenças/venenos; resistência a dano de veneno."),
+      c("n-visao", "Visão do Lóculo", "Visão no escuro 18m; vê em cinza/azul/preto no escuro total."),
+      c("n-pavor", "Pavor Inato", "Inimigos que vêm seus servos têm desvantagem em ataques contra eles."),
+      c("n-aura", "Aura de Decomposição", "Ação bônus: aura 1,5m causa 1 necrótico/turno. Usos = mod INT por desc longo."),
+    ],
+  },
+  // ===== MARCIAIS =====
+  {
+    id: "guerreiro", name: "Guerreiro", category: "Marcial",
+    tagline: "Artesão do conflito",
+    flavor: "A eloquência inquestionável do aço.",
+    attrBonuses: { for: 1, con: 1 }, keyAbility: "for", hitDie: 10,
+    profs: "Todas as armaduras, todos os escudos, todas as armas.",
+    autoAbility: c("estilo-comb", "Estilo de Combate", "Ganha um estilo de luta que molda cada movimento."),
+    subChoice: {
+      label: "Estilo de Combate",
+      options: [
+        c("gs-duas", "Duas Armas", "Modificador de habilidade no dano do ataque bônus com armas leves."),
+        c("gs-defesa", "Defesa", "+1 CA usando armadura."),
+        c("gs-duelista", "Duelista", "+2 dano com arma CaC de uma mão (escudo permitido)."),
+        c("gs-haste", "Armas de Haste", "Reação: ataque de oportunidade quando inimigo entra no alcance."),
+      ],
+    },
+    chooseAbilities: 2,
+    abilities: [
+      c("g-furia", "Fúria do Guerreiro", "Ataque duplo (requer Duas Armas)."),
+      c("g-esmagador", "Golpe Esmagador", "+2 dano em ataques CaC com armas."),
+      c("g-couraca", "Couraça Natural", "+1 CA natural, cumulativo."),
+      c("g-incentivo", "Incentivo Marcial", "Ação bônus: aliados a 9m ganham +1 ataque até seu próximo turno."),
+      c("g-indomavel", "Resistência Indomável", "1×/descanso: refaz teste de resistência falho."),
+      c("g-mestre", "Mestre de Armas", "Proficiência com todas armas; ignora 'pesada'; duas mãos com uma se FOR ≥ 18."),
+    ],
+  },
+  {
+    id: "espadachim", name: "Espadachim", category: "Marcial",
+    tagline: "Artista da lâmina",
+    flavor: "Sua lâmina é sua pena; cada combate, uma assinatura.",
+    attrBonuses: { des: 2 }, keyAbility: "des", hitDie: 8,
+    profs: "Armaduras leves/médias, todas as armas de uma mão e armas leves.",
+    autoAbility: c("esgrima", "Esgrima Superior",
+      "Adiciona mod. DES ao dano de ataques com armas de uma mão (além de FOR se aplicável)."),
+    chooseAbilities: 2,
+    abilities: [
+      c("e-esquiva", "Esquiva Reflexiva", "Reação: +2 CA; se errar por ≥5, contra-ataque imediato."),
+      c("e-fluir", "Fluir da Lâmina", "Ação bônus: ataque adicional com arma leve na outra mão."),
+      c("e-abertura", "Aproveitar a Abertura", "Reação: ataque de oportunidade quando inimigo erra CaC contra você."),
+      c("e-instinto", "Instinto de Duelista", "+2 iniciativa; não pode ser surpreendido enquanto consciente."),
+      c("e-finta", "Finta Engenhosa", "Ação: Enganação vs Intuição; próximo ataque com vantagem se passar."),
+      c("e-danca", "Passo de Dança", "Movimento não provoca oportunidade; Desengajar como ação bônus."),
+    ],
+  },
+  {
+    id: "paladino", name: "Paladino", category: "Marcial",
+    tagline: "Espada erguida da fé",
+    flavor: "Um juramento que o próprio universo parece endossar.",
+    attrBonuses: { for: 1, car: 1 }, keyAbility: "car", hitDie: 10,
+    profs: "Todas as armaduras, todos os escudos, todas as armas.",
+    autoAbility: c("juramento", "Juramento Sagrado", "Ganha habilidade única baseada no Juramento."),
+    subChoice: {
+      label: "Juramento Sagrado",
+      options: [
+        c("jur-vinganca", "Vingança", "Caçador dos Iníquos: vantagem em rastrear/discernir Inimigo Jurado."),
+        c("jur-protecao", "Proteção", "Sentinelas Unidos: move-se ½ deslocamento com ataques de oportunidade."),
+        c("jur-justica", "Justiça", "Olho da Justiça: vantagem contra ilusões/encantamento; detecta mentiras flagrantes."),
+      ],
+    },
+    chooseAbilities: 2,
+    abilities: [
+      c("p-golpe", "Golpe Divino", "Gasta 1 mana para adicionar 1d8 radiante (2d8 nv 6; 3d8 nv 10)."),
+      c("p-cura", "Cura pelas Mãos", "Reservatório de PV = 5×nível para curar/aliviar veneno/doença por toque."),
+      c("p-aura", "Aura de Coragem", "Aliados a 3m ganham +1 em resistência (+2/6m no nível 10)."),
+      c("p-corrup", "Sentir a Corrupção", "Ação: detecta criaturas malignas em 18m; vantagem em Intuição por 1 min."),
+      c("p-olhar", "Olhar Intimidador", "Ação: criatura em 9m fica amedrontada em falha SAB."),
+      c("p-escudo", "Escudo da Fé", "Reação (com escudo): impõe desvantagem em ataque contra aliado a 1,5m."),
+    ],
+  },
+  {
+    id: "patrulheiro", name: "Patrulheiro", category: "Marcial",
+    tagline: "Flecha no escuro",
+    flavor: "Elimina ameaças antes que alcancem os portões da cidade.",
+    attrBonuses: { des: 1, sab: 1 }, keyAbility: "sab", hitDie: 10,
+    profs: "Armaduras leves/médias, escudos, todas as armas simples e marciais.",
+    autoAbility: c("inimigo-fav", "Inimigo Favorecido",
+      "Vantagem para rastrear/lembrar fraquezas; +2 dano contra o tipo escolhido."),
+    subChoice: {
+      label: "Tipo de Inimigo Favorecido",
+      options: [
+        c("if-ab", "Aberrações", "—"),
+        c("if-bestas", "Bestas", "—"),
+        c("if-drag", "Dragões", "—"),
+        c("if-elem", "Elementais", "—"),
+        c("if-fadas", "Fadas", "—"),
+        c("if-gig", "Gigantes", "—"),
+        c("if-mon", "Monstruosidades", "—"),
+        c("if-mv", "Mortos-Vivos", "—"),
+      ],
+    },
+    chooseAbilities: 2,
+    abilities: [
+      c("pt-arqueiro", "Estilo de Arqueiro", "+1 ataque à distância; ignora desvantagem em CaC."),
+      c("pt-rast", "Rastreador Incansável", "Vantagem para rastrear; ritmo forçado sem penalidade de percepção."),
+      c("pt-embosc", "Emboscada", "1º ataque no 1º turno com vantagem se agir antes de 1+ inimigo."),
+      c("pt-comp", "Companheiro de Caça", "Companheiro animal treinado que age em sua iniciativa."),
+      c("pt-camu", "Camuflagem Natural", "Vantagem em Furtividade em terreno natural."),
+      c("pt-tiro", "Tiro Certeiro", "Ignora cobertura parcial; +50% alcance à distância."),
+    ],
+  },
+  {
+    id: "guardiao", name: "Guardião", category: "Marcial",
+    tagline: "A rocha inabalável",
+    flavor: "Sua maior vitória é ver o dia terminar com todos vivos.",
+    attrBonuses: { con: 2 }, keyAbility: "con", hitDie: 12,
+    profs: "Todas as armaduras, todos os escudos, todas as armas simples e marciais.",
+    autoAbility: c("interposicao", "Interposição",
+      "Reação (1×/desc longo): redireciona ataque contra aliado a 1,5m para você."),
+    chooseAbilities: 2,
+    abilities: [
+      c("gd-escudo", "Mestre do Escudo", "+2 CA com escudo (cumulativo ao bônus normal)."),
+      c("gd-enraizado", "Enraizado", "Vantagem contra derrubar/empurrar/puxar/teletransportar."),
+      c("gd-desafio", "Desafio do Protetor", "Ação bônus: 3 inimigos em 9m têm desvantagem contra outros alvos."),
+      c("gd-baluarte", "Baluarte Vivo", "Aliados atrás de você têm cobertura parcial (¾ no nv 10)."),
+      c("gd-ferrea", "Determinação Férrea", "Abaixo de ½ PV, regenera 1 PV/turno."),
+      c("gd-marcacao", "Marcação Inescapável", "Ação: alvo em 9m não pode se afastar (SAB nega)."),
+    ],
+  },
+  // ===== HABILIDADE =====
+  {
+    id: "ladino", name: "Ladino", category: "Habilidade",
+    tagline: "Sombra que vê tudo",
+    flavor: "Sua arma nunca é a que você empunha, mas a que ninguém vê chegar.",
+    attrBonuses: { des: 2 }, keyAbility: "des", hitDie: 8,
+    profs: "Armaduras leves, armas simples, bestas de mão, espadas curtas, rapieiras e adagas.",
+    autoAbility: c("furtivo", "Ataque Furtivo",
+      "1×/turno: +2d6 (3d6 nv 7; 4d6 nv 10) ao acertar com arma perfurante/cortante em vantagem tática."),
+    chooseAbilities: 2,
+    abilities: [
+      c("l-maos", "Mãos Ligeiras", "Vantagem em Prestidigitação e Furtividade."),
+      c("l-especialista", "Especialista", "Perícia com proficiência dobrada (2ª no nv 5)."),
+      c("l-esquiva", "Esquiva Ágil", "Reação: reduz dano de um ataque pela metade."),
+      c("l-calculista", "Movimento Calculista", "Desengajar/Esconder como ação bônus."),
+      c("l-instinto", "Instinto de Sobrevivência", "Não é surpreendido; vantagem em iniciativa."),
+      c("l-arcano", "Intuição para o Arcano", "Usa itens mágicos ignorando restrições (teste INT/DES)."),
+    ],
+  },
+  {
+    id: "bardo", name: "Bardo", category: "Habilidade",
+    tagline: "Tecelão de realidades",
+    flavor: "Sua arte é uma arma, um escudo, uma chave e uma ponte.",
+    attrBonuses: { car: 2 }, keyAbility: "car", hitDie: 8,
+    profs: "Armaduras leves, armas simples, 3 instrumentos musicais à escolha.",
+    autoAbility: c("inspiracao", "Inspiração Bárdica",
+      "3 dados d6. Ação bônus: presenteia aliado; usa em 10 min para +teste. Recupera em desc longo."),
+    chooseAbilities: 2,
+    abilities: [
+      c("b-melodia", "Melodia Restauradora", "Após desc curto com performance: cada aliado recupera +1d6 PV."),
+      c("b-hula", "Performance Cativante", "Ação: alvos em 18m fazem SAB ou ficam fascinados (1 min)."),
+      c("b-canco", "Sabedoria das Mil Canções", "Proficiência em Arcanismo, História, Natureza e Religião."),
+      c("b-seda", "Palavras como Seda", "Vantagem em Enganação e Persuasão."),
+      c("b-batalha", "Música de Batalha", "Ação bônus + concentração: aliados a 9m ganham +1 ataque por 1 min."),
+      c("b-talentos", "Dom de Muitos Talentos", "Perícia + ferramenta/instrumento adicional. Instrumentos como foco mágico."),
+    ],
+  },
+  {
+    id: "bucaneiro", name: "Bucaneiro", category: "Habilidade",
+    tagline: "Sopro do vento nas velas",
+    flavor: "Seu domínio é a linha do horizonte — e tudo além dela.",
+    attrBonuses: { des: 1, car: 1 }, keyAbility: "car", hitDie: 8,
+    profs: "Armaduras leves, todas as armas marciais, armas de fogo, alabardas e redes.",
+    autoAbility: c("pistoleiro", "Estilo do Pistoleiro",
+      "Ação bônus: atirar com pistola após ataque com arma de uma mão. Ignora recarga de pólvora leve em combate."),
+    chooseAbilities: 2,
+    abilities: [
+      c("bu-cordame", "Mestre do Cordame", "Escalada = deslocamento (12m); vantagem em Atletismo/Acrobacia em navios."),
+      c("bu-gato", "Golpe do Gato-do-Mar", "Move ≥ 1,5m antes do ataque: adiciona DES ao dano."),
+      c("bu-marinheiro", "Salmos do Marinheiro", "Vantagem em História marítima e Sobrevivência no mar."),
+      c("bu-vento", "Lâmina do Vento", "Usa DES em vez de FOR com sabres, espadas curtas e rapieiras."),
+      c("bu-porto", "Lábia do Porto", "Vantagem em Enganação/Intimidação/Persuasão em contexto portuário."),
+      c("bu-mira", "Mira de Longo Alcance", "Sem desvantagem em alcance longo com pólvora; +50% alcance."),
+    ],
+  },
+  {
+    id: "nobre", name: "Nobre", category: "Habilidade",
+    tagline: "Voz que unifica",
+    flavor: "Sua mera presença firma vontades e molda destinos.",
+    attrBonuses: { car: 2 }, keyAbility: "car", hitDie: 8,
+    profs: "Armaduras leves, todas as armas simples, 1 arma marcial à escolha.",
+    autoAbility: c("comandante", "Presença Comandante",
+      "Aura passiva: aliados amigáveis a 9m ganham +1 em testes de resistência."),
+    chooseAbilities: 2,
+    abilities: [
+      c("nb-bolsa", "Bolsa Abastada", "Começa com 800 mo em vez de 400; acesso a crédito em cidades."),
+      c("nb-rede", "Rede de Contatos", "Vantagem em Persuasão para audiências/burocracia; em casa: Intimidação/Enganação social."),
+      c("nb-tatica", "Tática de Campo", "Ação bônus: aliado ganha vantagem no próximo ataque contra alvo em 18m."),
+      c("nb-corte", "Maneiras Cortesãs", "Proficiência em Etiqueta; expertise em História (Nobreza)."),
+      c("nb-corte-p", "Corte Pessoal", "1d4 servos/assistentes leais para tarefas simples."),
+      c("nb-discurso", "Discurso Inspirador", "1×/desc longo: 3 aliados recuperam 1d8 + CAR de PV."),
+    ],
+  },
+  {
+    id: "mosqueteiro", name: "Mosqueteiro", altName: "Atirador de Shouthmallow", category: "Habilidade",
+    tagline: "Estouro do progresso",
+    flavor: "Seu domínio é medido em jardas de alcance e em segundos para recarregar.",
+    attrBonuses: { des: 2 }, keyAbility: "des", hitDie: 8,
+    profs: "Armaduras leves, todas armas simples, todas armas de pólvora (pistolas, mosquetes, bacamartes).",
+    autoAbility: c("recarga", "Recarga Veloz",
+      "Recarrega arma de pólvora com propriedade 'recarga' usando ação bônus."),
+    chooseAbilities: 2,
+    abilities: [
+      c("mo-estab", "Estabilidade de Mestre", "+1 ataque com pólvora; ignora desvantagem em alcance longo."),
+      c("mo-debil", "Tiro Debilitante", "CON (CD 8+DES+prof) ou velocidade -½ até seu próximo turno."),
+      c("mo-engen", "Engenhoca", "Prepara munições especiais (incendiária, perfurante, alarme). Usos = prof."),
+      c("mo-duel", "Esquiva de Duelista", "+1 CA com uma arma na mão e sem escudo."),
+      c("mo-duplo", "Tiro Duplo", "Ação: dispara duas armas de pólvora leves em ataques separados."),
+      c("mo-tec", "Conhecimento Tecnológico", "Reconhece assinaturas de armeiros de Shouthmallow e mecanismos."),
+    ],
+  },
+];
+
+export const getClass = (id: string) => CLASSES.find((cl) => cl.id === id);
+

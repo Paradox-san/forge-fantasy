@@ -9,11 +9,12 @@ export const Route = createFileRoute("/create/dreowacis")({
 const STEPS = [
   { path: "", label: "Identidade", num: "I" },
   { path: "raca", label: "Raça", num: "II" },
-  { path: "reino", label: "Reino", num: "III" },
-  { path: "devocao", label: "Devoção", num: "IV" },
-  { path: "atributos", label: "Atributos", num: "V" },
-  { path: "pericias", label: "Perícias", num: "VI" },
+  { path: "classe", label: "Classe", num: "III" },
+  { path: "reino", label: "Reino", num: "IV" },
+  { path: "devocao", label: "Devoção", num: "V" },
+  { path: "atributos", label: "Atributos", num: "VI" },
   { path: "antecedente", label: "Antecedente", num: "VII" },
+  { path: "pericias", label: "Perícias", num: "VIII" },
   { path: "ficha", label: "Ficha", num: "✦" },
 ];
 
