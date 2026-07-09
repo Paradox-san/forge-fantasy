@@ -79,7 +79,7 @@ function SkillsStep() {
         </div>
       </div>
 
-      <NavRow prev="atributos" next="antecedente" nextLabel="Escolher Antecedente" />
+      <NavRow prev="antecedente" next="ficha" nextLabel="Ver Ficha" />
     </section>
   );
 }
