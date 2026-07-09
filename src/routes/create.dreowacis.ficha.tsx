@@ -359,20 +359,6 @@ function SheetStep() {
           </div>
         </div>
 
-        {/* Referência de CD */}
-        <div className="rune-panel rounded-xl p-6">
-          <h2 className="mb-3 font-heading text-sm uppercase tracking-[0.3em] text-primary/80">
-            Tabela de CD (referência)
-          </h2>
-          <div className="grid gap-1.5 text-sm sm:grid-cols-3">
-            {CD_TABLE.map(([label, cd]) => (
-              <div key={label} className="flex items-center justify-between rounded border border-border/50 bg-secondary/30 px-3 py-1.5">
-                <span className="text-muted-foreground">{label}</span>
-                <span className="font-mono text-primary">CD {cd}</span>
-              </div>
-            ))}
-          </div>
-        </div>
 
         {/* Bio */}
         {s.bio && (
