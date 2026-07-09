@@ -67,7 +67,16 @@ export function Field({ label, children }: { label: string; children: React.Reac
   );
 }
 
-type StepKey = "" | "raca" | "reino" | "devocao" | "atributos" | "pericias" | "antecedente" | "ficha";
+type StepKey =
+  | ""
+  | "raca"
+  | "classe"
+  | "reino"
+  | "devocao"
+  | "atributos"
+  | "antecedente"
+  | "pericias"
+  | "ficha";
 
 export function NavRow({
   prev,
@@ -87,11 +96,12 @@ export function NavRow({
     const map: Record<StepKey, string> = {
       "": "/create/dreowacis",
       raca: "/create/dreowacis/raca",
+      classe: "/create/dreowacis/classe",
       reino: "/create/dreowacis/reino",
       devocao: "/create/dreowacis/devocao",
       atributos: "/create/dreowacis/atributos",
-      pericias: "/create/dreowacis/pericias",
       antecedente: "/create/dreowacis/antecedente",
+      pericias: "/create/dreowacis/pericias",
       ficha: "/create/dreowacis/ficha",
     };
     navigate({ to: map[step] });
