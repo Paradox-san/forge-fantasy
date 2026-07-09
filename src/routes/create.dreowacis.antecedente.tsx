@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { BACKGROUNDS } from "@/lib/dreowacis-data";
+import { BACKGROUNDS, BACKGROUND_SKILLS } from "@/lib/dreowacis-data";
 import { useDreowacis } from "@/lib/dreowacis-store";
 import { NavRow } from "./create.dreowacis.index";
 
@@ -10,6 +10,13 @@ export const Route = createFileRoute("/create/dreowacis/antecedente")({
 function BackgroundStep() {
   const { backgroundId, setField } = useDreowacis();
 
+  const pick = (id: string) => {
+    setField("backgroundId", id);
+    // Preenche automaticamente as perícias concedidas pelo antecedente
+    const grants = BACKGROUND_SKILLS[id] ?? [];
+    setField("skills", grants);
+  };
+
   return (
     <section>
       <header className="mb-8 text-center">
@@ -19,6 +26,7 @@ function BackgroundStep() {
         <h1 className="mt-2 font-display text-4xl text-foreground">O que veio antes da aventura?</h1>
         <p className="mt-2 text-sm text-muted-foreground">
           Cada antecedente entrega item inicial, proficiências e uma habilidade de suporte única.
+          As perícias concedidas serão marcadas automaticamente no próximo passo.
         </p>
       </header>
 
@@ -29,7 +37,7 @@ function BackgroundStep() {
             <button
               key={b.id}
               type="button"
-              onClick={() => setField("backgroundId", b.id)}
+              onClick={() => pick(b.id)}
               className={`rune-panel rounded-xl p-5 text-left transition ${
                 selected
                   ? "border-primary/80 [box-shadow:var(--glow-neon)] -translate-y-0.5"
@@ -69,7 +77,7 @@ function BackgroundStep() {
         })}
       </div>
 
-      <NavRow prev="pericias" next="ficha" disabled={!backgroundId} nextLabel="Ver Ficha" />
+      <NavRow prev="atributos" next="pericias" disabled={!backgroundId} nextLabel="Ajustar Perícias" />
     </section>
   );
 }
