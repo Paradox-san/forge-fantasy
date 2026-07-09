@@ -122,6 +122,19 @@ function SheetStep() {
               </p>
             </div>
           )}
+          {cls && (
+            <div className="mt-4 rounded border border-primary/30 bg-primary/5 p-3 text-[11px]">
+              <p className="font-heading uppercase tracking-widest text-primary">
+                Classe · {cls.autoAbility.name}
+              </p>
+              <p className="mt-1 text-muted-foreground">{cls.autoAbility.text}</p>
+              {cls.abilities.filter((a) => s.classAbilities.includes(a.id)).map((a) => (
+                <p key={a.id} className="mt-2 text-muted-foreground">
+                  <span className="text-primary/80">{a.name}: </span>{a.text}
+                </p>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Atributos + estatísticas */}
