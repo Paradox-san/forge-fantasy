@@ -29,23 +29,30 @@ function SheetStep() {
   const race = s.raceId ? getRace(s.raceId) : undefined;
   const variant = s.raceId && s.raceVariantId ? getVariant(s.raceId, s.raceVariantId) : undefined;
   const background = s.backgroundId ? getBackground(s.backgroundId) : undefined;
+  const cls = s.classId ? getClass(s.classId) : undefined;
+  const classSub =
+    cls?.subChoice?.options.find((o) => o.id === s.classSubChoiceId) ?? undefined;
   const prof = proficiencyBonus(s.level);
   const [spellElement, setSpellElement] = useState<SpellElement | "Todas">("Todas");
   const [spellLevel, setSpellLevel] = useState<number | "Todos">("Todos");
 
+  const keyAbility: AbilityKey = cls?.keyAbility ?? "int";
+  const hitDie = cls?.hitDie ?? 8;
+
   const totalAbility = (k: (typeof ABILITIES)[number]["key"]) => {
     const kingdomBonus = kingdom?.bonusAbility === k ? 1 : 0;
     const raceBonus = s.raceId ? raceAttributeBonus(s.raceId, s.raceVariantId, k) : 0;
-    return s.abilities[k] + kingdomBonus + raceBonus;
+    const classBonus = cls?.attrBonuses[k] ?? 0;
+    return s.abilities[k] + kingdomBonus + raceBonus + classBonus;
   };
-
 
   const conMod = modifier(totalAbility("con"));
   const dexMod = modifier(totalAbility("des"));
-  const keyMod = modifier(totalAbility(MANA_KEY_ABILITY));
+  const keyMod = modifier(totalAbility(keyAbility));
 
-  const hpMax = 10 + conMod + (s.level - 1) * (6 + conMod);
-  const mana = manaMax(s.level, totalAbility(MANA_KEY_ABILITY));
+  const perLevel = Math.floor(hitDie / 2) + 1 + conMod;
+  const hpMax = hitDie + conMod + Math.max(0, s.level - 1) * perLevel;
+  const mana = manaMax(s.level, totalAbility(keyAbility));
   const ac = 10 + dexMod;
   const initiative = dexMod;
 
