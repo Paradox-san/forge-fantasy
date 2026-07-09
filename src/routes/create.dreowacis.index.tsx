@@ -6,7 +6,7 @@ export const Route = createFileRoute("/create/dreowacis/")({
 });
 
 function IdentityStep() {
-  const { name, player, level, concept, setField } = useDreowacis();
+  const { name, player, level, setField } = useDreowacis();
 
   return (
     <section>
@@ -48,17 +48,6 @@ function IdentityStep() {
             }
             className="w-full rounded-md border border-border bg-input/60 px-4 py-3 text-foreground focus:border-primary focus:outline-none"
           />
-        </Field>
-        <Field label="Conceito (Espécie / Vocação livre)">
-          <input
-            value={concept}
-            onChange={(e) => setField("concept", e.target.value)}
-            placeholder="Ex: Humano espadachim de Dracmead"
-            className="w-full rounded-md border border-border bg-input/60 px-4 py-3 text-foreground placeholder:text-muted-foreground/60 focus:border-primary focus:outline-none"
-          />
-          <p className="mt-2 text-[11px] text-muted-foreground">
-            Listas oficiais de Espécies e Classes serão adicionadas quando você anexar o PDF correspondente.
-          </p>
         </Field>
       </div>
 
