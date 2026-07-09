@@ -93,9 +93,16 @@ function SheetStep() {
               label="Raça"
               value={race ? (variant ? `${race.name} · ${variant.name}` : race.name) : "—"}
             />
+            <SheetField
+              label="Classe"
+              value={
+                cls
+                  ? `${cls.name}${classSub ? ` · ${classSub.name}` : ""}`
+                  : "—"
+              }
+            />
             <SheetField label="Reino" value={kingdom?.name ?? "—"} />
             <SheetField label="Devoção" value={deity?.name ?? "Sem devoção"} />
-            <SheetField label="Conceito" value={s.concept || "—"} />
             <SheetField label="Antecedente" value={background?.name ?? "—"} />
           </div>
           {background && (
