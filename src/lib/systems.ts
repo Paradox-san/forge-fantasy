@@ -43,7 +43,7 @@ export const SYSTEMS: SystemInfo[] = [
     name: "Frostbit",
     tagline: "Gelo, silêncio e ossos partidos — autoral",
     description:
-      "Sistema autoral de sobrevivência gélida. Onde cada respiração custa calor e cada segredo custa sangue.",
+      "Um sistema autoral em um mundo congelado, vivendo no que ainda não congelou. Crie sua lenda ou sobreviva as coisas que se escondem nas sombras. ",
     status: "coming-soon",
     sigil: "❄",
     theme: {
