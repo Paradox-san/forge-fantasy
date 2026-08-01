@@ -7,13 +7,13 @@ export const Route = createFileRoute("/create/frostbit")({
 });
 
 const STEPS = [
-  { path: "", label: "Identidade", num: "I" },
-  { path: "especie", label: "Espécie", num: "II" },
-  { path: "classe", label: "Classe", num: "III" },
-  { path: "atributos", label: "Atributos", num: "IV" },
-  { path: "origem", label: "Origem", num: "V" },
-  { path: "pericias", label: "Perícias", num: "VI" },
-  { path: "ficha", label: "Ficha", num: "❄" },
+  { path: "", label: "Identidade", num: "I" , to: "/create/frostbit" },
+  { path: "especie", label: "Espécie", num: "II" , to: "/create/frostbit/especie" },
+  { path: "classe", label: "Classe", num: "III" , to: "/create/frostbit/classe" },
+  { path: "atributos", label: "Atributos", num: "IV" , to: "/create/frostbit/atributos" },
+  { path: "origem", label: "Origem", num: "V" , to: "/create/frostbit/origem" },
+  { path: "pericias", label: "Perícias", num: "VI" , to: "/create/frostbit/pericias" },
+  { path: "ficha", label: "Ficha", num: "❄" , to: "/create/frostbit/ficha" },
 ];
 
 function FrostbitLayout() {
@@ -51,13 +51,10 @@ function FrostbitLayout() {
           {STEPS.map((step, i) => {
             const isActive = current === step.path;
             const isPast = STEPS.findIndex((s) => s.path === current) > i;
-            const to = step.path
-              ? (`/create/frostbit/${step.path}` as const)
-              : ("/create/frostbit" as const);
             return (
               <li key={step.path} className="flex items-center gap-2">
                 <Link
-                  to={to}
+                  to={step.to}
                   className={`flex items-center gap-2 rounded-full border px-3 py-1.5 transition ${
                     isActive
                       ? "border-primary bg-primary/15 text-primary [box-shadow:var(--glow-neon-sm)]"

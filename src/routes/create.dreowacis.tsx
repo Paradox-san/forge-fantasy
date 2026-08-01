@@ -7,15 +7,15 @@ export const Route = createFileRoute("/create/dreowacis")({
 });
 
 const STEPS = [
-  { path: "", label: "Identidade", num: "I" },
-  { path: "raca", label: "Raça", num: "II" },
-  { path: "classe", label: "Classe", num: "III" },
-  { path: "reino", label: "Reino", num: "IV" },
-  { path: "devocao", label: "Devoção", num: "V" },
-  { path: "atributos", label: "Atributos", num: "VI" },
-  { path: "antecedente", label: "Antecedente", num: "VII" },
-  { path: "pericias", label: "Perícias", num: "VIII" },
-  { path: "ficha", label: "Ficha", num: "✦" },
+  { path: "", label: "Identidade", num: "I" , to: "/create/dreowacis" },
+  { path: "raca", label: "Raça", num: "II" , to: "/create/dreowacis/raca" },
+  { path: "classe", label: "Classe", num: "III" , to: "/create/dreowacis/classe" },
+  { path: "reino", label: "Reino", num: "IV" , to: "/create/dreowacis/reino" },
+  { path: "devocao", label: "Devoção", num: "V" , to: "/create/dreowacis/devocao" },
+  { path: "atributos", label: "Atributos", num: "VI" , to: "/create/dreowacis/atributos" },
+  { path: "antecedente", label: "Antecedente", num: "VII" , to: "/create/dreowacis/antecedente" },
+  { path: "pericias", label: "Perícias", num: "VIII" , to: "/create/dreowacis/pericias" },
+  { path: "ficha", label: "Ficha", num: "✦" , to: "/create/dreowacis/ficha" },
 ];
 
 
@@ -54,13 +54,10 @@ function DreowacisLayout() {
           {STEPS.map((step, i) => {
             const isActive = current === step.path;
             const isPast = STEPS.findIndex((s) => s.path === current) > i;
-            const to = step.path
-              ? (`/create/dreowacis/${step.path}` as const)
-              : ("/create/dreowacis" as const);
             return (
               <li key={step.path} className="flex items-center gap-2">
                 <Link
-                  to={to}
+                  to={step.to}
                   className={`flex items-center gap-2 rounded-full border px-3 py-1.5 transition ${
                     isActive
                       ? "border-primary bg-primary/15 text-primary [box-shadow:var(--glow-neon-sm)]"
