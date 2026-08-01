@@ -44,7 +44,7 @@ export const SYSTEMS: SystemInfo[] = [
     tagline: "Gelo, silêncio e ossos partidos — autoral",
     description:
       "Um sistema autoral, vivendo no que ainda não congelou do mundo. Crie sua lenda ou sobreviva as coisas que se escondem nas sombras. ",
-    status: "coming-soon",
+    status: "available",
     sigil: "❄",
     theme: {
       primary: "#38bdf8",

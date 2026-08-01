@@ -2,25 +2,22 @@ import { createFileRoute, Link, Outlet, useLocation } from "@tanstack/react-rout
 import { useEffect } from "react";
 import { getSystem } from "@/lib/systems";
 
-export const Route = createFileRoute("/create/dreowacis")({
-  component: DreowacisLayout,
+export const Route = createFileRoute("/create/frostbit")({
+  component: FrostbitLayout,
 });
 
 const STEPS = [
-  { path: "", label: "Identidade", num: "I" , to: "/create/dreowacis" },
-  { path: "raca", label: "Raça", num: "II" , to: "/create/dreowacis/raca" },
-  { path: "classe", label: "Classe", num: "III" , to: "/create/dreowacis/classe" },
-  { path: "reino", label: "Reino", num: "IV" , to: "/create/dreowacis/reino" },
-  { path: "devocao", label: "Devoção", num: "V" , to: "/create/dreowacis/devocao" },
-  { path: "atributos", label: "Atributos", num: "VI" , to: "/create/dreowacis/atributos" },
-  { path: "antecedente", label: "Antecedente", num: "VII" , to: "/create/dreowacis/antecedente" },
-  { path: "pericias", label: "Perícias", num: "VIII" , to: "/create/dreowacis/pericias" },
-  { path: "ficha", label: "Ficha", num: "✦" , to: "/create/dreowacis/ficha" },
+  { path: "", label: "Identidade", num: "I" , to: "/create/frostbit" },
+  { path: "especie", label: "Espécie", num: "II" , to: "/create/frostbit/especie" },
+  { path: "classe", label: "Classe", num: "III" , to: "/create/frostbit/classe" },
+  { path: "atributos", label: "Atributos", num: "IV" , to: "/create/frostbit/atributos" },
+  { path: "origem", label: "Origem", num: "V" , to: "/create/frostbit/origem" },
+  { path: "pericias", label: "Perícias", num: "VI" , to: "/create/frostbit/pericias" },
+  { path: "ficha", label: "Ficha", num: "❄" , to: "/create/frostbit/ficha" },
 ];
 
-
-function DreowacisLayout() {
-  const sys = getSystem("dreowacis");
+function FrostbitLayout() {
+  const sys = getSystem("autoral");
   const location = useLocation();
 
   useEffect(() => {
@@ -32,14 +29,14 @@ function DreowacisLayout() {
     };
   }, [sys.id, sys.theme.pageBg]);
 
-  const current = location.pathname.split("/create/dreowacis")[1]?.replace("/", "") ?? "";
+  const current = location.pathname.split("/create/frostbit")[1]?.replace("/", "") ?? "";
 
   return (
     <main className="min-h-screen">
       <header className="border-b border-border/60 bg-background/50 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <Link to="/" className="flex items-center gap-3">
-            <span className="font-display text-2xl text-primary text-glow-soft">✦</span>
+            <span className="font-display text-2xl text-primary text-glow-soft">❄</span>
             <span className="font-display text-sm tracking-[0.3em] text-foreground">ARCANUM</span>
           </Link>
           <div className="text-right">

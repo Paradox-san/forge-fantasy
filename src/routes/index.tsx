@@ -321,6 +321,16 @@ function RealmCard({
     );
   }
 
+  // Frostbit também tem fluxo e store isolados.
+  if (sys.id === "autoral") {
+    return (
+      <Link to="/create/frostbit" {...commonProps}>
+        {card}
+      </Link>
+    );
+  }
+
+
   return (
     <Link to="/create/$system" params={{ system: sys.id }} {...commonProps}>
       {card}
