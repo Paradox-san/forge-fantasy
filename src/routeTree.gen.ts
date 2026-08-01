@@ -18,6 +18,7 @@ import { Route as CreateDreowacisIndexRouteImport } from './routes/create.dreowa
 import { Route as CreateSystemIndexRouteImport } from './routes/create.$system.index'
 import { Route as CreateFrostbitPericiasRouteImport } from './routes/create.frostbit.pericias'
 import { Route as CreateFrostbitOrigemRouteImport } from './routes/create.frostbit.origem'
+import { Route as CreateFrostbitFichaRouteImport } from './routes/create.frostbit.ficha'
 import { Route as CreateFrostbitEspecieRouteImport } from './routes/create.frostbit.especie'
 import { Route as CreateFrostbitClasseRouteImport } from './routes/create.frostbit.classe'
 import { Route as CreateFrostbitAtributosRouteImport } from './routes/create.frostbit.atributos'
@@ -78,6 +79,11 @@ const CreateFrostbitPericiasRoute = CreateFrostbitPericiasRouteImport.update({
 const CreateFrostbitOrigemRoute = CreateFrostbitOrigemRouteImport.update({
   id: '/origem',
   path: '/origem',
+  getParentRoute: () => CreateFrostbitRoute,
+} as any)
+const CreateFrostbitFichaRoute = CreateFrostbitFichaRouteImport.update({
+  id: '/ficha',
+  path: '/ficha',
   getParentRoute: () => CreateFrostbitRoute,
 } as any)
 const CreateFrostbitEspecieRoute = CreateFrostbitEspecieRouteImport.update({
@@ -184,6 +190,7 @@ export interface FileRoutesByFullPath {
   '/create/frostbit/atributos': typeof CreateFrostbitAtributosRoute
   '/create/frostbit/classe': typeof CreateFrostbitClasseRoute
   '/create/frostbit/especie': typeof CreateFrostbitEspecieRoute
+  '/create/frostbit/ficha': typeof CreateFrostbitFichaRoute
   '/create/frostbit/origem': typeof CreateFrostbitOrigemRoute
   '/create/frostbit/pericias': typeof CreateFrostbitPericiasRoute
   '/create/$system/': typeof CreateSystemIndexRoute
@@ -208,6 +215,7 @@ export interface FileRoutesByTo {
   '/create/frostbit/atributos': typeof CreateFrostbitAtributosRoute
   '/create/frostbit/classe': typeof CreateFrostbitClasseRoute
   '/create/frostbit/especie': typeof CreateFrostbitEspecieRoute
+  '/create/frostbit/ficha': typeof CreateFrostbitFichaRoute
   '/create/frostbit/origem': typeof CreateFrostbitOrigemRoute
   '/create/frostbit/pericias': typeof CreateFrostbitPericiasRoute
   '/create/$system': typeof CreateSystemIndexRoute
@@ -236,6 +244,7 @@ export interface FileRoutesById {
   '/create/frostbit/atributos': typeof CreateFrostbitAtributosRoute
   '/create/frostbit/classe': typeof CreateFrostbitClasseRoute
   '/create/frostbit/especie': typeof CreateFrostbitEspecieRoute
+  '/create/frostbit/ficha': typeof CreateFrostbitFichaRoute
   '/create/frostbit/origem': typeof CreateFrostbitOrigemRoute
   '/create/frostbit/pericias': typeof CreateFrostbitPericiasRoute
   '/create/$system/': typeof CreateSystemIndexRoute
@@ -265,6 +274,7 @@ export interface FileRouteTypes {
     | '/create/frostbit/atributos'
     | '/create/frostbit/classe'
     | '/create/frostbit/especie'
+    | '/create/frostbit/ficha'
     | '/create/frostbit/origem'
     | '/create/frostbit/pericias'
     | '/create/$system/'
@@ -289,6 +299,7 @@ export interface FileRouteTypes {
     | '/create/frostbit/atributos'
     | '/create/frostbit/classe'
     | '/create/frostbit/especie'
+    | '/create/frostbit/ficha'
     | '/create/frostbit/origem'
     | '/create/frostbit/pericias'
     | '/create/$system'
@@ -316,6 +327,7 @@ export interface FileRouteTypes {
     | '/create/frostbit/atributos'
     | '/create/frostbit/classe'
     | '/create/frostbit/especie'
+    | '/create/frostbit/ficha'
     | '/create/frostbit/origem'
     | '/create/frostbit/pericias'
     | '/create/$system/'
@@ -393,6 +405,13 @@ declare module '@tanstack/react-router' {
       path: '/origem'
       fullPath: '/create/frostbit/origem'
       preLoaderRoute: typeof CreateFrostbitOrigemRouteImport
+      parentRoute: typeof CreateFrostbitRoute
+    }
+    '/create/frostbit/ficha': {
+      id: '/create/frostbit/ficha'
+      path: '/ficha'
+      fullPath: '/create/frostbit/ficha'
+      preLoaderRoute: typeof CreateFrostbitFichaRouteImport
       parentRoute: typeof CreateFrostbitRoute
     }
     '/create/frostbit/especie': {
@@ -564,6 +583,7 @@ interface CreateFrostbitRouteChildren {
   CreateFrostbitAtributosRoute: typeof CreateFrostbitAtributosRoute
   CreateFrostbitClasseRoute: typeof CreateFrostbitClasseRoute
   CreateFrostbitEspecieRoute: typeof CreateFrostbitEspecieRoute
+  CreateFrostbitFichaRoute: typeof CreateFrostbitFichaRoute
   CreateFrostbitOrigemRoute: typeof CreateFrostbitOrigemRoute
   CreateFrostbitPericiasRoute: typeof CreateFrostbitPericiasRoute
   CreateFrostbitIndexRoute: typeof CreateFrostbitIndexRoute
@@ -573,6 +593,7 @@ const CreateFrostbitRouteChildren: CreateFrostbitRouteChildren = {
   CreateFrostbitAtributosRoute: CreateFrostbitAtributosRoute,
   CreateFrostbitClasseRoute: CreateFrostbitClasseRoute,
   CreateFrostbitEspecieRoute: CreateFrostbitEspecieRoute,
+  CreateFrostbitFichaRoute: CreateFrostbitFichaRoute,
   CreateFrostbitOrigemRoute: CreateFrostbitOrigemRoute,
   CreateFrostbitPericiasRoute: CreateFrostbitPericiasRoute,
   CreateFrostbitIndexRoute: CreateFrostbitIndexRoute,
@@ -591,3 +612,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
