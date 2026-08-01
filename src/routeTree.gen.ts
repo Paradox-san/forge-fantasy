@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CreateFrostbitRouteImport } from './routes/create.frostbit'
 import { Route as CreateDreowacisRouteImport } from './routes/create.dreowacis'
 import { Route as CreateSystemRouteImport } from './routes/create.$system'
 import { Route as CreateDreowacisIndexRouteImport } from './routes/create.dreowacis.index'
@@ -31,6 +32,11 @@ import { Route as CreateSystemAbilitiesRouteImport } from './routes/create.$syst
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CreateFrostbitRoute = CreateFrostbitRouteImport.update({
+  id: '/create/frostbit',
+  path: '/create/frostbit',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CreateDreowacisRoute = CreateDreowacisRouteImport.update({
@@ -125,6 +131,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/create/$system': typeof CreateSystemRouteWithChildren
   '/create/dreowacis': typeof CreateDreowacisRouteWithChildren
+  '/create/frostbit': typeof CreateFrostbitRoute
   '/create/$system/abilities': typeof CreateSystemAbilitiesRoute
   '/create/$system/class': typeof CreateSystemClassRoute
   '/create/$system/details': typeof CreateSystemDetailsRoute
@@ -143,6 +150,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/create/frostbit': typeof CreateFrostbitRoute
   '/create/$system/abilities': typeof CreateSystemAbilitiesRoute
   '/create/$system/class': typeof CreateSystemClassRoute
   '/create/$system/details': typeof CreateSystemDetailsRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/create/$system': typeof CreateSystemRouteWithChildren
   '/create/dreowacis': typeof CreateDreowacisRouteWithChildren
+  '/create/frostbit': typeof CreateFrostbitRoute
   '/create/$system/abilities': typeof CreateSystemAbilitiesRoute
   '/create/$system/class': typeof CreateSystemClassRoute
   '/create/$system/details': typeof CreateSystemDetailsRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/'
     | '/create/$system'
     | '/create/dreowacis'
+    | '/create/frostbit'
     | '/create/$system/abilities'
     | '/create/$system/class'
     | '/create/$system/details'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/create/frostbit'
     | '/create/$system/abilities'
     | '/create/$system/class'
     | '/create/$system/details'
@@ -224,6 +235,7 @@ export interface FileRouteTypes {
     | '/'
     | '/create/$system'
     | '/create/dreowacis'
+    | '/create/frostbit'
     | '/create/$system/abilities'
     | '/create/$system/class'
     | '/create/$system/details'
@@ -245,6 +257,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CreateSystemRoute: typeof CreateSystemRouteWithChildren
   CreateDreowacisRoute: typeof CreateDreowacisRouteWithChildren
+  CreateFrostbitRoute: typeof CreateFrostbitRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -254,6 +267,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/create/frostbit': {
+      id: '/create/frostbit'
+      path: '/create/frostbit'
+      fullPath: '/create/frostbit'
+      preLoaderRoute: typeof CreateFrostbitRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/create/dreowacis': {
@@ -432,6 +452,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CreateSystemRoute: CreateSystemRouteWithChildren,
   CreateDreowacisRoute: CreateDreowacisRouteWithChildren,
+  CreateFrostbitRoute: CreateFrostbitRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
