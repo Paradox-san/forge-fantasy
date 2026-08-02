@@ -13,8 +13,8 @@ export const Route = createFileRoute("/create/frostbit/atributos")({
 
 const METHODS = [
   { id: "standard", label: "Conjunto Padrão" },
-  { id: "random", label: "Geração Aleatória" },
-  { id: "pointbuy", label: "Custo de Pontos" },
+  { id: "roll", label: "Geração Aleatória" },
+  { id: "point-buy", label: "Custo de Pontos" },
 ] as const;
 
 function AbilitiesStep() {
@@ -33,7 +33,7 @@ function AbilitiesStep() {
   }, [abilities, abilityMethod]);
 
   const pointsSpent = useMemo(() => {
-    if (abilityMethod !== "pointbuy") return 0;
+    if (abilityMethod !== "point-buy") return 0;
     return ABILITIES.reduce((s, a) => s + (POINT_BUY_COST[abilities[a.key]] ?? 0), 0);
   }, [abilities, abilityMethod]);
   const pointsLeft = POINT_BUY_TOTAL - pointsSpent;
@@ -41,7 +41,7 @@ function AbilitiesStep() {
   const chooseMethod = (m: (typeof METHODS)[number]["id"]) => {
     setField("abilityMethod", m);
     if (m === "standard") ABILITIES.forEach((a, i) => setAbility(a.key, STANDARD_ARRAY[i] ?? 10));
-    else if (m === "pointbuy") ABILITIES.forEach((a) => setAbility(a.key, 8));
+    else if (m === "point-buy") ABILITIES.forEach((a) => setAbility(a.key, 8));
     else ABILITIES.forEach((a) => setAbility(a.key, rollAbility()));
   };
 
@@ -101,7 +101,7 @@ function AbilitiesStep() {
               })}
             </div>
           )}
-          {abilityMethod === "random" && (
+          {abilityMethod === "roll" && (
             <>
               <span className="text-xs uppercase tracking-widest text-muted-foreground">
                 4d6, descarte o menor. Total:{" "}
@@ -118,7 +118,7 @@ function AbilitiesStep() {
               </button>
             </>
           )}
-          {abilityMethod === "pointbuy" && (
+          {abilityMethod === "point-buy" && (
             <span className="text-xs uppercase tracking-widest text-muted-foreground">
               Pontos:{" "}
               <span className={`font-mono ${pointsLeft < 0 ? "text-destructive" : "text-primary"}`}>
@@ -158,7 +158,7 @@ function AbilitiesStep() {
                       {!STANDARD_ARRAY.includes(base) && <option value={base}>{base}</option>}
                     </select>
                   )}
-                  {abilityMethod === "random" && (
+                  {abilityMethod === "roll" && (
                     <div className="flex flex-1 items-center gap-2">
                       <span className="flex-1 rounded-md border border-border bg-input/60 px-3 py-2 font-mono text-lg text-foreground">
                         {base}
@@ -172,7 +172,7 @@ function AbilitiesStep() {
                       </button>
                     </div>
                   )}
-                  {abilityMethod === "pointbuy" && (
+                  {abilityMethod === "point-buy" && (
                     <div className="flex flex-1 items-center gap-2">
                       <button
                         type="button"
