@@ -81,7 +81,7 @@ function ClassStep() {
     </p>
     <button
       type="button"
-      onClick={() => setShowSpecialClass(!showSpecialClass)}
+      onClick={() => setshowSpecialClass(!showSpecialClass)}
       className="rounded-md border border-primary/50 bg-primary/10 px-3 py-1.5 text-[10px] uppercase tracking-widest text-primary hover:bg-primary/20"
     >
       {showSpecialClass ? "Ocultar" : "Revelar (requer aval do mestre)"}
