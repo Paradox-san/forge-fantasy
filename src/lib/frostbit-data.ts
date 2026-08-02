@@ -90,6 +90,7 @@ export interface SpeciesVariant {
   attributes: Partial<Record<AbilityKey, number>>;
   trait: string;
   uncatalogued?: boolean;
+  imageUrl?: string;
 }
 
 export interface Species {
