@@ -90,6 +90,7 @@ export interface SpeciesVariant {
   attributes: Partial<Record<AbilityKey, number>>;
   trait: string;
   uncatalogued?: boolean;
+  imageUrl?: string;
 }
 
 export interface Species {
@@ -213,6 +214,7 @@ export const SPECIES: Species[] = [
     size: "Médio (1,70m–1,90m)",
     speed: "9m",
     special: false,
+    variantLabel: "Subespécie",
     traits: [
       "Visão no Escuro 18m.",
       "Resistência Infernal: resistência a dano de fogo.",
@@ -220,6 +222,29 @@ export const SPECIES: Species[] = [
       "Idioma: Infernal.",
     ],
     languages: ["Comum", "Infernal"],
+    variants: [
+      {
+        id: "hexiliano",
+        name: "Hexiliano",
+        attributes: { int: 1 },
+        trait:
+          "Herdeiros de pactos de hexes: conhecem o truque Zombaria Viciosa e têm vantagem em testes para identificar maldições.",
+      },
+      {
+        id: "umbrelfo",
+        name: "Umbrelfo",
+        attributes: { des: 1 },
+        trait:
+          "Sangue infernal misturado ao élfico das sombras: Visão no Escuro 24m e podem se teleportar 4,5m para uma área escura (1×/descanso curto).",
+      },
+      {
+        id: "asmodeano",
+        name: "Asmodeano",
+        attributes: { car: 1 },
+        trait:
+          "Linhagem direta de Asmodeus: conhecem o truque Chama Sagrada em versão infernal e têm vantagem em Intimidação contra criaturas que sabem de sua origem.",
+      },
+    ],
   },
   {
     id: "elfo",

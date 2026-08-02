@@ -43,15 +43,7 @@ function SpeciesStep() {
             : "hover:-translate-y-0.5 hover:border-primary/60"
         }`}
       >
-         <div className="mb-3 flex h-32 items-center justify-center overflow-hidden rounded-lg border border-border/60 bg-secondary/30">
-        {s.imageUrl ? (
-          <img src={s.imageUrl} alt={s.name} className="h-full w-full object-cover" />
-        ) : (
-          <span className="text-[10px] uppercase tracking-widest text-muted-foreground/50">
-            [ imagem da espécie ]
-          </span>
-        )}
-      </div>
+        
         
         <div className="flex items-baseline justify-between gap-2">
           <h3 className="font-heading text-base text-foreground">{s.name}</h3>
@@ -153,21 +145,41 @@ function SpeciesStep() {
           )}
 
           <div className="rune-panel rounded-xl p-5">
-            <h2 className="font-heading text-sm uppercase tracking-[0.3em] text-primary/80">
-              {sp.name}
-              {variant ? ` · ${variant.name}` : ""}
-            </h2>
-            <div className="mt-3 grid gap-2 text-[11px] sm:grid-cols-3">
-              <p><span className="text-primary/80">Tamanho: </span>{sp.size}</p>
-              <p><span className="text-primary/80">Deslocamento: </span>{sp.speed}</p>
-              <p><span className="text-primary/80">Idiomas: </span>{sp.languages.join(", ")}</p>
+            <div className="grid gap-5 sm:grid-cols-[minmax(0,240px)_1fr]">
+              <div className="flex h-56 items-center justify-center overflow-hidden rounded-lg border border-border/60 bg-secondary/30">
+                {variant?.imageUrl || sp.imageUrl ? (
+                  <img
+                    key={variant?.imageUrl || sp.imageUrl}
+                    src={variant?.imageUrl || sp.imageUrl}
+                    alt={variant ? `${sp.name} · ${variant.name}` : sp.name}
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <span className="px-3 text-center text-[10px] uppercase tracking-widest text-muted-foreground/50">
+                    [ imagem de {variant ? `${sp.name} · ${variant.name}` : sp.name} ]
+                  </span>
+                )}
+              </div>
+
+              <div>
+                <h2 className="font-heading text-sm uppercase tracking-[0.3em] text-primary/80">
+                  {sp.name}
+                  {variant ? ` · ${variant.name}` : ""}
+                </h2>
+                <p className="mt-2 text-xs text-muted-foreground">{sp.description}</p>
+                <div className="mt-3 grid gap-2 text-[11px] sm:grid-cols-3">
+                  <p><span className="text-primary/80">Tamanho: </span>{sp.size}</p>
+                  <p><span className="text-primary/80">Deslocamento: </span>{sp.speed}</p>
+                  <p><span className="text-primary/80">Idiomas: </span>{sp.languages.join(", ")}</p>
+                </div>
+                <ul className="mt-3 space-y-1 text-[11px] text-muted-foreground">
+                  {sp.traits.map((t) => (
+                    <li key={t}>· {t}</li>
+                  ))}
+                  {variant && <li className="text-primary/90">· {variant.trait}</li>}
+                </ul>
+              </div>
             </div>
-            <ul className="mt-3 space-y-1 text-[11px] text-muted-foreground">
-              {sp.traits.map((t) => (
-                <li key={t}>· {t}</li>
-              ))}
-              {variant && <li className="text-primary/90">· {variant.trait}</li>}
-            </ul>
           </div>
         </div>
       )}
