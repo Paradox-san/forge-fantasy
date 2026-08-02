@@ -121,7 +121,7 @@ export const SPECIES: Species[] = [
       "Os humanos de Frostbit são herdeiros de impérios que o inverno engoliu. Versáteis e ambiciosos, " +
       "colonizam ruínas antigas, erguem vilarejos sobre solo congelado e negociam com qualquer espécie. " +
       "Sua diversidade é sua maior arma — enquanto elfos e anãos se especializam, os humanos se adaptam.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/blob/main/frostbit/especies/Humano.webp",
     attributes: { for: 1, des: 1, con: 1, int: 1, sab: 1, car: 1 },
     size: "Médio (1,60m–1,90m)",
     speed: "9m",
