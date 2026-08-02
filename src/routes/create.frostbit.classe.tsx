@@ -81,24 +81,47 @@ function ClassStep() {
         </p>
         <button
          type="button"
-         onClick={() => setshowSpecialClass(!showSpecialClass)}
+         onClick={() => setShowSpecialClass(!showSpecialClass)}
          className="rounded-md border border-primary/50 bg-primary/10 px-3 py-1.5 text-[10px] uppercase tracking-widest text-primary hover:bg-primary/20"
         >
          {showSpecialClass ? "Ocultar" : "Revelar (requer aval do mestre)"}
-        </button>
-       </div>
-       {showSpecialClass ? (
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-         {SPECIAL_CLASSES.map((c) => (
-          <ClassCard key={c.id} c={c} />
-        ))}
+         </button>
         </div>
-     ) : (
-        <p className="rounded-lg border border-dashed border-border/70 bg-secondary/20 px-4 py-6 text-center text-xs text-muted-foreground">
-         Algumas classes só se revelam para quem as procura.
-        </p>
-       )}
-       </div>
+        {showSpecialClass ? (
+         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          {SPECIAL_CLASSES.map((c) => {
+           const sel = classId === c.id;
+           return (
+            <button
+             key={c.id}
+             type="button"
+             onClick={() => pick(c.id)}
+             className={`rune-panel rounded-xl p-4 text-left transition ${
+              sel
+               ? "border-primary/80 [box-shadow:var(--glow-neon)] -translate-y-0.5"
+               : "hover:-translate-y-0.5 hover:border-primary/60"
+             }`}
+            >
+             <div className="flex items-baseline justify-between">
+              <h3 className="font-heading text-base text-foreground">{c.name}</h3>
+              <span className="rounded border border-primary/50 bg-primary/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-widest text-primary">
+                especial
+              </span>
+            </div>
+            <p className="text-[10px] uppercase tracking-widest text-muted-foreground">
+              {c.tagline}
+            </p>
+            <p className="mt-2 text-xs text-muted-foreground">{c.flavor}</p>
+          </button>
+        );
+      })}
+    </div>
+  ) : (
+    <p className="rounded-lg border border-dashed border-border/70 bg-secondary/20 px-4 py-6 text-center text-xs text-muted-foreground">
+      Algumas classes só se revelam para quem as procura.
+    </p>
+  )}
+</div>
 
       {cls && (
         <div className="mt-8 space-y-4">
