@@ -73,6 +73,14 @@ export const rollAbility = () => {
   return rolls[1] + rolls[2] + rolls[3];
 };
 
+
+// ---------- Métodos de atributo ----------
+export const STANDARD_ARRAY = [15, 14, 13, 12, 10, 8];
+export const POINT_BUY_TOTAL = 27;
+export const POINT_BUY_COST: Record<number, number> = {
+  8: 0, 9: 1, 10: 2, 11: 3, 12: 4, 13: 5, 14: 7, 15: 9,
+};
+
 // ============================================================
 // ESPÉCIES
 // ============================================================

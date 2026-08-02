@@ -44,7 +44,7 @@ function OriginStep() {
               }`}
             >
               <h3 className="font-heading text-base text-foreground">{o.name}</h3>
-              <p className="mt-1 text-xs text-muted-foreground">{o.text}</p>
+              <p className="mt-1 text-xs text-muted-foreground">{o.description}</p>
               <p className="mt-2 font-mono text-[10px] text-primary/80">
                 {o.skills.map((s) => getSkill(s).name).join(" · ")}
               </p>
