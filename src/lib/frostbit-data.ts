@@ -55,6 +55,7 @@ export const SKILLS: Skill[] = [
   { key: "furtividade", name: "Furtividade", ability: "des" },
   { key: "sobrevivencia", name: "Sobrevivência", ability: "sab" },
 ];
+export const getSkill = (k: SkillKey) => SKILLS.find((s) => s.key === k)!;
 
 // ---------- Utilidades ----------
 export const modifier = (v: number) => Math.floor((v - 10) / 2);
@@ -66,6 +67,7 @@ export const proficiencyBonus = (level: number) => {
   if (level >= 5) return 3;
   return 2;
 };
+export const rollAbility = () => { ... };
 
 // ============================================================
 // ESPÉCIES
@@ -833,3 +835,4 @@ export const ORIGINS: Origin[] = [
 ];
 
 export const getOrigin = (id: string) => ORIGINS.find((o) => o.id === id);
+export const LANGUAGES = [ ... ];
