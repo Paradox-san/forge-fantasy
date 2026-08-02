@@ -43,15 +43,7 @@ function SpeciesStep() {
             : "hover:-translate-y-0.5 hover:border-primary/60"
         }`}
       >
-         <div className="mb-3 flex h-32 items-center justify-center overflow-hidden rounded-lg border border-border/60 bg-secondary/30">
-        {s.imageUrl ? (
-          <img src={s.imageUrl} alt={s.name} className="h-full w-full object-cover" />
-        ) : (
-          <span className="text-[10px] uppercase tracking-widest text-muted-foreground/50">
-            [ imagem da espécie ]
-          </span>
-        )}
-      </div>
+        
         
         <div className="flex items-baseline justify-between gap-2">
           <h3 className="font-heading text-base text-foreground">{s.name}</h3>
