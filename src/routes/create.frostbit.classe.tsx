@@ -92,13 +92,13 @@ function ClassStep() {
          {SPECIAL_CLASSES.map((c) => (
           <ClassCard key={c.id} c={c} />
         ))}
-       </div>
+        </div>
      ) : (
-       <p className="rounded-lg border border-dashed border-border/70 bg-secondary/20 px-4 py-6 text-center text-xs text-muted-foreground">
-        Algumas classes só se revelam para quem as procura.
-      </p>
-     )}
-     </div>
+        <p className="rounded-lg border border-dashed border-border/70 bg-secondary/20 px-4 py-6 text-center text-xs text-muted-foreground">
+         Algumas classes só se revelam para quem as procura.
+        </p>
+       )}
+       </div>
 
       {cls && (
         <div className="mt-8 space-y-4">
