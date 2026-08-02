@@ -633,7 +633,6 @@ export const CLASSES: FrostClass[] = [
 
 export const COMMON_CLASSES = CLASSES.filter((c) => !c.special);
 export const SPECIAL_CLASSES = CLASSES.filter((c) => c.special);
-
 export const getClass = (id: string) => CLASSES.find((c) => c.id === id);
 
 // ============================================================
