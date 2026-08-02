@@ -611,23 +611,23 @@ export const CLASSES: FrostClass[] = [
 
   // ===== CLASSE ESPECIAL (oculta) =====
   {
-    id: "bruxa",
-    name: "Bruxa",
-    tagline: "O pacto foi selado no gelo",
-    flavor: "Algo antigo, enterrado sob a neve, sussurrou — e ela aceitou.",
-    hitDie: 8, keyAbility: "car", saves: ["sab", "car"], skillCount: 2,
-    skillOptions: ["arcanismo", "enganação", "historia", "intimidacao", "investigacao", "natureza", "religiao"],
-    caster: true,
-    profs: "Armaduras leves, armas simples",
-    subclassLabel: "Patrono Gelado (nível 1)",
-    subclasses: [
-      { id: "inverno", name: "Patrono do Inverno", text: "Magias de frio aprimoradas. No 6º, manto de neve: 50% de ocultação em nevasca." },
-      { id: "corvo", name: "Patrono do Corvo", text: "Familiar corvo que vê a 300m. No 6º, olhos do corvo: visão no escuro 18m compartilhada." },
-      { id: "lua-negra", name: "Patrono da Lua Negra", text: "Magias de ilusão e sombra +1 por dado. No 6º, passo sombrio: teleporta 9m na escuridão." },
-      { id: "profundezas", name: "Patrono das Profundezas", text: "Algo fala do fundo do gelo. Resistência a psíquico. No 6º, tentáculo de sombra (alcance 3m, 2d8)." },
-    ],
-    features: ["Conjuração", "Pacto Mágico", "Invocação Mística"],
-    special: true,
+   id: "bruxa",
+   name: "Bruxa",
+   tagline: "O pacto foi selado no gelo",
+   flavor: "Algo antigo, enterrado sob a neve, sussurrou — e ela aceitou.",
+   hitDie: 8, keyAbility: "car", saves: ["sab", "car"], skillCount: 2,
+   skillOptions: ["arcanismo", "enganação", "historia", "intimidacao", "investigacao", "natureza", "religiao"],
+   caster: true,
+   profs: "Armaduras leves, armas simples",
+   subclassLabel: "Patrono Gelado (nível 1)",
+   subclasses: [
+    { id: "inverno", name: "Patrono do Inverno", text: "Magias de frio aprimoradas." },
+    { id: "corvo", name: "Patrono do Corvo", text: "Familiar corvo que vê a 300m." },
+    { id: "lua-negra", name: "Patrono da Lua Negra", text: "Magias de ilusão e sombra +1 por dado." },
+    { id: "profundezas", name: "Patrono das Profundezas", text: "Algo fala do fundo do gelo." },
+   ],
+   features: ["Conjuração", "Pacto Mágico", "Invocação Mística"],
+   special: true,
   },
 ];
 
