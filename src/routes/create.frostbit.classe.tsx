@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { CLASSES, getClass, getSkill } from "@/lib/frostbit-data";
+import { COMMON_CLASSES, SPECIAL_CLASSES, getClass, getSkill } from "@/lib/frostbit-data";
 import { useFrostbit } from "@/lib/frostbit-store";
 import { NavRow } from "./create.frostbit.index";
+import { useState } from "react";
 
 export const Route = createFileRoute("/create/frostbit/classe")({
   component: ClassStep,
@@ -10,6 +11,7 @@ export const Route = createFileRoute("/create/frostbit/classe")({
 function ClassStep() {
   const { classId, subclassId, setField } = useFrostbit();
   const cls = classId ? getClass(classId) : undefined;
+  const [showSpecialClass, setShowSpecialClass] = useState(false);
 
   const pick = (id: string) => {
     if (id === classId) return;
@@ -33,7 +35,7 @@ function ClassStep() {
       </header>
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-        {CLASSES.map((c) => {
+        {COMMON_CLASSES.map((c) => {
           const sel = classId === c.id;
           return (
             <button
@@ -71,6 +73,32 @@ function ClassStep() {
           );
         })}
       </div>
+      
+      <div className="mt-8">
+  <div className="mb-3 flex items-center justify-between gap-3">
+    <p className="font-heading text-[11px] uppercase tracking-[0.35em] text-primary/70">
+      Classes Especiais
+    </p>
+    <button
+      type="button"
+      onClick={() => setShowSpecialClass(!showSpecialClass)}
+      className="rounded-md border border-primary/50 bg-primary/10 px-3 py-1.5 text-[10px] uppercase tracking-widest text-primary hover:bg-primary/20"
+    >
+      {showSpecialClass ? "Ocultar" : "Revelar (requer aval do mestre)"}
+    </button>
+  </div>
+  {showSpecialClass ? (
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {SPECIAL_CLASSES.map((c) => (
+        <ClassCard key={c.id} c={c} />
+      ))}
+    </div>
+  ) : (
+    <p className="rounded-lg border border-dashed border-border/70 bg-secondary/20 px-4 py-6 text-center text-xs text-muted-foreground">
+      Algumas classes só se revelam para quem as procura.
+    </p>
+  )}
+</div>
 
       {cls && (
         <div className="mt-8 space-y-4">
