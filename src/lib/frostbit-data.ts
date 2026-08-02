@@ -67,7 +67,11 @@ export const proficiencyBonus = (level: number) => {
   if (level >= 5) return 3;
   return 2;
 };
-export const rollAbility = () => { ... };
+export const rollAbility = () => {
+  const rolls = Array.from({ length: 4 }, () => 1 + Math.floor(Math.random() * 6));
+  rolls.sort((a, b) => a - b);
+  return rolls[1] + rolls[2] + rolls[3];
+};
 
 // ============================================================
 // ESPÉCIES
@@ -835,4 +839,17 @@ export const ORIGINS: Origin[] = [
 ];
 
 export const getOrigin = (id: string) => ORIGINS.find((o) => o.id === id);
-export const LANGUAGES = [ ... ];
+export const LANGUAGES = [
+  "Comum",
+  "Anão",
+  "Élfico",
+  "Gnômico",
+  "Orc",
+  "Dracônico",
+  "Gigante",
+  "Silvestre",
+  "Infernal",
+  "Celestial",
+  "Subcomum",
+  "Glacial",
+];
