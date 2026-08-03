@@ -229,7 +229,7 @@ export const SPECIES: Species[] = [
         attributes: { int: 1 },
         trait:
           "Herdeiros de pactos de hexes: conhecem o truque Zombaria Viciosa e têm vantagem em testes para identificar maldições.",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit-assets@main/img/especies/hexilianos.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Hexilianos.webp"
       },
       {
         id: "umbrelfo",
@@ -237,7 +237,7 @@ export const SPECIES: Species[] = [
         attributes: { des: 1 },
         trait:
           "Sangue infernal misturado ao élfico das sombras: Visão no Escuro 24m e podem se teleportar 4,5m para uma área escura (1×/descanso curto).",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/umbrelfos.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Umbrelfos.webp"
       },
       {
         id: "asmodeano",
@@ -245,7 +245,7 @@ export const SPECIES: Species[] = [
         attributes: { car: 1 },
         trait:
           "Linhagem direta de Asmodeus: conhecem o truque Chama Sagrada em versão infernal e têm vantagem em Intimidação contra criaturas que sabem de sua origem.",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/asmodeanos.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Asmodeanos.webp"
       },
     ],
   },
