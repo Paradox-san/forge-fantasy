@@ -10,45 +10,35 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as CreateFrostbitRouteImport } from './routes/create.frostbit'
-import { Route as CreateDreowacisRouteImport } from './routes/create.dreowacis'
 import { Route as CreateSystemRouteImport } from './routes/create.$system'
-import { Route as CreateFrostbitIndexRouteImport } from './routes/create.frostbit.index'
-import { Route as CreateDreowacisIndexRouteImport } from './routes/create.dreowacis.index'
+import { Route as CreateDreowacisRouteImport } from './routes/create.dreowacis'
+import { Route as CreateFrostbitRouteImport } from './routes/create.frostbit'
 import { Route as CreateSystemIndexRouteImport } from './routes/create.$system.index'
-import { Route as CreateFrostbitPericiasRouteImport } from './routes/create.frostbit.pericias'
-import { Route as CreateFrostbitOrigemRouteImport } from './routes/create.frostbit.origem'
-import { Route as CreateFrostbitFichaRouteImport } from './routes/create.frostbit.ficha'
-import { Route as CreateFrostbitEspecieRouteImport } from './routes/create.frostbit.especie'
-import { Route as CreateFrostbitClasseRouteImport } from './routes/create.frostbit.classe'
-import { Route as CreateFrostbitAtributosRouteImport } from './routes/create.frostbit.atributos'
-import { Route as CreateDreowacisReinoRouteImport } from './routes/create.dreowacis.reino'
-import { Route as CreateDreowacisRacaRouteImport } from './routes/create.dreowacis.raca'
-import { Route as CreateDreowacisPericiasRouteImport } from './routes/create.dreowacis.pericias'
-import { Route as CreateDreowacisFichaRouteImport } from './routes/create.dreowacis.ficha'
-import { Route as CreateDreowacisDevocaoRouteImport } from './routes/create.dreowacis.devocao'
-import { Route as CreateDreowacisClasseRouteImport } from './routes/create.dreowacis.classe'
-import { Route as CreateDreowacisAtributosRouteImport } from './routes/create.dreowacis.atributos'
-import { Route as CreateDreowacisAntecedenteRouteImport } from './routes/create.dreowacis.antecedente'
-import { Route as CreateSystemSheetRouteImport } from './routes/create.$system.sheet'
-import { Route as CreateSystemRaceRouteImport } from './routes/create.$system.race'
-import { Route as CreateSystemDetailsRouteImport } from './routes/create.$system.details'
-import { Route as CreateSystemClassRouteImport } from './routes/create.$system.class'
 import { Route as CreateSystemAbilitiesRouteImport } from './routes/create.$system.abilities'
+import { Route as CreateSystemClassRouteImport } from './routes/create.$system.class'
+import { Route as CreateSystemDetailsRouteImport } from './routes/create.$system.details'
+import { Route as CreateSystemRaceRouteImport } from './routes/create.$system.race'
+import { Route as CreateSystemSheetRouteImport } from './routes/create.$system.sheet'
+import { Route as CreateDreowacisIndexRouteImport } from './routes/create.dreowacis.index'
+import { Route as CreateDreowacisAntecedenteRouteImport } from './routes/create.dreowacis.antecedente'
+import { Route as CreateDreowacisAtributosRouteImport } from './routes/create.dreowacis.atributos'
+import { Route as CreateDreowacisClasseRouteImport } from './routes/create.dreowacis.classe'
+import { Route as CreateDreowacisDevocaoRouteImport } from './routes/create.dreowacis.devocao'
+import { Route as CreateDreowacisFichaRouteImport } from './routes/create.dreowacis.ficha'
+import { Route as CreateDreowacisPericiasRouteImport } from './routes/create.dreowacis.pericias'
+import { Route as CreateDreowacisRacaRouteImport } from './routes/create.dreowacis.raca'
+import { Route as CreateDreowacisReinoRouteImport } from './routes/create.dreowacis.reino'
+import { Route as CreateFrostbitIndexRouteImport } from './routes/create.frostbit.index'
+import { Route as CreateFrostbitAtributosRouteImport } from './routes/create.frostbit.atributos'
+import { Route as CreateFrostbitClasseRouteImport } from './routes/create.frostbit.classe'
+import { Route as CreateFrostbitEspecieRouteImport } from './routes/create.frostbit.especie'
+import { Route as CreateFrostbitFichaRouteImport } from './routes/create.frostbit.ficha'
+import { Route as CreateFrostbitOrigemRouteImport } from './routes/create.frostbit.origem'
+import { Route as CreateFrostbitPericiasRouteImport } from './routes/create.frostbit.pericias'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CreateFrostbitRoute = CreateFrostbitRouteImport.update({
-  id: '/create/frostbit',
-  path: '/create/frostbit',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CreateDreowacisRoute = CreateDreowacisRouteImport.update({
-  id: '/create/dreowacis',
-  path: '/create/dreowacis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CreateSystemRoute = CreateSystemRouteImport.update({
@@ -56,106 +46,24 @@ const CreateSystemRoute = CreateSystemRouteImport.update({
   path: '/create/$system',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CreateFrostbitIndexRoute = CreateFrostbitIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => CreateFrostbitRoute,
+const CreateDreowacisRoute = CreateDreowacisRouteImport.update({
+  id: '/create/dreowacis',
+  path: '/create/dreowacis',
+  getParentRoute: () => rootRouteImport,
 } as any)
-const CreateDreowacisIndexRoute = CreateDreowacisIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => CreateDreowacisRoute,
+const CreateFrostbitRoute = CreateFrostbitRouteImport.update({
+  id: '/create/frostbit',
+  path: '/create/frostbit',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const CreateSystemIndexRoute = CreateSystemIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => CreateSystemRoute,
 } as any)
-const CreateFrostbitPericiasRoute = CreateFrostbitPericiasRouteImport.update({
-  id: '/pericias',
-  path: '/pericias',
-  getParentRoute: () => CreateFrostbitRoute,
-} as any)
-const CreateFrostbitOrigemRoute = CreateFrostbitOrigemRouteImport.update({
-  id: '/origem',
-  path: '/origem',
-  getParentRoute: () => CreateFrostbitRoute,
-} as any)
-const CreateFrostbitFichaRoute = CreateFrostbitFichaRouteImport.update({
-  id: '/ficha',
-  path: '/ficha',
-  getParentRoute: () => CreateFrostbitRoute,
-} as any)
-const CreateFrostbitEspecieRoute = CreateFrostbitEspecieRouteImport.update({
-  id: '/especie',
-  path: '/especie',
-  getParentRoute: () => CreateFrostbitRoute,
-} as any)
-const CreateFrostbitClasseRoute = CreateFrostbitClasseRouteImport.update({
-  id: '/classe',
-  path: '/classe',
-  getParentRoute: () => CreateFrostbitRoute,
-} as any)
-const CreateFrostbitAtributosRoute = CreateFrostbitAtributosRouteImport.update({
-  id: '/atributos',
-  path: '/atributos',
-  getParentRoute: () => CreateFrostbitRoute,
-} as any)
-const CreateDreowacisReinoRoute = CreateDreowacisReinoRouteImport.update({
-  id: '/reino',
-  path: '/reino',
-  getParentRoute: () => CreateDreowacisRoute,
-} as any)
-const CreateDreowacisRacaRoute = CreateDreowacisRacaRouteImport.update({
-  id: '/raca',
-  path: '/raca',
-  getParentRoute: () => CreateDreowacisRoute,
-} as any)
-const CreateDreowacisPericiasRoute = CreateDreowacisPericiasRouteImport.update({
-  id: '/pericias',
-  path: '/pericias',
-  getParentRoute: () => CreateDreowacisRoute,
-} as any)
-const CreateDreowacisFichaRoute = CreateDreowacisFichaRouteImport.update({
-  id: '/ficha',
-  path: '/ficha',
-  getParentRoute: () => CreateDreowacisRoute,
-} as any)
-const CreateDreowacisDevocaoRoute = CreateDreowacisDevocaoRouteImport.update({
-  id: '/devocao',
-  path: '/devocao',
-  getParentRoute: () => CreateDreowacisRoute,
-} as any)
-const CreateDreowacisClasseRoute = CreateDreowacisClasseRouteImport.update({
-  id: '/classe',
-  path: '/classe',
-  getParentRoute: () => CreateDreowacisRoute,
-} as any)
-const CreateDreowacisAtributosRoute =
-  CreateDreowacisAtributosRouteImport.update({
-    id: '/atributos',
-    path: '/atributos',
-    getParentRoute: () => CreateDreowacisRoute,
-  } as any)
-const CreateDreowacisAntecedenteRoute =
-  CreateDreowacisAntecedenteRouteImport.update({
-    id: '/antecedente',
-    path: '/antecedente',
-    getParentRoute: () => CreateDreowacisRoute,
-  } as any)
-const CreateSystemSheetRoute = CreateSystemSheetRouteImport.update({
-  id: '/sheet',
-  path: '/sheet',
-  getParentRoute: () => CreateSystemRoute,
-} as any)
-const CreateSystemRaceRoute = CreateSystemRaceRouteImport.update({
-  id: '/race',
-  path: '/race',
-  getParentRoute: () => CreateSystemRoute,
-} as any)
-const CreateSystemDetailsRoute = CreateSystemDetailsRouteImport.update({
-  id: '/details',
-  path: '/details',
+const CreateSystemAbilitiesRoute = CreateSystemAbilitiesRouteImport.update({
+  id: '/abilities',
+  path: '/abilities',
   getParentRoute: () => CreateSystemRoute,
 } as any)
 const CreateSystemClassRoute = CreateSystemClassRouteImport.update({
@@ -163,10 +71,102 @@ const CreateSystemClassRoute = CreateSystemClassRouteImport.update({
   path: '/class',
   getParentRoute: () => CreateSystemRoute,
 } as any)
-const CreateSystemAbilitiesRoute = CreateSystemAbilitiesRouteImport.update({
-  id: '/abilities',
-  path: '/abilities',
+const CreateSystemDetailsRoute = CreateSystemDetailsRouteImport.update({
+  id: '/details',
+  path: '/details',
   getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateSystemRaceRoute = CreateSystemRaceRouteImport.update({
+  id: '/race',
+  path: '/race',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateSystemSheetRoute = CreateSystemSheetRouteImport.update({
+  id: '/sheet',
+  path: '/sheet',
+  getParentRoute: () => CreateSystemRoute,
+} as any)
+const CreateDreowacisIndexRoute = CreateDreowacisIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CreateDreowacisRoute,
+} as any)
+const CreateDreowacisAntecedenteRoute =
+  CreateDreowacisAntecedenteRouteImport.update({
+    id: '/antecedente',
+    path: '/antecedente',
+    getParentRoute: () => CreateDreowacisRoute,
+  } as any)
+const CreateDreowacisAtributosRoute =
+  CreateDreowacisAtributosRouteImport.update({
+    id: '/atributos',
+    path: '/atributos',
+    getParentRoute: () => CreateDreowacisRoute,
+  } as any)
+const CreateDreowacisClasseRoute = CreateDreowacisClasseRouteImport.update({
+  id: '/classe',
+  path: '/classe',
+  getParentRoute: () => CreateDreowacisRoute,
+} as any)
+const CreateDreowacisDevocaoRoute = CreateDreowacisDevocaoRouteImport.update({
+  id: '/devocao',
+  path: '/devocao',
+  getParentRoute: () => CreateDreowacisRoute,
+} as any)
+const CreateDreowacisFichaRoute = CreateDreowacisFichaRouteImport.update({
+  id: '/ficha',
+  path: '/ficha',
+  getParentRoute: () => CreateDreowacisRoute,
+} as any)
+const CreateDreowacisPericiasRoute = CreateDreowacisPericiasRouteImport.update({
+  id: '/pericias',
+  path: '/pericias',
+  getParentRoute: () => CreateDreowacisRoute,
+} as any)
+const CreateDreowacisRacaRoute = CreateDreowacisRacaRouteImport.update({
+  id: '/raca',
+  path: '/raca',
+  getParentRoute: () => CreateDreowacisRoute,
+} as any)
+const CreateDreowacisReinoRoute = CreateDreowacisReinoRouteImport.update({
+  id: '/reino',
+  path: '/reino',
+  getParentRoute: () => CreateDreowacisRoute,
+} as any)
+const CreateFrostbitIndexRoute = CreateFrostbitIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CreateFrostbitRoute,
+} as any)
+const CreateFrostbitAtributosRoute = CreateFrostbitAtributosRouteImport.update({
+  id: '/atributos',
+  path: '/atributos',
+  getParentRoute: () => CreateFrostbitRoute,
+} as any)
+const CreateFrostbitClasseRoute = CreateFrostbitClasseRouteImport.update({
+  id: '/classe',
+  path: '/classe',
+  getParentRoute: () => CreateFrostbitRoute,
+} as any)
+const CreateFrostbitEspecieRoute = CreateFrostbitEspecieRouteImport.update({
+  id: '/especie',
+  path: '/especie',
+  getParentRoute: () => CreateFrostbitRoute,
+} as any)
+const CreateFrostbitFichaRoute = CreateFrostbitFichaRouteImport.update({
+  id: '/ficha',
+  path: '/ficha',
+  getParentRoute: () => CreateFrostbitRoute,
+} as any)
+const CreateFrostbitOrigemRoute = CreateFrostbitOrigemRouteImport.update({
+  id: '/origem',
+  path: '/origem',
+  getParentRoute: () => CreateFrostbitRoute,
+} as any)
+const CreateFrostbitPericiasRoute = CreateFrostbitPericiasRouteImport.update({
+  id: '/pericias',
+  path: '/pericias',
+  getParentRoute: () => CreateFrostbitRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -351,11 +351,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/create/frostbit': {
-      id: '/create/frostbit'
-      path: '/create/frostbit'
-      fullPath: '/create/frostbit'
-      preLoaderRoute: typeof CreateFrostbitRouteImport
+    '/create/$system': {
+      id: '/create/$system'
+      path: '/create/$system'
+      fullPath: '/create/$system'
+      preLoaderRoute: typeof CreateSystemRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/create/dreowacis': {
@@ -365,26 +365,12 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateDreowacisRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/create/$system': {
-      id: '/create/$system'
-      path: '/create/$system'
-      fullPath: '/create/$system'
-      preLoaderRoute: typeof CreateSystemRouteImport
+    '/create/frostbit': {
+      id: '/create/frostbit'
+      path: '/create/frostbit'
+      fullPath: '/create/frostbit'
+      preLoaderRoute: typeof CreateFrostbitRouteImport
       parentRoute: typeof rootRouteImport
-    }
-    '/create/frostbit/': {
-      id: '/create/frostbit/'
-      path: '/'
-      fullPath: '/create/frostbit/'
-      preLoaderRoute: typeof CreateFrostbitIndexRouteImport
-      parentRoute: typeof CreateFrostbitRoute
-    }
-    '/create/dreowacis/': {
-      id: '/create/dreowacis/'
-      path: '/'
-      fullPath: '/create/dreowacis/'
-      preLoaderRoute: typeof CreateDreowacisIndexRouteImport
-      parentRoute: typeof CreateDreowacisRoute
     }
     '/create/$system/': {
       id: '/create/$system/'
@@ -393,123 +379,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateSystemIndexRouteImport
       parentRoute: typeof CreateSystemRoute
     }
-    '/create/frostbit/pericias': {
-      id: '/create/frostbit/pericias'
-      path: '/pericias'
-      fullPath: '/create/frostbit/pericias'
-      preLoaderRoute: typeof CreateFrostbitPericiasRouteImport
-      parentRoute: typeof CreateFrostbitRoute
-    }
-    '/create/frostbit/origem': {
-      id: '/create/frostbit/origem'
-      path: '/origem'
-      fullPath: '/create/frostbit/origem'
-      preLoaderRoute: typeof CreateFrostbitOrigemRouteImport
-      parentRoute: typeof CreateFrostbitRoute
-    }
-    '/create/frostbit/ficha': {
-      id: '/create/frostbit/ficha'
-      path: '/ficha'
-      fullPath: '/create/frostbit/ficha'
-      preLoaderRoute: typeof CreateFrostbitFichaRouteImport
-      parentRoute: typeof CreateFrostbitRoute
-    }
-    '/create/frostbit/especie': {
-      id: '/create/frostbit/especie'
-      path: '/especie'
-      fullPath: '/create/frostbit/especie'
-      preLoaderRoute: typeof CreateFrostbitEspecieRouteImport
-      parentRoute: typeof CreateFrostbitRoute
-    }
-    '/create/frostbit/classe': {
-      id: '/create/frostbit/classe'
-      path: '/classe'
-      fullPath: '/create/frostbit/classe'
-      preLoaderRoute: typeof CreateFrostbitClasseRouteImport
-      parentRoute: typeof CreateFrostbitRoute
-    }
-    '/create/frostbit/atributos': {
-      id: '/create/frostbit/atributos'
-      path: '/atributos'
-      fullPath: '/create/frostbit/atributos'
-      preLoaderRoute: typeof CreateFrostbitAtributosRouteImport
-      parentRoute: typeof CreateFrostbitRoute
-    }
-    '/create/dreowacis/reino': {
-      id: '/create/dreowacis/reino'
-      path: '/reino'
-      fullPath: '/create/dreowacis/reino'
-      preLoaderRoute: typeof CreateDreowacisReinoRouteImport
-      parentRoute: typeof CreateDreowacisRoute
-    }
-    '/create/dreowacis/raca': {
-      id: '/create/dreowacis/raca'
-      path: '/raca'
-      fullPath: '/create/dreowacis/raca'
-      preLoaderRoute: typeof CreateDreowacisRacaRouteImport
-      parentRoute: typeof CreateDreowacisRoute
-    }
-    '/create/dreowacis/pericias': {
-      id: '/create/dreowacis/pericias'
-      path: '/pericias'
-      fullPath: '/create/dreowacis/pericias'
-      preLoaderRoute: typeof CreateDreowacisPericiasRouteImport
-      parentRoute: typeof CreateDreowacisRoute
-    }
-    '/create/dreowacis/ficha': {
-      id: '/create/dreowacis/ficha'
-      path: '/ficha'
-      fullPath: '/create/dreowacis/ficha'
-      preLoaderRoute: typeof CreateDreowacisFichaRouteImport
-      parentRoute: typeof CreateDreowacisRoute
-    }
-    '/create/dreowacis/devocao': {
-      id: '/create/dreowacis/devocao'
-      path: '/devocao'
-      fullPath: '/create/dreowacis/devocao'
-      preLoaderRoute: typeof CreateDreowacisDevocaoRouteImport
-      parentRoute: typeof CreateDreowacisRoute
-    }
-    '/create/dreowacis/classe': {
-      id: '/create/dreowacis/classe'
-      path: '/classe'
-      fullPath: '/create/dreowacis/classe'
-      preLoaderRoute: typeof CreateDreowacisClasseRouteImport
-      parentRoute: typeof CreateDreowacisRoute
-    }
-    '/create/dreowacis/atributos': {
-      id: '/create/dreowacis/atributos'
-      path: '/atributos'
-      fullPath: '/create/dreowacis/atributos'
-      preLoaderRoute: typeof CreateDreowacisAtributosRouteImport
-      parentRoute: typeof CreateDreowacisRoute
-    }
-    '/create/dreowacis/antecedente': {
-      id: '/create/dreowacis/antecedente'
-      path: '/antecedente'
-      fullPath: '/create/dreowacis/antecedente'
-      preLoaderRoute: typeof CreateDreowacisAntecedenteRouteImport
-      parentRoute: typeof CreateDreowacisRoute
-    }
-    '/create/$system/sheet': {
-      id: '/create/$system/sheet'
-      path: '/sheet'
-      fullPath: '/create/$system/sheet'
-      preLoaderRoute: typeof CreateSystemSheetRouteImport
-      parentRoute: typeof CreateSystemRoute
-    }
-    '/create/$system/race': {
-      id: '/create/$system/race'
-      path: '/race'
-      fullPath: '/create/$system/race'
-      preLoaderRoute: typeof CreateSystemRaceRouteImport
-      parentRoute: typeof CreateSystemRoute
-    }
-    '/create/$system/details': {
-      id: '/create/$system/details'
-      path: '/details'
-      fullPath: '/create/$system/details'
-      preLoaderRoute: typeof CreateSystemDetailsRouteImport
+    '/create/$system/abilities': {
+      id: '/create/$system/abilities'
+      path: '/abilities'
+      fullPath: '/create/$system/abilities'
+      preLoaderRoute: typeof CreateSystemAbilitiesRouteImport
       parentRoute: typeof CreateSystemRoute
     }
     '/create/$system/class': {
@@ -519,12 +393,138 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CreateSystemClassRouteImport
       parentRoute: typeof CreateSystemRoute
     }
-    '/create/$system/abilities': {
-      id: '/create/$system/abilities'
-      path: '/abilities'
-      fullPath: '/create/$system/abilities'
-      preLoaderRoute: typeof CreateSystemAbilitiesRouteImport
+    '/create/$system/details': {
+      id: '/create/$system/details'
+      path: '/details'
+      fullPath: '/create/$system/details'
+      preLoaderRoute: typeof CreateSystemDetailsRouteImport
       parentRoute: typeof CreateSystemRoute
+    }
+    '/create/$system/race': {
+      id: '/create/$system/race'
+      path: '/race'
+      fullPath: '/create/$system/race'
+      preLoaderRoute: typeof CreateSystemRaceRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
+    '/create/$system/sheet': {
+      id: '/create/$system/sheet'
+      path: '/sheet'
+      fullPath: '/create/$system/sheet'
+      preLoaderRoute: typeof CreateSystemSheetRouteImport
+      parentRoute: typeof CreateSystemRoute
+    }
+    '/create/dreowacis/': {
+      id: '/create/dreowacis/'
+      path: '/'
+      fullPath: '/create/dreowacis/'
+      preLoaderRoute: typeof CreateDreowacisIndexRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/dreowacis/antecedente': {
+      id: '/create/dreowacis/antecedente'
+      path: '/antecedente'
+      fullPath: '/create/dreowacis/antecedente'
+      preLoaderRoute: typeof CreateDreowacisAntecedenteRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/dreowacis/atributos': {
+      id: '/create/dreowacis/atributos'
+      path: '/atributos'
+      fullPath: '/create/dreowacis/atributos'
+      preLoaderRoute: typeof CreateDreowacisAtributosRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/dreowacis/classe': {
+      id: '/create/dreowacis/classe'
+      path: '/classe'
+      fullPath: '/create/dreowacis/classe'
+      preLoaderRoute: typeof CreateDreowacisClasseRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/dreowacis/devocao': {
+      id: '/create/dreowacis/devocao'
+      path: '/devocao'
+      fullPath: '/create/dreowacis/devocao'
+      preLoaderRoute: typeof CreateDreowacisDevocaoRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/dreowacis/ficha': {
+      id: '/create/dreowacis/ficha'
+      path: '/ficha'
+      fullPath: '/create/dreowacis/ficha'
+      preLoaderRoute: typeof CreateDreowacisFichaRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/dreowacis/pericias': {
+      id: '/create/dreowacis/pericias'
+      path: '/pericias'
+      fullPath: '/create/dreowacis/pericias'
+      preLoaderRoute: typeof CreateDreowacisPericiasRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/dreowacis/raca': {
+      id: '/create/dreowacis/raca'
+      path: '/raca'
+      fullPath: '/create/dreowacis/raca'
+      preLoaderRoute: typeof CreateDreowacisRacaRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/dreowacis/reino': {
+      id: '/create/dreowacis/reino'
+      path: '/reino'
+      fullPath: '/create/dreowacis/reino'
+      preLoaderRoute: typeof CreateDreowacisReinoRouteImport
+      parentRoute: typeof CreateDreowacisRoute
+    }
+    '/create/frostbit/': {
+      id: '/create/frostbit/'
+      path: '/'
+      fullPath: '/create/frostbit/'
+      preLoaderRoute: typeof CreateFrostbitIndexRouteImport
+      parentRoute: typeof CreateFrostbitRoute
+    }
+    '/create/frostbit/atributos': {
+      id: '/create/frostbit/atributos'
+      path: '/atributos'
+      fullPath: '/create/frostbit/atributos'
+      preLoaderRoute: typeof CreateFrostbitAtributosRouteImport
+      parentRoute: typeof CreateFrostbitRoute
+    }
+    '/create/frostbit/classe': {
+      id: '/create/frostbit/classe'
+      path: '/classe'
+      fullPath: '/create/frostbit/classe'
+      preLoaderRoute: typeof CreateFrostbitClasseRouteImport
+      parentRoute: typeof CreateFrostbitRoute
+    }
+    '/create/frostbit/especie': {
+      id: '/create/frostbit/especie'
+      path: '/especie'
+      fullPath: '/create/frostbit/especie'
+      preLoaderRoute: typeof CreateFrostbitEspecieRouteImport
+      parentRoute: typeof CreateFrostbitRoute
+    }
+    '/create/frostbit/ficha': {
+      id: '/create/frostbit/ficha'
+      path: '/ficha'
+      fullPath: '/create/frostbit/ficha'
+      preLoaderRoute: typeof CreateFrostbitFichaRouteImport
+      parentRoute: typeof CreateFrostbitRoute
+    }
+    '/create/frostbit/origem': {
+      id: '/create/frostbit/origem'
+      path: '/origem'
+      fullPath: '/create/frostbit/origem'
+      preLoaderRoute: typeof CreateFrostbitOrigemRouteImport
+      parentRoute: typeof CreateFrostbitRoute
+    }
+    '/create/frostbit/pericias': {
+      id: '/create/frostbit/pericias'
+      path: '/pericias'
+      fullPath: '/create/frostbit/pericias'
+      preLoaderRoute: typeof CreateFrostbitPericiasRouteImport
+      parentRoute: typeof CreateFrostbitRoute
     }
   }
 }
