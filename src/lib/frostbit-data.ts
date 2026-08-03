@@ -229,6 +229,7 @@ export const SPECIES: Species[] = [
         attributes: { int: 1 },
         trait:
           "Herdeiros de pactos de hexes: conhecem o truque Zombaria Viciosa e têm vantagem em testes para identificar maldições.",
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Hexilianos.webp"
       },
       {
         id: "umbrelfo",
@@ -236,6 +237,7 @@ export const SPECIES: Species[] = [
         attributes: { des: 1 },
         trait:
           "Sangue infernal misturado ao élfico das sombras: Visão no Escuro 24m e podem se teleportar 4,5m para uma área escura (1×/descanso curto).",
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Umbrelfos.webp"
       },
       {
         id: "asmodeano",
@@ -243,6 +245,7 @@ export const SPECIES: Species[] = [
         attributes: { car: 1 },
         trait:
           "Linhagem direta de Asmodeus: conhecem o truque Chama Sagrada em versão infernal e têm vantagem em Intimidação contra criaturas que sabem de sua origem.",
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Asmodeanos.webp"
       },
     ],
   },
@@ -275,6 +278,7 @@ export const SPECIES: Species[] = [
         attributes: { car: 1 },
         trait:
           "Filhos da primeira luz: lembram do sol. Vantagem em testes contra escuridão mágica e conhecem o truque Luz.",
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/do Amanhecer.webp"
       },
       {
         id: "entardecer",
@@ -282,6 +286,7 @@ export const SPECIES: Species[] = [
         attributes: { int: 1 },
         trait:
           "Guardiões do crepúsculo: vivem entre luz e sombra. Conhecem o truque Prestidigitação e têm vantagem em Furtividade ao anoitecer.",
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/do Entardecer.webp"
       },
       {
         id: "anoitecer",
@@ -289,6 +294,7 @@ export const SPECIES: Species[] = [
         attributes: { sab: 1 },
         trait:
           "Caçadores da lua: enxergam perfeitamente no escuro (Visão no Escuro 24m) e ganham proficiência em Sobrevivência.",
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/do Anoitecer.webp"
       },
     ],
   },
@@ -301,7 +307,7 @@ export const SPECIES: Species[] = [
       "Draconatos são os descendentes de dragões antigos — criaturas que aqueciam o mundo com seu sopro " +
       "antes do Grande Congelamento. Cada linhagem dracônica carrega um tipo de sopro e uma resistência " +
       "elemental. Em Frostbit, são vistos como abençoados ou amaldiçoados: portadores do último fogo.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/",
     attributes: { for: 2, car: 1 },
     size: "Médio (1,80m–2,10m)",
     speed: "9m",
@@ -313,16 +319,16 @@ export const SPECIES: Species[] = [
     ],
     languages: ["Comum", "Dracônico"],
     variants: [
-      { id: "preto", name: "Preto", attributes: {}, trait: "Sopro: linha de ácido. Resistência a ácido." },
-      { id: "azul", name: "Azul", attributes: {}, trait: "Sopro: linha de relâmpago. Resistência a relâmpago." },
-      { id: "latão", name: "Latão", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo." },
-      { id: "bronze", name: "Bronze", attributes: {}, trait: "Sopro: linha de relâmpago. Resistência a relâmpago." },
-      { id: "cobre", name: "Cobre", attributes: {}, trait: "Sopro: cone de ácido. Resistência a ácido." },
-      { id: "ouro", name: "Ouro", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo." },
-      { id: "verde", name: "Verde", attributes: {}, trait: "Sopro: cone de veneno. Resistência a veneno." },
-      { id: "vermelho", name: "Vermelho", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo." },
-      { id: "prata", name: "Prata", attributes: {}, trait: "Sopro: cone de frio. Resistência a frio." },
-      { id: "branco", name: "Branco", attributes: {}, trait: "Sopro: cone de frio. Resistência a frio." },
+      { id: "preto", name: "Preto", attributes: {}, trait: "Sopro: linha de ácido. Resistência a ácido.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "azul", name: "Azul", attributes: {}, trait: "Sopro: linha de relâmpago. Resistência a relâmpago.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "latão", name: "Latão", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "bronze", name: "Bronze", attributes: {}, trait: "Sopro: linha de relâmpago. Resistência a relâmpago.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "cobre", name: "Cobre", attributes: {}, trait: "Sopro: cone de ácido. Resistência a ácido.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "ouro", name: "Ouro", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "verde", name: "Verde", attributes: {}, trait: "Sopro: cone de veneno. Resistência a veneno.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "vermelho", name: "Vermelho", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "prata", name: "Prata", attributes: {}, trait: "Sopro: cone de frio. Resistência a frio.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
+      { id: "branco", name: "Branco", attributes: {}, trait: "Sopro: cone de frio. Resistência a frio.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/" },
     ],
   },
 
