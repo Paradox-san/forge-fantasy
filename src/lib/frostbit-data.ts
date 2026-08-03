@@ -164,7 +164,7 @@ export const SPECIES: Species[] = [
       "Os meio-orcs de Frostbit carregam a fúria ancestral dos clãs orcs que dominavam as tundras antes do " +
       "Grande Congelamento. São caçadores, batedores e guerreiros; raramente bem-vindos em cidades humanas, " +
       "mas indispensáveis em qualquer expedição no gelo. Seu corpo gera calor como uma fornalha.",
-    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Meio-Orc.webp",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/meioorc.webp",
     attributes: { for: 2, con: 1 },
     size: "Médio (1,80m–2,00m)",
     speed: "9m",
@@ -237,7 +237,7 @@ export const SPECIES: Species[] = [
         attributes: { des: 1 },
         trait:
           "Sangue infernal misturado ao élfico das sombras: Visão no Escuro 24m e podem se teleportar 4,5m para uma área escura (1×/descanso curto).",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Umbrelfos.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/umbrelfos.webp"
       },
       {
         id: "asmodeano",
@@ -245,7 +245,7 @@ export const SPECIES: Species[] = [
         attributes: { car: 1 },
         trait:
           "Linhagem direta de Asmodeus: conhecem o truque Chama Sagrada em versão infernal e têm vantagem em Intimidação contra criaturas que sabem de sua origem.",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Asmodeanos.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/asmodeanos.webp"
       },
     ],
   },
@@ -278,7 +278,7 @@ export const SPECIES: Species[] = [
         attributes: { car: 1 },
         trait:
           "Filhos da primeira luz: lembram do sol. Vantagem em testes contra escuridão mágica e conhecem o truque Luz.",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/do Amanhecer.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/amanhecer.webp"
       },
       {
         id: "entardecer",
@@ -286,7 +286,7 @@ export const SPECIES: Species[] = [
         attributes: { int: 1 },
         trait:
           "Guardiões do crepúsculo: vivem entre luz e sombra. Conhecem o truque Prestidigitação e têm vantagem em Furtividade ao anoitecer.",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/do Entardecer.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/entardecer.webp"
       },
       {
         id: "anoitecer",
@@ -294,7 +294,7 @@ export const SPECIES: Species[] = [
         attributes: { sab: 1 },
         trait:
           "Caçadores da lua: enxergam perfeitamente no escuro (Visão no Escuro 24m) e ganham proficiência em Sobrevivência.",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/do%20Entardecer.webp
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/entardecer.webp
       },
     ],
   },
