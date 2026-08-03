@@ -142,7 +142,7 @@ export const SPECIES: Species[] = [
       "Os anãos de Frostbit cavaram fundo para escapar do frio, construindo cidadelas- fornalha nas entranhas " +
       "da terra. Sua conexão com a pedra e o metal é quase sagrada — cada forja é um templo, cada martelo uma " +
       "oração. Desconfiam de superfície e de quem vive nela, mas seu aço é inigualável.",
-    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/Anão.webp",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/anao.webp",
     attributes: { con: 2, for: 1 },
     size: "Médio (1,30m–1,50m)",
     speed: "7,5m",
