@@ -229,7 +229,7 @@ export const SPECIES: Species[] = [
         attributes: { int: 1 },
         trait:
           "Herdeiros de pactos de hexes: conhecem o truque Zombaria Viciosa e têm vantagem em testes para identificar maldições.",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit-assets@main/img/especies/hexilianos.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/hexiliano.webp"
       },
       {
         id: "umbrelfo",
