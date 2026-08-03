@@ -294,7 +294,7 @@ export const SPECIES: Species[] = [
         attributes: { sab: 1 },
         trait:
           "Caçadores da lua: enxergam perfeitamente no escuro (Visão no Escuro 24m) e ganham proficiência em Sobrevivência.",
-        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/do Anoitecer.webp"
+        imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/frostbit/especies/do%20Entardecer.webp
       },
     ],
   },
