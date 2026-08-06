@@ -186,7 +186,7 @@ export const SPECIES: Species[] = [
       "Os gnomos construíram suas cidades dentro de geleiras — não apesar do frio, mas usando-o. Suas " +
       "engrenagens a vapor e armadilhas de gelo são lendárias. Curiosos até a obsessão, colecionam " +
       "fragmentos do mundo antigo em museus subterrâneos aquecidos por cristais geomânticos.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/gnomo.webp",
     attributes: { int: 2, des: 1 },
     size: "Pequeno (0,90m–1,10m)",
     speed: "7,5m",
@@ -209,7 +209,7 @@ export const SPECIES: Species[] = [
       "em vilarejos supersticiosos, mas encontram refúgio nas cidades- fornalha dos anãos e nos mercados " +
       "livres. Sua resistência ao fogo os torna forasteiros curiosos num mundo de gelo — como se o inferno " +
       "ainda ardesse em suas veias, esperando o degelo.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/tiefling.webp",
     attributes: { int: 1, car: 2 },
     size: "Médio (1,70m–1,90m)",
     speed: "9m",
@@ -258,7 +258,7 @@ export const SPECIES: Species[] = [
       "Os elfos de Frostbit são divididos em três linhagens que correspondem aos três momentos de luz que " +
       "ainda sobrevivem no mundo congelado. Cada subespécie desenvolveu magias e instintos próprios, mas " +
       "todos compartilham a longevidade e a melancolia de quem viu o mundo morrer lentamente.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/elfo.webp",
     attributes: { des: 2 },
     size: "Médio (1,65m–1,85m)",
     speed: "9m",
@@ -319,16 +319,16 @@ export const SPECIES: Species[] = [
     ],
     languages: ["Comum", "Dracônico"],
     variants: [
-      { id: "preto", name: "Preto", attributes: {}, trait: "Sopro: linha de ácido. Resistência a ácido.", imageUrl: "" },
-      { id: "azul", name: "Azul", attributes: {}, trait: "Sopro: linha de relâmpago. Resistência a relâmpago.", imageUrl: "" },
-      { id: "latão", name: "Latão", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "" },
-      { id: "bronze", name: "Bronze", attributes: {}, trait: "Sopro: linha de relâmpago. Resistência a relâmpago.", imageUrl: "" },
-      { id: "cobre", name: "Cobre", attributes: {}, trait: "Sopro: cone de ácido. Resistência a ácido.", imageUrl: "" },
-      { id: "ouro", name: "Ouro", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "" },
-      { id: "verde", name: "Verde", attributes: {}, trait: "Sopro: cone de veneno. Resistência a veneno.", imageUrl: "" },
-      { id: "vermelho", name: "Vermelho", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "" },
-      { id: "prata", name: "Prata", attributes: {}, trait: "Sopro: cone de frio. Resistência a frio.", imageUrl: "" },
-      { id: "branco", name: "Branco", attributes: {}, trait: "Sopro: cone de frio. Resistência a frio.", imageUrl: "" },
+      { id: "preto", name: "Preto", attributes: {}, trait: "Sopro: linha de ácido. Resistência a ácido.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/preto.webp" },
+      { id: "azul", name: "Azul", attributes: {}, trait: "Sopro: linha de relâmpago. Resistência a relâmpago.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/azul.webp" },
+      { id: "latão", name: "Latão", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/latao.webp" },
+      { id: "bronze", name: "Bronze", attributes: {}, trait: "Sopro: linha de relâmpago. Resistência a relâmpago.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/bronze.webp" },
+      { id: "cobre", name: "Cobre", attributes: {}, trait: "Sopro: cone de ácido. Resistência a ácido.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/cobre.webp" },
+      { id: "ouro", name: "Ouro", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/ouro.webp" },
+      { id: "verde", name: "Verde", attributes: {}, trait: "Sopro: cone de veneno. Resistência a veneno.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/verde.webp" },
+      { id: "vermelho", name: "Vermelho", attributes: {}, trait: "Sopro: cone de fogo. Resistência a fogo.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/vermelho.webp" },
+      { id: "prata", name: "Prata", attributes: {}, trait: "Sopro: cone de frio. Resistência a frio.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/prata.webp" },
+      { id: "branco", name: "Branco", attributes: {}, trait: "Sopro: cone de frio. Resistência a frio.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/branco.webp" },
     ],
   },
 
