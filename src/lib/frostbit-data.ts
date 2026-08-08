@@ -357,7 +357,7 @@ export const SPECIES: Species[] = [
     languages: ["Comum", "um idioma da vida anterior"],
     variants: [
       { id: "v1", name: "V1", attributes: {}, trait: "Protótipo: o primeiro a voltar. Algo deu errado — habilidades instáveis.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/v1.webp" },
-      { id: "nc", name: "Não Catalogado", attributes: {}, trait: "Fora dos registros. Origem desconhecida. Requer aval do mestre.", uncatalogued: true, imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semaasimar.webp" },
+      { id: "nc", name: "Não Catalogado", attributes: {}, trait: "Fora dos registros. Origem desconhecida. Requer aval do mestre.", uncatalogued: true, imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semreanimado.webp" },
     ],
   },
   {
