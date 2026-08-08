@@ -307,7 +307,7 @@ export const SPECIES: Species[] = [
       "Draconatos são os descendentes de dragões antigos — criaturas que aqueciam o mundo com seu sopro " +
       "antes do Grande Congelamento. Cada linhagem dracônica carrega um tipo de sopro e uma resistência " +
       "elemental. Em Frostbit, são vistos como abençoados ou amaldiçoados: portadores do último fogo.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/draconato.webp",
     attributes: { for: 2, car: 1 },
     size: "Médio (1,80m–2,10m)",
     speed: "9m",
@@ -343,7 +343,7 @@ export const SPECIES: Species[] = [
       "vida e a morte. O corpo não esquenta, não apodrece, mas a mente... a mente é um campo de batalha entre " +
       "o que eram e o que são agora. Ninguém sabe quem ou o que os traz de volta. Alguns dizem que é o próprio " +
       "inverno devolvendo o que tomou, com um preço.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/reanimado.webp",
     attributes: { con: 2, sab: 1 },
     size: "Médio",
     speed: "9m",
@@ -356,8 +356,8 @@ export const SPECIES: Species[] = [
     ],
     languages: ["Comum", "um idioma da vida anterior"],
     variants: [
-      { id: "v1", name: "V1", attributes: {}, trait: "Protótipo: o primeiro a voltar. Algo deu errado — habilidades instáveis." },
-      { id: "nc", name: "Não Catalogado", attributes: {}, trait: "Fora dos registros. Origem desconhecida. Requer aval do mestre.", uncatalogued: true },
+      { id: "v1", name: "V1", attributes: {}, trait: "Protótipo: o primeiro a voltar. Algo deu errado — habilidades instáveis.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/v1.webp" },
+      { id: "nc", name: "Não Catalogado", attributes: {}, trait: "Fora dos registros. Origem desconhecida. Requer aval do mestre.", uncatalogued: true, imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semaasimar.webp" },
     ],
   },
   {
@@ -370,7 +370,7 @@ export const SPECIES: Species[] = [
       "que não deveria existir mais. São vistos como profetas, monstros ou milagres ambulantes. Alguns " +
       "buscam a origem de sua centelha; outros fogem dela. Todos sentem o peso de algo maior olhando por " +
       "entre as frestas do céu congelado.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/aasimar.webp",
     attributes: { car: 2, sab: 1 },
     size: "Médio",
     speed: "9m",
@@ -384,8 +384,8 @@ export const SPECIES: Species[] = [
     ],
     languages: ["Comum", "Celestial"],
     variants: [
-      { id: "sentinela", name: "Sentinela", attributes: {}, trait: "Guardião da luz residual. Detecta mortos-vivos a 18m." },
-      { id: "nc", name: "Não Catalogado", attributes: {}, trait: "Origem celestial desconhecida. A centelha pulsa de forma anômala.", uncatalogued: true },
+      { id: "sentinela", name: "Sentinela", attributes: {}, trait: "Guardião da luz residual. Detecta mortos-vivos a 18m.", imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/sentinela.webp" },
+      { id: "nc", name: "Não Catalogado", attributes: {}, trait: "Origem celestial desconhecida. A centelha pulsa de forma anômala.", uncatalogued: true, imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semaasimar.webp" },
     ],
   },
   {
@@ -398,7 +398,7 @@ export const SPECIES: Species[] = [
       "Escamas crescem sob a pele, a mente se fixa em brilho e valor. Ninguém sabe quantos existem — " +
       "todos os registros foram perdidos ou destruídos. Cada Fafnir descobre sua maldão sozinho, " +
       "geralmente tarde demais.",
-    imageUrl: "",
+    imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semfafnir.webp",
     attributes: { for: 2, con: 2 },
     size: "Grande (2,10m+)",
     speed: "9m",
@@ -411,10 +411,10 @@ export const SPECIES: Species[] = [
     ],
     languages: ["Comum", "Dracônico"],
     variants: [
-      { id: "lote-1", name: "Lote Não Catalogado", attributes: {}, trait: "Manifestação dracônica instável. Escamas de cor incerta.", uncatalogued: true },
-      { id: "lote-2", name: "Lote Não Catalogado", attributes: {}, trait: "Sopro fragmentado — tipo elemental aleatório a cada uso.", uncatalogued: true },
-      { id: "lote-3", name: "Lote Não Catalogado", attributes: {}, trait: "Asas atrofiadas. Voo curto (3m) 1×/descanso curto.", uncatalogued: true },
-      { id: "lote-4", name: "Lote Não Catalogado", attributes: {}, trait: "Olho dracônico: visão verdadeira 1×/dia por 1 minuto.", uncatalogued: true },
+      { id: "lote-1", name: "Lote Não Catalogado", attributes: {}, trait: "Manifestação dracônica instável. Escamas de cor incerta.", uncatalogued: true, imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semfafnir.webp" },
+      { id: "lote-2", name: "Lote Não Catalogado", attributes: {}, trait: "Sopro fragmentado — tipo elemental aleatório a cada uso.", uncatalogued: true, imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semfafnir.webp" },
+      { id: "lote-3", name: "Lote Não Catalogado", attributes: {}, trait: "Asas atrofiadas. Voo curto (3m) 1×/descanso curto.", uncatalogued: true, imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semfafnir.webp" },
+      { id: "lote-4", name: "Lote Não Catalogado", attributes: {}, trait: "Olho dracônico: visão verdadeira 1×/dia por 1 minuto.", uncatalogued: true, imageUrl: "https://cdn.jsdelivr.net/gh/Paradox-san/forge-fantasy-assets/frostbit/especies/semfafnir.webp" },
     ],
   },
 ];
